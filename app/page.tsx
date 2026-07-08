@@ -424,45 +424,52 @@ export default function Home() {
 
       {/* Hero */}
       <section className="relative overflow-hidden px-6 pb-24 pt-20 md:pb-32 md:pt-28">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(59,130,246,0.15)_0%,_transparent_60%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(59,130,246,0.18)_0%,_transparent_60%)]" />
+
         <div className="relative mx-auto max-w-6xl">
-          <div className="mx-auto max-w-3xl text-center">
+          <div className="mx-auto max-w-4xl text-center">
             <p className="mb-4 inline-block rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 text-sm text-blue-300">
-              Practical AI Solutions for Growing SMEs
+              AI Growth & Automation Partner for Singapore SMEs
             </p>
+
             <h1 className="text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-6xl">
-              Helping SMEs Respond Faster, Win More Business and{" "}
-              <span className="text-blue-400">Automate Repetitive Work</span>
+              Grow Your Business with{" "}
+              <span className="text-blue-400">Practical AI Solutions</span>{" "}
+              That Actually Work
             </h1>
+
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/70">
-              Swift Sense Digital helps business owners and managers adopt practical AI — from
-              AI-enabled websites and chatbots to workflow automation — so you grow without
-              adding headcount.
+              Swift Sense Digital helps SMEs generate more leads, respond to customers instantly
+              and automate repetitive work through AI-powered websites, chatbots and business workflows.
             </p>
+
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <a
                 href="#contact"
                 className="w-full rounded-lg bg-blue-600 px-8 py-3.5 text-center text-sm font-semibold shadow-lg shadow-blue-600/25 transition-colors hover:bg-blue-500 sm:w-auto"
               >
-                Book Free Consultation
+                Book Free Strategy Session
               </a>
+
               <a
                 href="#portfolio"
                 className="w-full rounded-lg border border-white/20 px-8 py-3.5 text-center text-sm font-semibold transition-colors hover:border-white/40 hover:bg-white/5 sm:w-auto"
               >
-                See How AI Can Help My Business
+                See Live Demos
               </a>
             </div>
+
             <p className="mt-4 text-sm text-white/50">
-              No obligation · Speak directly with the founder · Get a tailored roadmap
+              No obligation · Practical recommendations · Built for real SME operations
             </p>
           </div>
 
-          <div className="mx-auto mt-16 grid max-w-4xl grid-cols-1 gap-4 sm:grid-cols-3">
+          <div className="mx-auto mt-16 grid max-w-5xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
+              { stat: "12+ yrs", label: "Business leadership experience" },
+              { stat: "SG-based", label: "Built for Singapore SMEs" },
               { stat: "24/7", label: "Instant customer response" },
-              { stat: "2–5 wks", label: "Typical deployment time" },
-              { stat: "SME-first", label: "Built for growing businesses" },
+              { stat: "AI + Human", label: "Practical implementation support" },
             ].map((item) => (
               <div
                 key={item.label}
@@ -472,6 +479,97 @@ export default function Home() {
                 <p className="mt-1 text-sm text-white/60">{item.label}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* AI Conversation Demo */}
+      <section className="border-t border-white/10 bg-[#0d1f35] px-6 py-20 md:py-24">
+        <div className="mx-auto max-w-6xl">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="mb-3 text-sm font-medium uppercase tracking-wider text-blue-400">
+              See AI in action
+            </p>
+            <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
+              Turn website visitors into qualified leads
+            </h2>
+            <p className="mt-4 text-white/60">
+              Your AI assistant can answer questions, qualify prospects and prepare your team
+              for better sales conversations — even outside office hours.
+            </p>
+          </div>
+
+          <div className="mt-14 grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+            <div className="rounded-2xl border border-white/10 bg-[#0a1628] p-6 shadow-2xl shadow-blue-950/20">
+              <div className="mb-5 flex items-center justify-between border-b border-white/10 pb-4">
+                <div>
+                  <p className="text-sm font-semibold">AI Website Assistant</p>
+                  <p className="text-xs text-white/40">Live lead qualification demo</p>
+                </div>
+                <span className="rounded-full bg-green-500/10 px-3 py-1 text-xs font-medium text-green-300">
+                  Online 24/7
+                </span>
+              </div>
+
+              <div className="space-y-4">
+                <div className="max-w-[80%] rounded-2xl rounded-tl-sm bg-white/10 p-4">
+                  <p className="text-sm text-white/80">
+                    Hi, how much does an AI chatbot cost for my restaurant?
+                  </p>
+                </div>
+
+                <div className="ml-auto max-w-[85%] rounded-2xl rounded-tr-sm border border-blue-500/30 bg-blue-600/20 p-4">
+                  <p className="text-sm text-blue-100">
+                    It depends on your enquiry volume and what you want to automate.
+                    May I ask a few quick questions?
+                  </p>
+                </div>
+
+                <div className="max-w-[80%] rounded-2xl rounded-tl-sm bg-white/10 p-4">
+                  <p className="text-sm text-white/80">
+                    Sure. We get around 80 enquiries a week for reservations, menu questions and private events.
+                  </p>
+                </div>
+
+                <div className="ml-auto max-w-[85%] rounded-2xl rounded-tr-sm border border-blue-500/30 bg-blue-600/20 p-4">
+                  <p className="text-sm text-blue-100">
+                    Thanks. Based on that, you may benefit from an AI assistant that handles FAQs,
+                    captures booking intent and routes event enquiries to your team.
+                  </p>
+                </div>
+
+                <div className="ml-auto max-w-[85%] rounded-2xl rounded-tr-sm border border-blue-500/30 bg-blue-600/20 p-4">
+                  <p className="text-sm text-blue-100">
+                    Would you like to book a free strategy session with Swift Sense Digital?
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-white/10 bg-[#0a1628] p-6">
+              <p className="mb-4 text-sm font-semibold text-blue-300">Lead captured</p>
+
+              <div className="space-y-4">
+                {[
+                  ["Industry", "Restaurant"],
+                  ["Enquiry Type", "AI Chatbot + Reservations"],
+                  ["Weekly Enquiries", "80+"],
+                  ["Pain Point", "Repetitive customer questions"],
+                  ["Lead Quality", "Warm"],
+                ].map(([label, value]) => (
+                  <div key={label} className="rounded-xl border border-white/10 bg-white/[0.04] p-4">
+                    <p className="text-xs uppercase tracking-wider text-white/40">{label}</p>
+                    <p className="mt-1 text-sm font-medium text-white">{value}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-6 rounded-xl border border-blue-500/20 bg-blue-500/10 p-4">
+                <p className="text-sm font-medium text-blue-200">
+                  Notification sent to your team with context, contact details and next steps.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
