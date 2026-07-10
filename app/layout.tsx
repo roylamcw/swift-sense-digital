@@ -4,6 +4,9 @@ import "./globals.css";
 import GoogleAnalytics from "./components/GoogleAnalytics";
 import Clarity from "./components/Clarity";
 import { Analytics } from "@vercel/analytics/next";
+import { OrganizationSchema } from "./schema";
+import { ServiceSchema } from "./service-schema";
+import { FAQSchema } from "./faq-schema";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -114,6 +117,11 @@ export default function RootLayout({
         <GoogleAnalytics />
         <Clarity />
         <Analytics />
+
+        <OrganizationSchema />
+        <ServiceSchema />
+        <FAQSchema />
+        
         {children}
       </body>
     </html>
