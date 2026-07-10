@@ -433,9 +433,9 @@ export default function Home() {
             </p>
 
             <h1 className="text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-6xl">
-              Grow Your Business with{" "}
-              <span className="text-blue-400">Practical AI Solutions</span>{" "}
-              That Actually Work
+            Practical AI and Automation {" "}
+              <span className="text-blue-400">for</span>{" "}
+              Growing Businesses
             </h1>
 
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/70">
@@ -653,7 +653,7 @@ export default function Home() {
         <div className="mx-auto max-w-6xl">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-              Your business is losing opportunities every day
+              Where growing businesses lose time and opportunities
             </h2>
             <p className="mt-4 text-white/60">
               Most SMEs know they need to move faster — but lack the time, tools, or team to
@@ -686,7 +686,7 @@ export default function Home() {
         <div className="mx-auto max-w-6xl">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-              Practical AI solutions for your business
+              Practical AI systems that improve how your business operates
             </h2>
             <p className="mt-4 text-white/60">
               Four core services designed to help SMEs respond faster, convert more, and
@@ -720,7 +720,7 @@ export default function Home() {
               Why Swift Sense Digital
             </p>
             <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-              Not another generic AI agency
+              Business-first AI, designed around how you operate
             </h2>
             <p className="mt-4 text-white/60">
               We combine real business leadership with hands-on AI implementation — built
@@ -770,7 +770,7 @@ export default function Home() {
               Industry solutions
             </p>
             <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-              AI systems tailored for different industries
+              AI solutions for customer-focused industries
             </h2>
             <p className="mt-4 text-white/60">
             Examples of how AI-enabled websites, chatbots and workflow automation can be applied across common SME business models.
@@ -836,7 +836,7 @@ export default function Home() {
         <div className="mx-auto max-w-6xl">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-              Transparent pricing, real results
+              Clear starting prices for practical business solutions
             </h2>
             <p className="mt-4 text-white/60">
             Most businesses spend thousands each month on manual admin, customer service and lead follow-up.
@@ -952,7 +952,7 @@ export default function Home() {
   <div className="mx-auto max-w-6xl">
     <div className="mx-auto max-w-2xl text-center">
       <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-        Live in three simple steps
+        From discovery to launch in three clear steps
       </h2>
       <p className="mt-4 text-white/60">
         A clear, proven process from first call to launch — no surprises.
