@@ -5,9 +5,9 @@ export function OrganizationSchema() {
   
       name: "Swift Sense Digital",
   
-      url: "https://swiftsense.digital",
-  
-      logo: "https://swiftsense.digital/og-image.png",
+      url: "https://www.swiftsensedigital.com",
+
+      logo: "https://www.swiftsensedigital.com/og-image.png",
   
       description:
         "Swift Sense Digital helps SMEs unlock their business potential through AI automation, AI websites, AI chatbots, workflow automation, CRM integration and business transformation consulting.",
@@ -47,3 +47,34 @@ export function OrganizationSchema() {
       />
     );
   }
+
+export function LocalBusinessSchema() {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    name: "Swift Sense Digital",
+    url: "https://www.swiftsensedigital.com",
+    image: "https://www.swiftsensedigital.com/og-image.png",
+    description:
+      "Swift Sense Digital helps SMEs improve productivity and business operations through practical AI, automation and business transformation consulting.",
+    priceRange: "S$3,000+",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Singapore",
+      addressCountry: "SG",
+    },
+    areaServed: {
+      "@type": "Country",
+      name: "Singapore",
+    },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(schema),
+      }}
+    />
+  );
+}
