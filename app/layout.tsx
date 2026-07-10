@@ -4,9 +4,10 @@ import "./globals.css";
 import GoogleAnalytics from "./components/GoogleAnalytics";
 import Clarity from "./components/Clarity";
 import { Analytics } from "@vercel/analytics/next";
-import { OrganizationSchema } from "./schema";
+import { LocalBusinessSchema, OrganizationSchema } from "./schema";
 import { ServiceSchema } from "./service-schema";
 import { FAQSchema } from "./faq-schema";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,7 +20,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://swiftsense.digital"),
+  metadataBase: new URL("https://www.swiftsensedigital.com"),
   applicationName: "Swift Sense Digital",
 
   title: {
@@ -74,7 +75,7 @@ export const metadata: Metadata = {
     title: "Swift Sense Digital | AI Automation & Business Transformation",
     description:
     "Swift Sense Digital helps SMEs unlock their business potential through AI automation, AI websites, AI chatbots, workflow automation, CRM integration and business transformation consulting.",
-    url: "https://swiftsense.digital",
+    url: "https://www.swiftsensedigital.com",
     siteName: "Swift Sense Digital",
     locale: "en_SG",
     type: "website",
@@ -82,7 +83,7 @@ export const metadata: Metadata = {
     images: [
 
       {
-        url: "https://swiftsense.digital/og-image.png",
+        url: "https://www.swiftsensedigital.com/og-image.png",
         width: 1200,
         height: 630,
         alt: "Swift Sense Digital - Practical AI and Automation for Growing Businesses",
@@ -119,9 +120,11 @@ export default function RootLayout({
         <Analytics />
 
         <OrganizationSchema />
+        <LocalBusinessSchema />
         <ServiceSchema />
         <FAQSchema />
-        
+        <SpeedInsights />
+
         {children}
       </body>
     </html>
