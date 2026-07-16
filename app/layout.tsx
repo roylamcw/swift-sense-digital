@@ -24,26 +24,20 @@ export const metadata: Metadata = {
   applicationName: "Swift Sense Digital",
 
   title: {
-    default: "Swift Sense Digital | AI Consultant, Automation & Business Transformation Singapore",
+    default: "Swift Sense Digital | AI Transformation Consultancy for Growing SMEs",
     template: "%s | Swift Sense Digital",
   },
 
   description:
-  "Swift Sense Digital helps SMEs unlock their business potential through AI automation, AI websites, AI chatbots, workflow automation, CRM integration and business transformation consulting.",
+    "Swift Sense Digital helps growing SMEs unlock potential through practical AI, better systems and modern technology.",
   keywords: [
-    "AI Singapore",
-    "AI Consultant Singapore",
-    "AI Automation Singapore",
-    "Workflow Automation",
-    "Business Automation",
-    "AI Chatbot Singapore",
-    "AI Website Singapore",
-    "CRM Integration",
-    "Business Transformation",
-    "Business Process Automation",
-    "SME AI",
-    "Artificial Intelligence Singapore",
-    "Lead Response AI",
+    "Swift Sense Digital",
+    "AI Transformation Consultancy",
+    "SME AI Singapore",
+    "Business Growth Website",
+    "Lead Response System",
+    "Transformation Blueprint",
+    "Business Transformation Singapore",
   ],
 
   authors: [
@@ -72,9 +66,9 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "Swift Sense Digital | AI Automation & Business Transformation",
+    title: "Swift Sense Digital | AI Transformation Consultancy for Growing SMEs",
     description:
-    "Swift Sense Digital helps SMEs unlock their business potential through AI automation, AI websites, AI chatbots, workflow automation, CRM integration and business transformation consulting.",
+      "Business First. AI Enabled. Results Driven. Practical AI and systems for growing SMEs.",
     url: "https://www.swiftsensedigital.com",
     siteName: "Swift Sense Digital",
     locale: "en_SG",
@@ -86,16 +80,16 @@ export const metadata: Metadata = {
         url: "https://www.swiftsensedigital.com/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Swift Sense Digital - Practical AI and Automation for Growing Businesses",
+        alt: "Swift Sense Digital - AI Transformation Consultancy for Growing SMEs",
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "Swift Sense Digital | AI Automation & Business Transformation",
+    title: "Swift Sense Digital | AI Transformation Consultancy",
     description:
-      "Helping SMEs improve productivity through practical AI, automation and business transformation.",
+      "Helping growing SMEs unlock potential through practical AI, better systems and modern technology.",
     images: ["/og-image.png"],  
   },
 

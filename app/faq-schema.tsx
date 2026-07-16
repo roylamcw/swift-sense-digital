@@ -1,58 +1,61 @@
+function toJsonLd(schema: unknown) {
+  return JSON.stringify(schema).replace(/</g, "\\u003c");
+}
+
 export function FAQSchema() {
-    const schema = {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-  
-      mainEntity: [
-        {
-          "@type": "Question",
-          name: "How long does a typical project take?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "An AI Website Launch usually takes 2–3 weeks. Lead Response Systems take 3–5 weeks, and full AI Transformation projects typically run 6–8 weeks depending on scope.",
-          },
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "What launch products are available?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Swift Sense Digital is launching with Business Growth Website, Lead Response System and Transformation Blueprint.",
         },
-        {
-          "@type": "Question",
-          name: "Do I need technical knowledge to manage the systems?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "No. We build everything to be easy to manage and provide onboarding so your team can handle day-to-day updates without a developer.",
-          },
+      },
+      {
+        "@type": "Question",
+        name: "Can I start with one product first?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes. The recommendation should match the immediate business objective and can expand after the first useful system is live.",
         },
-        {
-          "@type": "Question",
-          name: "Can I start with one service and expand later?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Absolutely. Many clients start with a website launch and add chatbot or automation capabilities as their needs grow. Our packages are designed to scale with you.",
-          },
+      },
+      {
+        "@type": "Question",
+        name: "What pricing is confirmed?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Business Growth Website starts from S$1,500. Detailed deliverables, exact timelines, scope, exclusions and other pricing require founder approval before being treated as fixed facts.",
         },
-        {
-          "@type": "Question",
-          name: "What industries do you work with?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "We work with SMEs across professional services, retail, F&B, events, agencies, and more. If you need to respond faster and capture more leads, we can help.",
-          },
+      },
+      {
+        "@type": "Question",
+        name: "Do I need to know exactly what AI system I need?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "No. The enquiry should explain the business problem, current bottleneck or desired outcome. Swift Sense Digital can recommend the next practical step.",
         },
-        {
-          "@type": "Question",
-          name: "Is ongoing support available?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Yes. All packages include post-launch support. Ongoing optimisation plans are available from S$150/month and can include website updates, chatbot retraining, workflow improvements, reporting and AI adoption support.",
-          },
+      },
+      {
+        "@type": "Question",
+        name: "How is personal data from the enquiry form used?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Submitted details are used to respond to the enquiry. The form asks for consent before storing and processing personal data.",
         },
-      ],
-    };
-  
-    return (
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(schema),
-        }}
-      />
-    );
-  }
+      },
+    ],
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: toJsonLd(schema),
+      }}
+    />
+  );
+}
