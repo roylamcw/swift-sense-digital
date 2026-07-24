@@ -29,6 +29,21 @@ Public contact:
 
 Detailed deliverables, exact timelines, scope, exclusions, care-plan structure, care-plan pricing and other prices require founder approval before publication as fixed facts.
 
+## Sector Focus
+
+- Events ecosystem: event agencies, venues, wedding businesses and specialist event partners.
+- Tuition and enrichment: programme discovery, trial bookings, parent enquiries and follow-up.
+
+## Approved Concept Demos
+
+- Restaurant: https://ssd-restaurant-demo.roylamcw.chatgpt.site
+- Part-Time Staffing: https://ssd-staffing-demo.roylamcw.chatgpt.site
+- Property Investment: https://ssd-property-demo.roylamcw.chatgpt.site
+- Luma Events: https://ssd-events-demo.roylamcw.chatgpt.site
+- Brightward Learning: https://ssd-tuition-demo.roylamcw.chatgpt.site
+
+All five websites are fictional concept demonstrations. They must not be presented as client projects, testimonials or evidence of actual client results.
+
 ## Technology Stack
 
 - Next.js 16.2.9
