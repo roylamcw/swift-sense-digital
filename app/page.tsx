@@ -4,10 +4,8 @@ import TrackedLink from "./components/TrackedLink";
 
 const navLinks = [
   { label: "Products", href: "#products" },
+  { label: "Concept Demos", href: "#concept-demos" },
   { label: "Founder", href: "#founder" },
-  { label: "Why Us", href: "#why-us" },
-  { label: "Examples", href: "#examples" },
-  { label: "Pricing", href: "#pricing" },
   { label: "Process", href: "#process" },
   { label: "FAQ", href: "#faq" },
   { label: "Contact", href: "#contact" },
@@ -18,6 +16,8 @@ const CONTACT_PHONE_DISPLAY = "+65 9237 1516";
 const CONTACT_PHONE_HREF = "tel:+6592371516";
 const CONTACT_WHATSAPP = "https://wa.me/6592371516";
 const CONTACT_LINKEDIN = "https://www.linkedin.com/company/swiftsensedigital/";
+const CAPABILITY_STATEMENT_HREF =
+  "/SSD-One-Page-Capability-Statement-v1.2.pdf";
 
 const problems = [
   {
@@ -92,24 +92,71 @@ const whySwiftSense = [
   },
 ];
 
-const exampleUseCases = [
+const conceptDemos = [
   {
-    name: "Service Business",
+    name: "Restaurant",
+    brand: "Restaurant growth concept",
+    sector: "F&B",
     description:
-      "Clarify the offer, capture enquiry intent and make it easier for the team to follow up with the right context.",
-    tags: ["Business Growth Website", "Lead Response System"],
+      "A conversion-led restaurant journey that helps diners discover the offer, build confidence and take the next booking or enquiry step.",
+    journey: ["Offer discovery", "Trust building", "Reservation intent"],
+    solution: "Business Growth Website",
+    href: "https://ssd-restaurant-demo.roylamcw.chatgpt.site",
+    accent:
+      "from-amber-500/25 via-orange-500/10 to-transparent",
+    signal: "Discover · Decide · Reserve",
   },
   {
-    name: "Operations-Led SME",
+    name: "Part-Time Staffing",
+    brand: "Staffing platform concept",
+    sector: "Staffing & recruitment",
     description:
-      "Map repetitive admin and customer response bottlenecks into a practical improvement roadmap.",
-    tags: ["Transformation Blueprint"],
+      "A dual-audience experience that separates client and member journeys while reducing friction around staffing requests and applications.",
+    journey: ["Client requests", "Member onboarding", "Clear next actions"],
+    solution: "Business Growth Website + Lead Response System",
+    href: "https://ssd-staffing-demo.roylamcw.chatgpt.site",
+    accent:
+      "from-emerald-500/25 via-cyan-500/10 to-transparent",
+    signal: "Request · Match · Mobilise",
   },
   {
-    name: "Growing Local Brand",
+    name: "Property Investment",
+    brand: "Advisory journey concept",
+    sector: "Property services",
     description:
-      "Improve trust, mobile usability and contact paths so prospects understand what to do next.",
-    tags: ["Business Growth Website"],
+      "A trust-first advisory journey that organises complex information and guides investors toward a more useful consultation.",
+    journey: ["Opportunity discovery", "Investor education", "Consultation intent"],
+    solution: "Business Growth Website",
+    href: "https://ssd-property-demo.roylamcw.chatgpt.site",
+    accent:
+      "from-violet-500/25 via-blue-500/10 to-transparent",
+    signal: "Explore · Understand · Enquire",
+  },
+  {
+    name: "Luma Events",
+    brand: "Events ecosystem concept",
+    sector: "Events",
+    description:
+      "A premium, production-led concept for agencies, venues, weddings and specialist event partners, built around a structured event brief.",
+    journey: ["Experience showcase", "Service discovery", "Event brief"],
+    solution: "Business Growth Website + Lead Response System",
+    href: "https://ssd-events-demo.roylamcw.chatgpt.site",
+    accent:
+      "from-fuchsia-500/25 via-purple-500/10 to-transparent",
+    signal: "Imagine · Plan · Deliver",
+  },
+  {
+    name: "Brightward Learning",
+    brand: "Tuition & enrichment concept",
+    sector: "Education",
+    description:
+      "A warm, parent-friendly concept that makes programme, subject and level discovery clearer before a trial request.",
+    journey: ["Programme filtering", "Level selection", "Trial request"],
+    solution: "Business Growth Website + Lead Response System",
+    href: "https://ssd-tuition-demo.roylamcw.chatgpt.site",
+    accent:
+      "from-sky-500/25 via-teal-500/10 to-transparent",
+    signal: "Discover · Learn · Progress",
   },
 ];
 
@@ -495,35 +542,153 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="examples" className="border-t border-white/10 bg-[#0d1f35] px-6 py-20 md:py-28">
+        <section id="concept-demos" className="border-t border-white/10 px-6 py-20 md:py-28">
           <div className="mx-auto max-w-6xl">
-            <div className="mx-auto max-w-2xl text-center">
+            <div className="mx-auto max-w-3xl text-center">
               <p className="mb-3 text-sm font-medium uppercase tracking-wider text-blue-300">
-                Example applications
+                Concept demo portfolio
               </p>
               <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-                How the launch products can be applied
+                See what your customer journey could become
               </h2>
               <p className="mt-4 text-white/75">
-                These are illustrative use cases, not customer case studies or testimonials.
+                Five working concepts show how clearer positioning, discovery and enquiry paths
+                can be shaped for different businesses.
+              </p>
+              <p className="mt-3 text-sm text-white/60">
+                These are fictional concept demonstrations, not client projects, testimonials or
+                evidence of actual client results.
               </p>
             </div>
-            <div className="mt-14 grid gap-6 lg:grid-cols-3">
-              {exampleUseCases.map((project) => (
-                <article key={project.name} className="rounded-xl border border-white/10 bg-[#0a1628] p-6">
-                  <p className="text-xs font-medium uppercase tracking-wider text-white/65">Illustrative use case</p>
-                  <h3 className="mt-2 text-xl font-bold">{project.name}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-white/75">{project.description}</p>
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    {project.tags.map((tag) => (
-                      <span key={tag} className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-white/80">
-                        {tag}
-                      </span>
-                    ))}
+
+            <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+              {conceptDemos.map((demo) => (
+                <article
+                  key={demo.name}
+                  className="group flex overflow-hidden rounded-2xl border border-white/10 bg-[#0d1f35] transition-transform duration-300 hover:-translate-y-1 hover:border-blue-400/30"
+                >
+                  <div className="flex w-full flex-col">
+                    <div
+                      className={`relative min-h-44 overflow-hidden border-b border-white/10 bg-gradient-to-br ${demo.accent} p-5`}
+                    >
+                      <div className="pointer-events-none absolute -right-10 -top-14 h-40 w-40 rounded-full border border-white/10 bg-white/[0.04]" />
+                      <div className="pointer-events-none absolute -bottom-12 -left-8 h-32 w-32 rounded-full border border-white/10 bg-white/[0.03]" />
+                      <div className="relative rounded-xl border border-white/15 bg-[#081321]/85 p-4 shadow-xl shadow-black/20">
+                        <div className="flex items-center gap-1.5" aria-hidden="true">
+                          <span className="h-2 w-2 rounded-full bg-red-300/70" />
+                          <span className="h-2 w-2 rounded-full bg-amber-300/70" />
+                          <span className="h-2 w-2 rounded-full bg-emerald-300/70" />
+                        </div>
+                        <div className="mt-5 flex items-end justify-between gap-4">
+                          <div>
+                            <p className="text-xs uppercase tracking-[0.18em] text-white/55">
+                              {demo.sector}
+                            </p>
+                            <p className="mt-1 text-lg font-semibold">{demo.brand}</p>
+                          </div>
+                          <span className="hidden rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] text-white/70 sm:inline-flex">
+                            {demo.signal}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-1 flex-col p-6">
+                      <p className="text-xs font-medium uppercase tracking-wider text-white/55">
+                        Fictional concept demo
+                      </p>
+                      <h3 className="mt-2 text-xl font-bold">{demo.name}</h3>
+                      <p className="mt-3 text-sm leading-relaxed text-white/75">
+                        {demo.description}
+                      </p>
+                      <div className="mt-5 flex flex-wrap gap-2">
+                        {demo.journey.map((item) => (
+                          <span
+                            key={item}
+                            className="rounded-full border border-white/15 bg-white/[0.04] px-3 py-1 text-xs text-white/80"
+                          >
+                            {item}
+                          </span>
+                        ))}
+                      </div>
+                      <div className="mt-5 border-t border-white/10 pt-4">
+                        <p className="text-xs uppercase tracking-wider text-white/50">
+                          Relevant solution
+                        </p>
+                        <p className="mt-1 text-sm font-medium text-blue-200">{demo.solution}</p>
+                      </div>
+                      <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                        <TrackedLink
+                          href={demo.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          eventName="concept_demo_click"
+                          eventProperties={{ demo: demo.name, location: "portfolio" }}
+                          className="inline-flex flex-1 items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-3 text-sm font-semibold transition-colors hover:bg-blue-500"
+                        >
+                          View live demo
+                          <ArrowIcon />
+                        </TrackedLink>
+                        <TrackedLink
+                          href="#contact"
+                          eventName="primary_contact_cta_click"
+                          eventProperties={{
+                            location: `concept-demo:${demo.name}`,
+                          }}
+                          className="inline-flex flex-1 items-center justify-center rounded-lg border border-white/20 px-4 py-3 text-center text-sm font-semibold transition-colors hover:border-white/40 hover:bg-white/5"
+                        >
+                          Build something similar
+                        </TrackedLink>
+                      </div>
+                    </div>
                   </div>
                 </article>
               ))}
             </div>
+
+            <div className="mt-10 rounded-2xl border border-blue-400/20 bg-blue-500/[0.08] p-6 text-center md:p-8">
+              <h3 className="text-xl font-bold">The strongest demo starts with your business.</h3>
+              <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-white/75">
+                Share your current website or customer journey. Swift Sense Digital can identify
+                the most useful concept to build before recommending a full project.
+              </p>
+              <TrackedLink
+                href="#contact"
+                eventName="primary_contact_cta_click"
+                eventProperties={{ location: "concept-demo-summary" }}
+                className="mt-6 inline-flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-3 text-sm font-semibold transition-colors hover:bg-blue-500"
+              >
+                Discuss your website
+                <ArrowIcon />
+              </TrackedLink>
+            </div>
+          </div>
+        </section>
+
+        <section id="capability" className="border-t border-white/10 bg-[#0d1f35] px-6 py-16 md:py-20">
+          <div className="mx-auto flex max-w-6xl flex-col gap-8 rounded-2xl border border-white/10 bg-[#0a1628] p-7 md:flex-row md:items-center md:justify-between md:p-10">
+            <div className="max-w-2xl">
+              <p className="text-sm font-medium uppercase tracking-wider text-blue-300">
+                Company overview
+              </p>
+              <h2 className="mt-3 text-2xl font-bold tracking-tight md:text-3xl">
+                A one-page view of what Swift Sense Digital does
+              </h2>
+              <p className="mt-3 text-sm leading-relaxed text-white/75">
+                Download the approved capability statement for SSD&apos;s positioning, services,
+                working approach and commercial contact details.
+              </p>
+            </div>
+            <TrackedLink
+              href={CAPABILITY_STATEMENT_HREF}
+              download
+              eventName="capability_statement_download"
+              eventProperties={{ location: "homepage" }}
+              className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg border border-blue-300/35 bg-blue-500/10 px-6 py-3 text-sm font-semibold text-blue-100 transition-colors hover:border-blue-200/60 hover:bg-blue-500/20"
+            >
+              Download capability statement
+              <ArrowIcon />
+            </TrackedLink>
           </div>
         </section>
 

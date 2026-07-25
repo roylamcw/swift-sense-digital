@@ -38,6 +38,9 @@ export const metadata: Metadata = {
     "Lead Response System",
     "Transformation Blueprint",
     "Business Transformation Singapore",
+    "Event Agency Website Singapore",
+    "Tuition Centre Website Singapore",
+    "SME Website Concept Demo",
   ],
 
   authors: [
