@@ -4,7 +4,6 @@ import TrackedLink from "./components/TrackedLink";
 
 const navLinks = [
   { label: "Products", href: "#products" },
-  { label: "Sectors", href: "#sectors" },
   { label: "Concept Demos", href: "#concept-demos" },
   { label: "Founder", href: "#founder" },
   { label: "Process", href: "#process" },
@@ -93,29 +92,6 @@ const whySwiftSense = [
   },
 ];
 
-const targetSegments = [
-  {
-    title: "Events ecosystem",
-    audience:
-      "Event agencies, venues, wedding businesses and specialist partners such as photo booths, decorators, entertainers and equipment providers.",
-    description:
-      "Help prospects understand the offer, see the right proof and submit a useful event brief instead of a vague enquiry.",
-    focus: ["Service discovery", "Event brief capture", "Faster follow-up"],
-    demoLabel: "Explore the Luma Events concept",
-    demoHref: "https://ssd-events-demo.roylamcw.chatgpt.site",
-  },
-  {
-    title: "Tuition & enrichment",
-    audience:
-      "Centres offering academic, creative or skills-based programmes for children and young people.",
-    description:
-      "Help parents compare programmes, identify the right level, request a trial and receive timely follow-up.",
-    focus: ["Programme discovery", "Trial booking", "Parent enquiry follow-up"],
-    demoLabel: "Explore the Brightward Learning concept",
-    demoHref: "https://ssd-tuition-demo.roylamcw.chatgpt.site",
-  },
-];
-
 const conceptDemos = [
   {
     name: "Restaurant",
@@ -168,7 +144,6 @@ const conceptDemos = [
     accent:
       "from-fuchsia-500/25 via-purple-500/10 to-transparent",
     signal: "Imagine · Plan · Deliver",
-    featured: true,
   },
   {
     name: "Brightward Learning",
@@ -182,7 +157,6 @@ const conceptDemos = [
     accent:
       "from-sky-500/25 via-teal-500/10 to-transparent",
     signal: "Discover · Learn · Progress",
-    featured: true,
   },
 ];
 
@@ -568,63 +542,6 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="sectors" className="border-t border-white/10 bg-[#0d1f35] px-6 py-20 md:py-28">
-          <div className="mx-auto max-w-6xl">
-            <div className="mx-auto max-w-3xl text-center">
-              <p className="mb-3 text-sm font-medium uppercase tracking-wider text-blue-300">
-                Added sector focus
-              </p>
-              <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-                Digital journeys shaped around how customers actually choose
-              </h2>
-              <p className="mt-4 text-white/75">
-                Swift Sense Digital works across growing SMEs. These two ecosystems receive
-                dedicated journeys because their customers need more than a generic contact page.
-              </p>
-            </div>
-
-            <div className="mt-14 grid gap-6 lg:grid-cols-2">
-              {targetSegments.map((segment) => (
-                <article
-                  key={segment.title}
-                  className="flex flex-col rounded-2xl border border-white/10 bg-[#0a1628] p-7 md:p-8"
-                >
-                  <p className="text-sm font-semibold text-blue-300">{segment.title}</p>
-                  <h3 className="mt-3 text-xl font-bold leading-snug">{segment.audience}</h3>
-                  <p className="mt-4 text-sm leading-relaxed text-white/75">
-                    {segment.description}
-                  </p>
-                  <ul className="mt-6 grid gap-3 sm:grid-cols-3">
-                    {segment.focus.map((item) => (
-                      <li
-                        key={item}
-                        className="flex items-start gap-2 rounded-lg border border-white/10 bg-white/[0.04] p-3 text-sm text-white/85"
-                      >
-                        <CheckIcon />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <TrackedLink
-                    href={segment.demoHref}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    eventName="concept_demo_click"
-                    eventProperties={{
-                      demo: segment.title,
-                      location: "sector-focus",
-                    }}
-                    className="mt-7 inline-flex items-center gap-2 self-start text-sm font-semibold text-blue-200 transition-colors hover:text-white"
-                  >
-                    {segment.demoLabel}
-                    <ArrowIcon />
-                  </TrackedLink>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
         <section id="concept-demos" className="border-t border-white/10 px-6 py-20 md:py-28">
           <div className="mx-auto max-w-6xl">
             <div className="mx-auto max-w-3xl text-center">
@@ -674,11 +591,6 @@ export default function Home() {
                           </span>
                         </div>
                       </div>
-                      {demo.featured && (
-                        <span className="relative mt-3 inline-flex rounded-full border border-blue-300/25 bg-blue-400/10 px-3 py-1 text-xs font-medium text-blue-100">
-                          New focus sector
-                        </span>
-                      )}
                     </div>
 
                     <div className="flex flex-1 flex-col p-6">
