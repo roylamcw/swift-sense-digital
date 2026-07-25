@@ -29,11 +29,6 @@ Public contact:
 
 Detailed deliverables, exact timelines, scope, exclusions, care-plan structure, care-plan pricing and other prices require founder approval before publication as fixed facts.
 
-## Sector Focus
-
-- Events ecosystem: event agencies, venues, wedding businesses and specialist event partners.
-- Tuition and enrichment: programme discovery, trial bookings, parent enquiries and follow-up.
-
 ## Approved Concept Demos
 
 - Restaurant: https://ssd-restaurant-demo.roylamcw.chatgpt.site
