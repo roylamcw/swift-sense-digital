@@ -23,11 +23,28 @@ Public contact:
 - Lead Response System
 - Transformation Blueprint
 
-## Confirmed Pricing
+## Confirmed Pricing and Timelines
 
-- Business Growth Website starts from S$1,500.
+- Business Growth Website starts from S$1,500; typical delivery is 7–10 working days.
+- Lead Response System starts from S$3,500; typical delivery is 15 working days.
+- Transformation Blueprint starts from S$8,000; typical delivery is four weeks.
 
-Detailed deliverables, exact timelines, scope, exclusions, care-plan structure, care-plan pricing and other prices require founder approval before publication as fixed facts.
+Do not publish unapproved discounts, bundles, guarantees or additions to the approved product scopes.
+
+## Website Lead Response Assistant
+
+The production website includes a live demonstration of the Lead Response System:
+
+- Answers questions from an approved, server-side SSD knowledge base.
+- Helps visitors identify the most relevant starting service.
+- Collects a structured business brief and explicit consent.
+- Sends the brief through the existing HubSpot contact route.
+- Offers email and click-to-WhatsApp human handoff.
+- Tracks assistant engagement and lead conversions through the existing analytics layer.
+
+The AI conversation is not included in the HubSpot submission. Visitors submit only the brief they complete in the lead form. The interface warns visitors not to share sensitive or confidential information.
+
+The assistant uses Vercel AI Gateway. Vercel deployments authenticate through OIDC. For local development, set `AI_GATEWAY_API_KEY`. `AI_GATEWAY_MODEL` is optional and defaults to `openai/gpt-5.6-luna`.
 
 ## Approved Concept Demos
 
@@ -45,6 +62,9 @@ All five websites are fictional concept demonstrations. They must not be present
 - React 19.2.4
 - TypeScript
 - Tailwind CSS 4
+- Vercel AI SDK 7
+- Vercel AI Gateway
+- AI Elements message rendering through Streamdown
 - Vercel Analytics
 - Vercel Speed Insights
 - Google Analytics
