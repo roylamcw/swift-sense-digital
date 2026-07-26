@@ -44,7 +44,7 @@ The production website includes a live demonstration of the Lead Response System
 
 The AI conversation is not included in the HubSpot submission. Visitors submit only the brief they complete in the lead form. The interface warns visitors not to share sensitive or confidential information.
 
-The assistant uses Vercel AI Gateway. Vercel deployments authenticate through OIDC. For local development, set `AI_GATEWAY_API_KEY`. `AI_GATEWAY_MODEL` is optional and defaults to `openai/gpt-5.6-luna`.
+The assistant uses Vercel AI Gateway. Vercel deployments authenticate through OIDC. For local development, set `AI_GATEWAY_API_KEY`. `AI_GATEWAY_MODEL` is optional and defaults to `openai/gpt-4o-mini`.
 
 ## Approved Concept Demos
 
