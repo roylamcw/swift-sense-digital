@@ -225,7 +225,6 @@ export async function POST(request: Request) {
     instructions: assistantInstructions,
     messages: await convertToModelMessages(messages),
     maxOutputTokens: 350,
-    temperature: 0.2,
     timeout: 25_000,
     onError: ({ error }) => {
       console.error("[lead-response-assistant] model request failed", error);
