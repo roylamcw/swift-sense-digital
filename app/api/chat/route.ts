@@ -13,7 +13,7 @@ const MAX_REQUEST_BYTES = 32 * 1024;
 const MAX_MESSAGES = 12;
 const MAX_TEXT_PER_MESSAGE = 800;
 const MAX_TOTAL_TEXT = 6_000;
-const DEFAULT_MODEL = "openai/gpt-5.6-luna";
+const DEFAULT_MODEL = "openai/gpt-4o-mini";
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1_000;
 const RATE_LIMIT_REQUESTS = 20;
 
