@@ -10,11 +10,14 @@
     "typecheck": "tsc --noEmit --incremental false"
   },
   "dependencies": {
+    "@ai-sdk/react": "^4.0.40",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
+    "ai": "^7.0.37",
     "next": "16.2.9",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "streamdown": "^2.5.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

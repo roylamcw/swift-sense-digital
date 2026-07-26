@@ -8,7 +8,12 @@ export type ConversionEventName =
   | "whatsapp_link_click"
   | "primary_contact_cta_click"
   | "concept_demo_click"
-  | "capability_statement_download";
+  | "capability_statement_download"
+  | "assistant_open"
+  | "assistant_message_sent"
+  | "assistant_lead_form_open"
+  | "assistant_lead_submission_success"
+  | "assistant_whatsapp_handoff";
 
 type EventProperties = Record<string, string | number | boolean>;
 

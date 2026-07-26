@@ -43,20 +43,23 @@ const products = [
     description:
       "A conversion-focused website for growing SMEs that need clearer positioning, stronger calls to action and a reliable enquiry journey.",
     price: "From S$1,500",
+    timeline: "Typical delivery: 7–10 working days",
     focus: ["Clear offer structure", "Mobile-first enquiry path", "SEO and analytics foundations"],
   },
   {
     title: "Lead Response System",
     description:
       "A lead handling system designed to help your team capture enquiries, understand intent and respond with better context.",
-    price: "Scoped after discovery",
+    price: "From S$3,500",
+    timeline: "Typical delivery: 15 working days",
     focus: ["Enquiry capture", "Lead context", "Response workflow"],
   },
   {
     title: "Transformation Blueprint",
     description:
       "A practical business review that identifies where AI, systems and process improvements can create measurable operational value.",
-    price: "Scoped after discovery",
+    price: "From S$8,000",
+    timeline: "Typical delivery: four weeks",
     focus: ["Business priorities", "Operational bottlenecks", "Practical roadmap"],
   },
 ];
@@ -195,7 +198,7 @@ const faqs = [
   {
     question: "What pricing is confirmed?",
     answer:
-      "Business Growth Website starts from S$1,500. Detailed deliverables, exact timelines, scope, exclusions and other pricing require founder approval before being treated as fixed facts.",
+      "Business Growth Website starts from S$1,500 with typical delivery in 7–10 working days. Lead Response System starts from S$3,500 with typical delivery in 15 working days. Transformation Blueprint starts from S$8,000 with typical delivery in four weeks. Final scope and fees are confirmed after discovery.",
   },
   {
     question: "Do I need to know exactly what AI system I need?",
@@ -441,6 +444,7 @@ export default function Home() {
                   <h3 className="text-xl font-semibold">{product.title}</h3>
                   <p className="mt-3 text-sm leading-relaxed text-white/75">{product.description}</p>
                   <p className="mt-5 text-sm font-semibold text-blue-200">{product.price}</p>
+                  <p className="mt-1 text-xs text-white/55">{product.timeline}</p>
                   <ul className="mt-6 flex-1 space-y-3">
                     {product.focus.map((item) => (
                       <li key={item} className="flex items-start gap-2 text-sm text-white/85">
@@ -699,7 +703,7 @@ export default function Home() {
                 Confirmed pricing guidance
               </h2>
               <p className="mt-4 text-white/75">
-                Business Growth Website has a confirmed starting price. Other commercial details should be scoped and approved before being published as fixed facts.
+                Starting prices and typical delivery timeframes reflect the approved launch scopes. Final scope and fees are confirmed after discovery.
               </p>
             </div>
             <div className="mt-14 grid gap-6 lg:grid-cols-3">
@@ -708,6 +712,7 @@ export default function Home() {
                   <h3 className="text-lg font-semibold">{product.title}</h3>
                   <div className="mt-4">
                     <span className="text-3xl font-bold text-blue-300">{product.price}</span>
+                    <p className="mt-2 text-xs text-white/55">{product.timeline}</p>
                   </div>
                   <p className="mt-3 flex-1 text-sm leading-relaxed text-white/75">{product.description}</p>
                   <TrackedLink

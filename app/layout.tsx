@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import GoogleAnalytics from "./components/GoogleAnalytics";
 import Clarity from "./components/Clarity";
+import LeadResponseAssistant from "./components/LeadResponseAssistant";
 import { Analytics } from "@vercel/analytics/next";
 import { LocalBusinessSchema, OrganizationSchema } from "./schema";
 import { ServiceSchema } from "./service-schema";
@@ -123,6 +124,7 @@ export default function RootLayout({
         <SpeedInsights />
 
         {children}
+        <LeadResponseAssistant />
       </body>
     </html>
   );

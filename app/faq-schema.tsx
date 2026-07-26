@@ -28,7 +28,7 @@ export function FAQSchema() {
         name: "What pricing is confirmed?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Business Growth Website starts from S$1,500. Detailed deliverables, exact timelines, scope, exclusions and other pricing require founder approval before being treated as fixed facts.",
+          text: "Business Growth Website starts from S$1,500 with typical delivery in 7–10 working days. Lead Response System starts from S$3,500 with typical delivery in 15 working days. Transformation Blueprint starts from S$8,000 with typical delivery in four weeks. Final scope and fees are confirmed after discovery.",
         },
       },
       {
