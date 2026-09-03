@@ -1,9 +1,23 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
+import { after } from "next/server";
+
+import {
+  extractIncomingTextMessages,
+  readReplyConfiguration,
+  sendWhatsAppTextReply,
+  VolatileMessageDedupe,
+  type IncomingTextMessage,
+} from "./message-handler";
+
+export const maxDuration = 30;
 
 const MAX_REQUEST_BYTES = 1024 * 1024;
 const NO_STORE_HEADERS = {
   "Cache-Control": "no-store",
 } as const;
+// This protects the proof of concept from immediate retries on one function
+// instance. Production-grade deduplication will require durable shared storage.
+const messageDedupe = new VolatileMessageDedupe();
 
 function textResponse(body: string, status: number) {
   return new Response(body, {
@@ -92,6 +106,61 @@ function summarizeWebhook(payload: Record<string, unknown>) {
     messageCount,
     statusCount,
   };
+}
+
+async function processIncomingTextMessages(
+  messages: IncomingTextMessage[]
+) {
+  const configuration = readReplyConfiguration(process.env);
+
+  if (!configuration.ok) {
+    console.info("[whatsapp-webhook] automatic reply skipped", {
+      reason: configuration.reason,
+      candidateCount: messages.length,
+    });
+    return;
+  }
+
+  let duplicateCount = 0;
+  let failedCount = 0;
+  let sentCount = 0;
+
+  for (const message of messages) {
+    const dedupeKey = `${message.sourcePhoneNumberId}:${message.messageId}`;
+
+    if (!messageDedupe.reserve(dedupeKey)) {
+      duplicateCount += 1;
+      continue;
+    }
+
+    const result = await sendWhatsAppTextReply(
+      message,
+      configuration.config
+    );
+
+    if (!result.ok) {
+      messageDedupe.release(dedupeKey);
+      failedCount += 1;
+      console.warn("[whatsapp-webhook] automatic reply failed", {
+        reason: result.reason,
+        httpStatus: result.httpStatus,
+        metaErrorCode: result.metaErrorCode,
+        metaErrorSubcode: result.metaErrorSubcode,
+        metaErrorType: result.metaErrorType,
+        metaTraceId: result.metaTraceId,
+      });
+      continue;
+    }
+
+    sentCount += 1;
+  }
+
+  console.info("[whatsapp-webhook] automatic reply batch completed", {
+    candidateCount: messages.length,
+    duplicateCount,
+    failedCount,
+    sentCount,
+  });
 }
 
 export async function GET(request: Request) {
@@ -204,11 +273,19 @@ export async function POST(request: Request) {
     );
   }
 
+  const { textMessages, ignoredMessageCount } =
+    extractIncomingTextMessages(payload);
+
   // Keep diagnostics free of message text, phone numbers and contact details.
-  console.info(
-    "[whatsapp-webhook] accepted signed Meta event",
-    summarizeWebhook(payload)
-  );
+  console.info("[whatsapp-webhook] accepted signed Meta event", {
+    ...summarizeWebhook(payload),
+    acceptedTextMessageCount: textMessages.length,
+    ignoredMessageCount,
+  });
+
+  if (textMessages.length > 0) {
+    after(() => processIncomingTextMessages(textMessages));
+  }
 
   return Response.json(
     { received: true },
