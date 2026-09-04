@@ -903,13 +903,26 @@ export default function Home() {
               </a>
             </div>
 
-            <nav className="flex flex-wrap gap-x-6 gap-y-2" aria-label="Footer navigation">
-              {navLinks.map((link) => (
-                <a key={link.href} href={link.href} className="text-sm text-white/70 transition-colors hover:text-white">
-                  {link.label}
-                </a>
-              ))}
-            </nav>
+            <div className="space-y-4">
+              <nav className="flex flex-wrap gap-x-6 gap-y-2" aria-label="Footer navigation">
+                {navLinks.map((link) => (
+                  <a key={link.href} href={link.href} className="text-sm text-white/70 transition-colors hover:text-white">
+                    {link.label}
+                  </a>
+                ))}
+              </nav>
+              <nav className="flex flex-wrap gap-x-6 gap-y-2" aria-label="Legal navigation">
+                <Link href="/privacy" className="text-sm text-white/70 transition-colors hover:text-white">
+                  Privacy
+                </Link>
+                <Link href="/terms" className="text-sm text-white/70 transition-colors hover:text-white">
+                  Terms
+                </Link>
+                <Link href="/data-deletion" className="text-sm text-white/70 transition-colors hover:text-white">
+                  Data deletion
+                </Link>
+              </nav>
+            </div>
           </div>
           <div className="mt-10 border-t border-white/10 pt-6 text-center text-sm text-white/70">
             &copy; {new Date().getFullYear()} Swift Sense Digital. All rights reserved.
