@@ -20,10 +20,16 @@ export default function TermsPage() {
     <LegalPageShell
       eyebrow="Website use"
       title="Website Terms"
-      summary="These terms govern use of the Swift Sense Digital website and its public enquiry and AI-assisted features. Paid services are governed by separately agreed written terms."
+      summary="These terms govern use of the Swift Sense Digital website and its public enquiry and AI-assisted features. Any paid engagement must use separate written terms identifying the contracting legal person or entity."
       lastUpdated={LAST_UPDATED}
     >
       <LegalSection title="1. Acceptance and scope">
+        <p>
+          Swift Sense Digital is currently an unregistered project and brand
+          operated by its founder in Singapore. In these terms, SSD means that
+          individual operator. SSD is not currently a separate incorporated
+          entity.
+        </p>
         <p>
           By accessing this website, you agree to these terms. If you do not
           agree, please stop using the website. These terms do not themselves
