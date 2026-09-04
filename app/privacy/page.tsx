@@ -25,8 +25,10 @@ export default function PrivacyPolicyPage() {
     >
       <LegalSection title="1. Who this policy covers">
         <p>
-          Swift Sense Digital, also referred to as SSD, we or us, provides AI
-          transformation, website and lead-response services from Singapore.
+          Swift Sense Digital is currently an unregistered project and brand
+          operated by its founder in Singapore. The project is developing AI
+          transformation, website and lead-response services. In this policy,
+          SSD, we or us means the individual operating this website and project.
           This policy applies to visitors, prospective customers, customers and
           other people who interact with our digital services.
         </p>
