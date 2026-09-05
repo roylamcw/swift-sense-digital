@@ -747,7 +747,14 @@ export default function LeadResponseAssistant() {
                   />
                   <span>
                     I agree to allow Swift Sense Digital to store and process my
-                    personal data to respond to my enquiry.
+                    personal data to respond to my enquiry, as described in the{" "}
+                    <a
+                      className="font-semibold text-blue-700 underline underline-offset-2 hover:text-blue-900"
+                      href="/privacy"
+                    >
+                      Privacy Policy
+                    </a>
+                    .
                     <FieldError message={contactErrors.consent} />
                   </span>
                 </label>

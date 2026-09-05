@@ -303,7 +303,11 @@ export default function LeadForm() {
             className="mt-1 h-4 w-4 rounded border-white/30 bg-[#0a1628] text-blue-600 focus:ring-blue-500"
           />
           <span>
-            I agree to allow Swift Sense Digital to store and process my personal data to respond to my enquiry.
+            I agree to allow Swift Sense Digital to store and process my personal data to respond to my enquiry, as described in the{" "}
+            <a className="font-medium text-blue-200 underline underline-offset-2 hover:text-white" href="/privacy">
+              Privacy Policy
+            </a>
+            .
           </span>
         </label>
         <p id="consent-help" className="mt-2 text-xs text-white/65">
