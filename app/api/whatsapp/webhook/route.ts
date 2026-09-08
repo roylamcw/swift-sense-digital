@@ -1,10 +1,12 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { after } from "next/server";
 
+import { generateWhatsAppAIReply } from "./ai-reply";
 import {
   extractIncomingTextMessages,
   readReplyConfiguration,
   sendWhatsAppTextReply,
+  TEST_AUTO_REPLY,
   VolatileMessageDedupe,
   type IncomingTextMessage,
 } from "./message-handler";
@@ -123,7 +125,10 @@ async function processIncomingTextMessages(
 
   let duplicateCount = 0;
   let failedCount = 0;
+  let aiReplyCount = 0;
+  let fallbackReplyCount = 0;
   let sentCount = 0;
+  let aiAttempted = false;
 
   for (const message of messages) {
     const dedupeKey = `${message.sourcePhoneNumberId}:${message.messageId}`;
@@ -133,9 +138,29 @@ async function processIncomingTextMessages(
       continue;
     }
 
+    const aiResult = aiAttempted
+      ? { ok: false as const, reason: "batch_limit" as const }
+      : await generateWhatsAppAIReply(message, process.env);
+    aiAttempted = true;
+
+    const replyText = aiResult.ok ? aiResult.text : TEST_AUTO_REPLY;
+    const replyMode = aiResult.ok ? "ai" : "fallback";
+
+    if (
+      !aiResult.ok &&
+      aiResult.reason !== "disabled" &&
+      aiResult.reason !== "sender_not_allowed" &&
+      aiResult.reason !== "batch_limit"
+    ) {
+      console.warn("[whatsapp-webhook] AI reply unavailable", {
+        reason: aiResult.reason,
+      });
+    }
+
     const result = await sendWhatsAppTextReply(
       message,
-      configuration.config
+      configuration.config,
+      { replyText }
     );
 
     if (!result.ok) {
@@ -152,12 +177,20 @@ async function processIncomingTextMessages(
       continue;
     }
 
+    if (replyMode === "ai") {
+      aiReplyCount += 1;
+    } else {
+      fallbackReplyCount += 1;
+    }
+
     sentCount += 1;
   }
 
   console.info("[whatsapp-webhook] automatic reply batch completed", {
+    aiReplyCount,
     candidateCount: messages.length,
     duplicateCount,
+    fallbackReplyCount,
     failedCount,
     sentCount,
   });
