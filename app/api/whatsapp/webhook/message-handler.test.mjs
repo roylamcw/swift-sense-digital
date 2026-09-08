@@ -8,6 +8,12 @@ import {
   TEST_AUTO_REPLY,
   VolatileMessageDedupe,
 } from "./message-handler.ts";
+import {
+  DEFAULT_WHATSAPP_AI_MODEL,
+  generateWhatsAppAIReply,
+  normalizeWhatsAppReplyText,
+  readWhatsAppAIConfiguration,
+} from "./ai-reply.ts";
 
 const sampleMessage = {
   messageId: "wamid.TEST_MESSAGE",
@@ -123,10 +129,12 @@ test("sends a contextual text reply through the configured phone number", async 
   const result = await sendWhatsAppTextReply(
     sampleMessage,
     sampleConfiguration,
-    async (url, init) => {
-      capturedUrl = String(url);
-      capturedInit = init;
-      return Response.json({ messages: [{ id: "wamid.REPLY" }] });
+    {
+      fetchImpl: async (url, init) => {
+        capturedUrl = String(url);
+        capturedInit = init;
+        return Response.json({ messages: [{ id: "wamid.REPLY" }] });
+      },
     }
   );
 
@@ -153,9 +161,11 @@ test("refuses to send through a different phone number ID", async () => {
   const result = await sendWhatsAppTextReply(
     { ...sampleMessage, sourcePhoneNumberId: "987654321" },
     sampleConfiguration,
-    async () => {
-      called = true;
-      return Response.json({});
+    {
+      fetchImpl: async () => {
+        called = true;
+        return Response.json({});
+      },
     }
   );
 
@@ -170,19 +180,21 @@ test("returns redacted Meta error diagnostics", async () => {
   const result = await sendWhatsAppTextReply(
     sampleMessage,
     sampleConfiguration,
-    async () =>
-      Response.json(
-        {
-          error: {
-            message: "Sensitive upstream message is intentionally omitted",
-            type: "OAuthException",
-            code: 190,
-            error_subcode: 463,
-            fbtrace_id: "trace-id",
+    {
+      fetchImpl: async () =>
+        Response.json(
+          {
+            error: {
+              message: "Sensitive upstream message is intentionally omitted",
+              type: "OAuthException",
+              code: 190,
+              error_subcode: 463,
+              fbtrace_id: "trace-id",
+            },
           },
-        },
-        { status: 401 }
-      )
+          { status: 401 }
+        ),
+    }
   );
 
   assert.deepEqual(result, {
@@ -194,4 +206,132 @@ test("returns redacted Meta error diagnostics", async () => {
     metaErrorType: "OAuthException",
     metaTraceId: "trace-id",
   });
+});
+
+test("sends an explicitly supplied reply body", async () => {
+  let capturedBody;
+
+  const result = await sendWhatsAppTextReply(
+    sampleMessage,
+    sampleConfiguration,
+    {
+      replyText: "A guarded AI reply",
+      fetchImpl: async (_url, init) => {
+        capturedBody = JSON.parse(init.body);
+        return Response.json({ messages: [{ id: "wamid.REPLY" }] });
+      },
+    }
+  );
+
+  assert.deepEqual(result, { ok: true });
+  assert.equal(capturedBody.text.body, "A guarded AI reply");
+});
+
+test("keeps the AI pilot disabled without an explicit flag and allowlist", () => {
+  assert.deepEqual(readWhatsAppAIConfiguration({}), {
+    ok: false,
+    reason: "disabled",
+  });
+
+  assert.deepEqual(
+    readWhatsAppAIConfiguration({ WHATSAPP_AI_REPLY_ENABLED: "true" }),
+    { ok: false, reason: "missing_allowlist" }
+  );
+
+  assert.deepEqual(
+    readWhatsAppAIConfiguration({
+      WHATSAPP_AI_REPLY_ENABLED: "true",
+      WHATSAPP_AI_ALLOWED_SENDER_IDS: "not-a-number",
+    }),
+    { ok: false, reason: "invalid_configuration" }
+  );
+});
+
+test("uses the current pilot model for a valid sender allowlist", () => {
+  const result = readWhatsAppAIConfiguration({
+    WHATSAPP_AI_REPLY_ENABLED: "true",
+    WHATSAPP_AI_ALLOWED_SENDER_IDS: "16505551234, 6591234567",
+  });
+
+  assert.equal(result.ok, true);
+  assert.equal(result.config.model, DEFAULT_WHATSAPP_AI_MODEL);
+  assert.equal(result.config.allowedSenderIds.has("16505551234"), true);
+});
+
+test("does not call the model for a sender outside the allowlist", async () => {
+  let called = false;
+
+  const result = await generateWhatsAppAIReply(
+    sampleMessage,
+    {
+      WHATSAPP_AI_REPLY_ENABLED: "true",
+      WHATSAPP_AI_ALLOWED_SENDER_IDS: "6591234567",
+    },
+    async () => {
+      called = true;
+      return { text: "Should not be generated" };
+    }
+  );
+
+  assert.equal(called, false);
+  assert.deepEqual(result, { ok: false, reason: "sender_not_allowed" });
+});
+
+test("generates and normalizes a reply for an allowlisted sender", async () => {
+  let capturedOptions;
+
+  const result = await generateWhatsAppAIReply(
+    sampleMessage,
+    {
+      WHATSAPP_AI_REPLY_ENABLED: "true",
+      WHATSAPP_AI_ALLOWED_SENDER_IDS: sampleMessage.senderWhatsAppId,
+      WHATSAPP_AI_MODEL: "openai/gpt-5.4-mini",
+    },
+    async (options) => {
+      capturedOptions = options;
+      return { text: "  A concise SSD answer.\n\n\nWhat would you like to improve?  " };
+    }
+  );
+
+  assert.deepEqual(result, {
+    ok: true,
+    text: "A concise SSD answer.\n\nWhat would you like to improve?",
+  });
+  assert.equal(capturedOptions.model, "openai/gpt-5.4-mini");
+  assert.match(capturedOptions.prompt, /Hello SSD/);
+  assert.equal(capturedOptions.maxOutputTokens, 220);
+});
+
+test("falls back safely when AI generation fails or returns no text", async () => {
+  const environment = {
+    WHATSAPP_AI_REPLY_ENABLED: "true",
+    WHATSAPP_AI_ALLOWED_SENDER_IDS: sampleMessage.senderWhatsAppId,
+  };
+
+  assert.deepEqual(
+    await generateWhatsAppAIReply(
+      sampleMessage,
+      environment,
+      async () => {
+        throw new Error("sensitive upstream failure");
+      }
+    ),
+    { ok: false, reason: "request_failed" }
+  );
+
+  assert.deepEqual(
+    await generateWhatsAppAIReply(
+      sampleMessage,
+      environment,
+      async () => ({ text: " \n " })
+    ),
+    { ok: false, reason: "empty_response" }
+  );
+});
+
+test("caps oversized model output for a WhatsApp reply", () => {
+  const normalized = normalizeWhatsAppReplyText("word ".repeat(400));
+
+  assert.equal(normalized.endsWith("…"), true);
+  assert.equal(normalized.length <= 1_200, true);
 });

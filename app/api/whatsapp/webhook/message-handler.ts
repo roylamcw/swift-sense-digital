@@ -38,6 +38,7 @@ export type WhatsAppSendResult =
   | {
       ok: false;
       reason:
+        | "invalid_reply_text"
         | "phone_number_id_mismatch"
         | "request_failed"
         | "meta_rejected";
@@ -52,6 +53,11 @@ type FetchLike = (
   input: string | URL | Request,
   init?: RequestInit
 ) => Promise<Response>;
+
+type WhatsAppSendOptions = {
+  fetchImpl?: FetchLike;
+  replyText?: string;
+};
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -271,13 +277,23 @@ export class VolatileMessageDedupe {
 export async function sendWhatsAppTextReply(
   message: IncomingTextMessage,
   configuration: WhatsAppReplyConfiguration,
-  fetchImpl: FetchLike = fetch
+  options: WhatsAppSendOptions = {}
 ): Promise<WhatsAppSendResult> {
   if (message.sourcePhoneNumberId !== configuration.phoneNumberId) {
     return { ok: false, reason: "phone_number_id_mismatch" };
   }
 
+  const replyText = readTrimmedString(
+    options.replyText ?? TEST_AUTO_REPLY,
+    MAX_TEXT_LENGTH
+  );
+
+  if (!replyText) {
+    return { ok: false, reason: "invalid_reply_text" };
+  }
+
   const endpoint = `https://graph.facebook.com/${configuration.graphApiVersion}/${encodeURIComponent(configuration.phoneNumberId)}/messages`;
+  const fetchImpl = options.fetchImpl ?? fetch;
 
   let response: Response;
 
@@ -298,7 +314,7 @@ export async function sendWhatsAppTextReply(
         },
         text: {
           preview_url: false,
-          body: TEST_AUTO_REPLY,
+          body: replyText,
         },
       }),
       signal: AbortSignal.timeout(10_000),
