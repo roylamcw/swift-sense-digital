@@ -3,6 +3,12 @@ import { after } from "next/server";
 
 import { generateWhatsAppAIReply } from "./ai-reply";
 import {
+  applyLeadFunnelMutation,
+  checkLeadFunnelEligibility,
+  handleLeadFunnelMessage,
+  type LeadFunnelMutation,
+} from "./lead-funnel";
+import {
   extractIncomingTextMessages,
   readReplyConfiguration,
   sendWhatsAppTextReply,
@@ -10,16 +16,25 @@ import {
   VolatileMessageDedupe,
   type IncomingTextMessage,
 } from "./message-handler";
+import {
+  createUpstashRestStore,
+  getMessageDedupeKey,
+  type WhatsAppStateStore,
+} from "./redis-store";
 
 export const maxDuration = 30;
 
 const MAX_REQUEST_BYTES = 1024 * 1024;
+const MESSAGE_DEDUPE_TTL_SECONDS = 24 * 60 * 60;
 const NO_STORE_HEADERS = {
   "Cache-Control": "no-store",
 } as const;
-// This protects the proof of concept from immediate retries on one function
-// instance. Production-grade deduplication will require durable shared storage.
+// Redis is the primary dedupe store. This only preserves safe degraded
+// behaviour if the external store is temporarily unavailable.
 const messageDedupe = new VolatileMessageDedupe();
+
+const FUNNEL_UNAVAILABLE_REPLY =
+  "I could not complete the secure qualification flow, so nothing is confirmed. Please email chunwai@swiftsensedigital.com for CW to check it safely.";
 
 function textResponse(body: string, status: number) {
   return new Response(body, {
@@ -123,38 +138,108 @@ async function processIncomingTextMessages(
     return;
   }
 
+  const redisConfiguration = createUpstashRestStore(process.env);
+  const stateStore = redisConfiguration.ok
+    ? redisConfiguration.store
+    : undefined;
+
+  if (!redisConfiguration.ok) {
+    console.warn("[whatsapp-webhook] durable state unavailable", {
+      reason: redisConfiguration.reason,
+    });
+  }
+
   let duplicateCount = 0;
   let failedCount = 0;
   let aiReplyCount = 0;
   let fallbackReplyCount = 0;
+  let funnelReplyCount = 0;
+  let handoverSuppressedCount = 0;
   let sentCount = 0;
   let aiAttempted = false;
 
   for (const message of messages) {
-    const dedupeKey = `${message.sourcePhoneNumberId}:${message.messageId}`;
+    const durableDedupeKey = getMessageDedupeKey(message);
+    const volatileDedupeKey = `${message.sourcePhoneNumberId}:${message.messageId}`;
+    let dedupeBackend: "redis" | "volatile" = "volatile";
+    let reserved = false;
 
-    if (!messageDedupe.reserve(dedupeKey)) {
+    if (stateStore) {
+      try {
+        reserved = await stateStore.reserve(
+          durableDedupeKey,
+          MESSAGE_DEDUPE_TTL_SECONDS
+        );
+        dedupeBackend = "redis";
+      } catch {
+        console.warn("[whatsapp-webhook] durable dedupe degraded", {
+          reason: "store_unavailable",
+        });
+      }
+    }
+
+    if (dedupeBackend === "volatile") {
+      reserved = messageDedupe.reserve(volatileDedupeKey);
+    }
+
+    if (!reserved) {
       duplicateCount += 1;
       continue;
     }
 
-    const aiResult = aiAttempted
-      ? { ok: false as const, reason: "batch_limit" as const }
-      : await generateWhatsAppAIReply(message, process.env);
-    aiAttempted = true;
+    let replyText = TEST_AUTO_REPLY;
+    let replyMode: "ai" | "fallback" | "funnel" = "fallback";
+    let funnelMutation: LeadFunnelMutation | undefined;
+    const funnelEligibility = checkLeadFunnelEligibility(
+      process.env,
+      message.senderWhatsAppId
+    );
 
-    const replyText = aiResult.ok ? aiResult.text : TEST_AUTO_REPLY;
-    const replyMode = aiResult.ok ? "ai" : "fallback";
+    if (funnelEligibility.ok && stateStore) {
+      try {
+        const funnelResult = await handleLeadFunnelMessage(
+          message,
+          stateStore
+        );
 
-    if (
-      !aiResult.ok &&
-      aiResult.reason !== "disabled" &&
-      aiResult.reason !== "sender_not_allowed" &&
-      aiResult.reason !== "batch_limit"
-    ) {
-      console.warn("[whatsapp-webhook] AI reply unavailable", {
-        reason: aiResult.reason,
-      });
+        if (funnelResult.handled) {
+          if (funnelResult.replyText === null) {
+            handoverSuppressedCount += 1;
+            continue;
+          }
+
+          replyText = funnelResult.replyText;
+          replyMode = "funnel";
+          funnelMutation = funnelResult.mutation;
+        }
+      } catch {
+        replyText = FUNNEL_UNAVAILABLE_REPLY;
+        replyMode = "funnel";
+        console.warn("[whatsapp-webhook] lead funnel unavailable", {
+          reason: "processing_failed",
+        });
+      }
+    }
+
+    if (replyMode === "fallback") {
+      const aiResult = aiAttempted
+        ? { ok: false as const, reason: "batch_limit" as const }
+        : await generateWhatsAppAIReply(message, process.env);
+      aiAttempted = true;
+
+      replyText = aiResult.ok ? aiResult.text : TEST_AUTO_REPLY;
+      replyMode = aiResult.ok ? "ai" : "fallback";
+
+      if (
+        !aiResult.ok &&
+        aiResult.reason !== "disabled" &&
+        aiResult.reason !== "sender_not_allowed" &&
+        aiResult.reason !== "batch_limit"
+      ) {
+        console.warn("[whatsapp-webhook] AI reply unavailable", {
+          reason: aiResult.reason,
+        });
+      }
     }
 
     const result = await sendWhatsAppTextReply(
@@ -164,7 +249,17 @@ async function processIncomingTextMessages(
     );
 
     if (!result.ok) {
-      messageDedupe.release(dedupeKey);
+      try {
+        if (dedupeBackend === "redis" && stateStore) {
+          await stateStore.delete(durableDedupeKey);
+        } else {
+          messageDedupe.release(volatileDedupeKey);
+        }
+      } catch {
+        console.warn("[whatsapp-webhook] failed reservation retained", {
+          backend: dedupeBackend,
+        });
+      }
       failedCount += 1;
       console.warn("[whatsapp-webhook] automatic reply failed", {
         reason: result.reason,
@@ -177,8 +272,20 @@ async function processIncomingTextMessages(
       continue;
     }
 
+    if (replyMode === "funnel" && stateStore) {
+      try {
+        await applyLeadFunnelMutation(stateStore, funnelMutation);
+      } catch {
+        console.warn("[whatsapp-webhook] lead funnel state not advanced", {
+          reason: "store_unavailable",
+        });
+      }
+    }
+
     if (replyMode === "ai") {
       aiReplyCount += 1;
+    } else if (replyMode === "funnel") {
+      funnelReplyCount += 1;
     } else {
       fallbackReplyCount += 1;
     }
@@ -192,6 +299,8 @@ async function processIncomingTextMessages(
     duplicateCount,
     fallbackReplyCount,
     failedCount,
+    funnelReplyCount,
+    handoverSuppressedCount,
     sentCount,
   });
 }

@@ -119,6 +119,10 @@ export default function PrivacyPolicyPage() {
           <li>HubSpot for enquiry and customer-relationship records.</li>
           <li>Vercel for website hosting, analytics and AI Gateway services.</li>
           <li>
+            Upstash for temporary WhatsApp qualification state and
+            duplicate-event protection.
+          </li>
+          <li>
             Selected AI model providers for generating website-assistant
             responses.
           </li>
@@ -164,6 +168,11 @@ export default function PrivacyPolicyPage() {
           from such messages by replying STOP or emailing us. Service messages
           that are necessary to complete an active request may still be sent
           where permitted.
+        </p>
+        <p>
+          If you choose to complete SSD&apos;s WhatsApp qualification flow, the
+          details you provide are submitted to HubSpot only after you give the
+          explicit consent requested in that flow.
         </p>
       </LegalSection>
 
