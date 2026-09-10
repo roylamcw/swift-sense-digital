@@ -46,6 +46,14 @@ The AI conversation is not included in the HubSpot submission. Visitors submit o
 
 The assistant uses Vercel AI Gateway. Vercel deployments authenticate through OIDC. For local development, set `AI_GATEWAY_API_KEY`. `AI_GATEWAY_MODEL` is optional and defaults to `openai/gpt-4o-mini`.
 
+## Controlled WhatsApp Lead Funnel
+
+The WhatsApp webhook includes a disabled-by-default qualification pilot for explicitly allowlisted senders. It collects a business need, company name, full name and email, then asks for explicit HubSpot consent before submitting anything.
+
+Upstash Redis provides seven-day conversation state and 24-hour duplicate-message protection. WhatsApp identifiers are hashed in Redis keys, qualification details are removed from Redis after a successful submission, and automatic replies stop when the conversation reaches human handover.
+
+See [`docs/whatsapp-lead-funnel.md`](docs/whatsapp-lead-funnel.md) for configuration and the controlled-test checklist.
+
 ## Approved Concept Demos
 
 - Restaurant: https://ssd-restaurant-demo.roylamcw.chatgpt.site

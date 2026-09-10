@@ -1,18 +1,12 @@
 import { NextResponse } from "next/server";
 
-const HUBSPOT_PORTAL_ID = "246767649";
-const HUBSPOT_FORM_ID = "6815e370-efd2-4141-8fbd-0fd36072482f";
-const HUBSPOT_ENDPOINT = `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_ID}`;
+import {
+  hubspotServiceOptions,
+  submitHubSpotLead,
+  type HubSpotServiceOption,
+} from "../../lib/hubspot-lead";
+
 const MAX_REQUEST_BYTES = 16 * 1024;
-
-const serviceOptions = [
-  "Business Growth Website",
-  "Lead Response System",
-  "Transformation Blueprint",
-  "Not sure yet",
-] as const;
-
-type ServiceOption = (typeof serviceOptions)[number];
 
 type ContactField =
   | "firstName"
@@ -33,28 +27,11 @@ type ContactPayload = {
   email: string;
   companyName: string;
   phoneNumber?: string;
-  serviceInterest: ServiceOption;
+  serviceInterest: HubSpotServiceOption;
   message: string;
   consent: true;
   pageUri?: string;
   pageName?: string;
-};
-
-const hubspotFieldNames = {
-  firstName: "firstname",
-  lastName: "lastname",
-  email: "email",
-  companyName: "company",
-  phoneNumber: "phone",
-  serviceInterest: "service_of_interest",
-  message: "how_can_we_help",
-} as const;
-
-const hubspotServiceValues: Record<ServiceOption, string> = {
-  "Business Growth Website": "Business Growth Website",
-  "Lead Response System": "Lead Response System",
-  "Transformation Blueprint": "Transformation Blueprint",
-  "Not sure yet": "Not sure yet",
 };
 
 function jsonError(message: string, status: number, errors?: ErrorMap) {
@@ -105,103 +82,6 @@ function parseHubSpotCookie(cookieHeader: string | null) {
   return decodeURIComponent(hubspotCookie.slice("hubspotutk=".length));
 }
 
-function isHubSpotMappingComplete() {
-  return (
-    Object.values(hubspotFieldNames).every(Boolean) &&
-    Object.values(hubspotServiceValues).every(Boolean)
-  );
-}
-
-function asRecord(value: unknown): Record<string, unknown> | undefined {
-  return isRecord(value) ? value : undefined;
-}
-
-function readDiagnosticString(value: unknown) {
-  return typeof value === "string" && value.trim() ? value.trim() : undefined;
-}
-
-function collectHubSpotFieldNames(value: unknown): string[] {
-  const fieldNames = new Set<string>();
-
-  function visit(item: unknown) {
-    if (Array.isArray(item)) {
-      item.forEach(visit);
-      return;
-    }
-
-    if (!isRecord(item)) {
-      return;
-    }
-
-    for (const [key, nestedValue] of Object.entries(item)) {
-      if (
-        ["field", "fieldName", "name", "propertyName"].includes(key) &&
-        typeof nestedValue === "string"
-      ) {
-        fieldNames.add(nestedValue);
-      } else if (["errors", "context"].includes(key)) {
-        visit(nestedValue);
-      }
-    }
-  }
-
-  visit(value);
-
-  return [...fieldNames].sort();
-}
-
-function collectHubSpotErrorCodes(value: unknown): string[] {
-  const codes = new Set<string>();
-
-  function visit(item: unknown) {
-    if (Array.isArray(item)) {
-      item.forEach(visit);
-      return;
-    }
-
-    if (!isRecord(item)) {
-      return;
-    }
-
-    for (const [key, nestedValue] of Object.entries(item)) {
-      if (
-        ["code", "errorCode", "errorType", "subCategory"].includes(key) &&
-        typeof nestedValue === "string"
-      ) {
-        codes.add(nestedValue);
-      } else if (["errors", "context"].includes(key)) {
-        visit(nestedValue);
-      }
-    }
-  }
-
-  visit(value);
-
-  return [...codes].sort();
-}
-
-async function logHubSpotDiagnostics(response: Response) {
-  let body: unknown;
-
-  try {
-    body = await response.clone().json();
-  } catch {
-    body = undefined;
-  }
-
-  const responseBody = asRecord(body);
-  const diagnostics = {
-    event: "hubspot_form_submission_rejected",
-    httpStatus: response.status,
-    category: readDiagnosticString(responseBody?.category),
-    correlationId: readDiagnosticString(responseBody?.correlationId),
-    errorCodes: collectHubSpotErrorCodes(body),
-    fields: collectHubSpotFieldNames(body),
-  };
-
-  console.warn("[contact-route] HubSpot rejected form submission", diagnostics);
-}
-
 function validatePayload(raw: unknown): { data?: ContactPayload; errors: ErrorMap } {
   const errors: ErrorMap = {};
 
@@ -225,22 +105,26 @@ function validatePayload(raw: unknown): { data?: ContactPayload; errors: ErrorMa
     required: true,
     maxLength: 254,
   });
-  const companyName = readString(raw.companyName, "companyName", "Company name", errors, {
-    required: true,
-    maxLength: 120,
-  });
-  const phoneNumber = readString(raw.phoneNumber, "phoneNumber", "Phone number", errors, {
-    maxLength: 40,
-  });
+  const companyName = readString(
+    raw.companyName,
+    "companyName",
+    "Company name",
+    errors,
+    { required: true, maxLength: 120 }
+  );
+  const phoneNumber = readString(
+    raw.phoneNumber,
+    "phoneNumber",
+    "Phone number",
+    errors,
+    { maxLength: 40 }
+  );
   const serviceInterest = readString(
     raw.serviceInterest,
     "serviceInterest",
     "Service of interest",
     errors,
-    {
-      required: true,
-      maxLength: 80,
-    }
+    { required: true, maxLength: 80 }
   );
   const message = readString(raw.message, "message", "How can we help", errors, {
     required: true,
@@ -258,7 +142,10 @@ function validatePayload(raw: unknown): { data?: ContactPayload; errors: ErrorMa
     errors.email = "Enter a valid email address.";
   }
 
-  if (serviceInterest && !serviceOptions.includes(serviceInterest as ServiceOption)) {
+  if (
+    serviceInterest &&
+    !hubspotServiceOptions.includes(serviceInterest as HubSpotServiceOption)
+  ) {
     errors.serviceInterest = "Choose a valid service of interest.";
   }
 
@@ -284,7 +171,7 @@ function validatePayload(raw: unknown): { data?: ContactPayload; errors: ErrorMa
       email,
       companyName,
       ...(phoneNumber ? { phoneNumber } : {}),
-      serviceInterest: serviceInterest as ServiceOption,
+      serviceInterest: serviceInterest as HubSpotServiceOption,
       message,
       consent: true,
       pageUri,
@@ -333,52 +220,16 @@ export async function POST(request: Request) {
     return jsonError("Please correct the highlighted fields.", 400, errors);
   }
 
-  if (!isHubSpotMappingComplete()) {
-    return jsonError(
-      "The enquiry form is awaiting verified HubSpot field mapping. Please email chunwai@swiftsensedigital.com or use WhatsApp for now.",
-      503
-    );
-  }
-
-  const hutk = parseHubSpotCookie(request.headers.get("cookie"));
-  const hubspotPayload = {
-    fields: [
-      { name: hubspotFieldNames.firstName, value: data.firstName },
-      { name: hubspotFieldNames.lastName, value: data.lastName },
-      { name: hubspotFieldNames.email, value: data.email },
-      { name: hubspotFieldNames.companyName, value: data.companyName },
-      ...(data.phoneNumber
-        ? [{ name: hubspotFieldNames.phoneNumber, value: data.phoneNumber }]
-        : []),
-      {
-        name: hubspotFieldNames.serviceInterest,
-        value: hubspotServiceValues[data.serviceInterest],
-      },
-      { name: hubspotFieldNames.message, value: data.message },
-    ],
-    context: {
-      ...(hutk ? { hutk } : {}),
-      ...(data.pageUri ? { pageUri: data.pageUri } : {}),
-      ...(data.pageName ? { pageName: data.pageName } : {}),
-    },
-    legalConsentOptions: {
-      consent: {
-        consentToProcess: true,
-        text: "I agree to allow Swift Sense Digital to store and process my personal data to respond to my enquiry.",
-      },
-    },
-  };
-
-  const hubspotResponse = await fetch(HUBSPOT_ENDPOINT, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(hubspotPayload),
+  const submission = await submitHubSpotLead({
+    ...data,
+    hutk: parseHubSpotCookie(request.headers.get("cookie")),
   });
 
-  if (!hubspotResponse.ok) {
-    await logHubSpotDiagnostics(hubspotResponse);
+  if (!submission.ok) {
+    console.warn("[contact-route] HubSpot form submission failed", {
+      reason: submission.reason,
+      ...submission.diagnostics,
+    });
 
     return jsonError(
       "The enquiry could not be submitted. Please email chunwai@swiftsensedigital.com or use WhatsApp.",
@@ -391,3 +242,4 @@ export async function POST(request: Request) {
     message: "We’ll respond within two business days.",
   });
 }
+
