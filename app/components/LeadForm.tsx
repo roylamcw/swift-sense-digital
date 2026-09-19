@@ -2,13 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { trackConversionEvent } from "./conversion-tracking";
-
-const serviceOptions = [
-  "Business Growth Website",
-  "Lead Response System",
-  "Transformation Blueprint",
-  "Not sure yet",
-] as const;
+import { getWaitlistProduct, serviceOptions, waitlistConsentText, type ServiceOption } from "../lib/product-catalog";
 
 type FieldName =
   | "firstName"
@@ -43,19 +37,23 @@ function fieldErrorId(field: FieldName) {
   return `${field}-error`;
 }
 
-export default function LeadForm() {
+export default function LeadForm({ fixedServiceInterest }: { fixedServiceInterest?: ServiceOption }) {
   const [status, setStatus] = useState<FormStatus>("idle");
+  const [serviceInterest, setServiceInterest] = useState<string>(fixedServiceInterest ?? "");
+  const [consent, setConsent] = useState(false);
+  const waitlistProduct = getWaitlistProduct(serviceInterest);
   const [statusMessage, setStatusMessage] = useState("");
   const [fieldErrors, setFieldErrors] = useState<Partial<Record<FieldName, string>>>({});
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (status === "submitting") return;
 
     const form = event.currentTarget;
     const formData = new FormData(form);
 
     setStatus("submitting");
-    setStatusMessage("Submitting your enquiry...");
+    setStatusMessage(waitlistProduct ? "Registering your interest..." : "Submitting your enquiry...");
     setFieldErrors({});
 
     const payload = {
@@ -93,10 +91,13 @@ export default function LeadForm() {
       }
 
       trackConversionEvent("form_submission_success", {
-        form: "SSD Website Enquiry",
+        form: waitlistProduct ? "SSD Product Waitlist" : "SSD Website Enquiry",
       });
+      if (waitlistProduct) {
+        trackConversionEvent("waitlist_registration_success", { product: waitlistProduct.slug });
+      }
       setStatus("success");
-      setStatusMessage("We’ll respond within two business days.");
+      setStatusMessage(result.message ?? "Your submission has been received.");
       form.reset();
     } catch {
       setStatus("error");
@@ -118,7 +119,7 @@ export default function LeadForm() {
             <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
           </svg>
         </div>
-        <h3 className="text-lg font-semibold">Thank you — your enquiry has been received.</h3>
+        <h3 className="text-lg font-semibold">{waitlistProduct ? "Thank you — you’re on the waitlist." : "Thank you — your enquiry has been received."}</h3>
         <p className="mt-2 text-sm text-white/75">{statusMessage}</p>
       </div>
     );
@@ -126,6 +127,8 @@ export default function LeadForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5 text-left" noValidate>
+      <fieldset disabled={status === "submitting"} className="space-y-5">
+      <legend className="sr-only">{waitlistProduct ? "Waitlist registration" : "Enquiry details"}</legend>
       <div className="hidden" aria-hidden="true">
         <label htmlFor="website">Website</label>
         <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
@@ -199,14 +202,14 @@ export default function LeadForm() {
 
         <div>
           <label htmlFor="companyName" className="mb-1.5 block text-sm font-medium text-white/85">
-            Company name *
+            {waitlistProduct ? "Company / team (optional)" : "Company name *"}
           </label>
           <input
             id="companyName"
             name="companyName"
             type="text"
             autoComplete="organization"
-            required
+            required={!waitlistProduct}
             aria-invalid={Boolean(fieldErrors.companyName)}
             aria-describedby={fieldErrors.companyName ? fieldErrorId("companyName") : undefined}
             className={`${baseInputClass} ${fieldErrors.companyName ? errorInputClass : ""}`}
@@ -243,13 +246,17 @@ export default function LeadForm() {
 
         <div>
           <label htmlFor="serviceInterest" className="mb-1.5 block text-sm font-medium text-white/85">
-            Service of interest *
+            {waitlistProduct ? "Product waitlist *" : "Service of interest *"}
           </label>
+          {fixedServiceInterest ? (
+            <input id="serviceInterest" name="serviceInterest" value={fixedServiceInterest} readOnly className={baseInputClass} />
+          ) : (
           <select
             id="serviceInterest"
             name="serviceInterest"
             required
-            defaultValue=""
+            value={serviceInterest}
+            onChange={(event) => { setServiceInterest(event.target.value); setConsent(false); setFieldErrors({}); setStatusMessage(""); }}
             aria-invalid={Boolean(fieldErrors.serviceInterest)}
             aria-describedby={fieldErrors.serviceInterest ? fieldErrorId("serviceInterest") : undefined}
             className={`${baseInputClass} ${fieldErrors.serviceInterest ? errorInputClass : ""}`}
@@ -263,6 +270,8 @@ export default function LeadForm() {
               </option>
             ))}
           </select>
+          )}
+          {waitlistProduct && <p className="mt-2 text-sm text-white/75">From {waitlistProduct.price}. In development — registration does not confirm access or a purchase.</p>}
           {fieldErrors.serviceInterest && (
             <p id={fieldErrorId("serviceInterest")} className="mt-1.5 text-sm text-red-200">
               {fieldErrors.serviceInterest}
@@ -273,14 +282,14 @@ export default function LeadForm() {
 
       <div>
         <label htmlFor="message" className="mb-1.5 block text-sm font-medium text-white/85">
-          How can we help? *
+          {waitlistProduct ? "What would you like help with? (optional)" : "How can we help? *"}
         </label>
         <textarea
           id="message"
           name="message"
-          rows={5}
-          required
-          placeholder="Tell us what you want to improve, what is slowing the team down, or what you want the website or lead system to achieve."
+          rows={waitlistProduct ? 3 : 5}
+          required={!waitlistProduct}
+          placeholder={waitlistProduct ? "Tell us how you might use this, on your own or with your team." : "Tell us what you want to improve, what is slowing the team down, or what you want the website or lead system to achieve."}
           aria-invalid={Boolean(fieldErrors.message)}
           aria-describedby={fieldErrors.message ? fieldErrorId("message") : undefined}
           className={`${baseInputClass} resize-none ${fieldErrors.message ? errorInputClass : ""}`}
@@ -297,13 +306,15 @@ export default function LeadForm() {
           <input
             name="consent"
             type="checkbox"
+            checked={consent}
+            onChange={(event) => setConsent(event.target.checked)}
             required
             aria-invalid={Boolean(fieldErrors.consent)}
             aria-describedby={fieldErrors.consent ? fieldErrorId("consent") : "consent-help"}
             className="mt-1 h-4 w-4 rounded border-white/30 bg-[#0a1628] text-blue-600 focus:ring-blue-500"
           />
           <span>
-            I agree to allow Swift Sense Digital to store and process my personal data to respond to my enquiry, as described in the{" "}
+            {waitlistProduct ? waitlistConsentText : "I agree to allow Swift Sense Digital to store and process my personal data to respond to my enquiry."} See our{" "}
             <a className="font-medium text-blue-200 underline underline-offset-2 hover:text-white" href="/privacy">
               Privacy Policy
             </a>
@@ -311,7 +322,7 @@ export default function LeadForm() {
           </span>
         </label>
         <p id="consent-help" className="mt-2 text-xs text-white/65">
-          We only use submitted details to respond to the enquiry.
+          {waitlistProduct ? "We use these details for your selected product’s waitlist. You can ask us to remove you at any time by email." : "We only use submitted details to respond to the enquiry."}
         </p>
         {fieldErrors.consent && (
           <p id={fieldErrorId("consent")} className="mt-1.5 text-sm text-red-200">
@@ -333,8 +344,9 @@ export default function LeadForm() {
         disabled={status === "submitting"}
         className="w-full rounded-lg bg-blue-600 px-8 py-4 text-sm font-semibold transition-colors hover:bg-blue-500 disabled:cursor-not-allowed disabled:bg-blue-900 disabled:text-white/60"
       >
-        {status === "submitting" ? "Submitting..." : "Send enquiry"}
+        {status === "submitting" ? "Submitting..." : waitlistProduct ? "Register for waitlist" : "Send enquiry"}
       </button>
+      </fieldset>
     </form>
   );
 }

@@ -1,3 +1,5 @@
+import { productFaqs } from "./lib/product-catalog";
+
 function toJsonLd(schema: unknown) {
   return JSON.stringify(schema).replace(/</g, "\\u003c");
 }
@@ -6,48 +8,11 @@ export function FAQSchema() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: "What launch products are available?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Swift Sense Digital is launching with Business Growth Website, Lead Response System and Transformation Blueprint.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Can I start with one product first?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Yes. The recommendation should match the immediate business objective and can expand after the first useful system is live.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "What pricing is confirmed?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Business Growth Website starts from S$1,500 with typical delivery in 7–10 working days. Lead Response System starts from S$3,500 with typical delivery in 15 working days. Transformation Blueprint starts from S$8,000 with typical delivery in four weeks. Final scope and fees are confirmed after discovery.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Do I need to know exactly what AI system I need?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "No. The enquiry should explain the business problem, current bottleneck or desired outcome. Swift Sense Digital can recommend the next practical step.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "How is personal data from the enquiry form used?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Submitted details are used to respond to the enquiry. The form asks for consent before storing and processing personal data.",
-        },
-      },
-    ],
+    mainEntity: productFaqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: { "@type": "Answer", text: faq.answer },
+    })),
   };
 
   return (

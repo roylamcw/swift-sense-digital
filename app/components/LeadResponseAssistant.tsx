@@ -11,6 +11,7 @@ import {
 } from "react";
 import { MessageResponse } from "./ai-elements/message";
 import { trackConversionEvent } from "./conversion-tracking";
+import { getWaitlistProduct, serviceOptions, waitlistConsentText, type ServiceOption } from "../lib/product-catalog";
 
 const WHATSAPP_NUMBER = "6592371516";
 const MAX_INPUT_LENGTH = 800;
@@ -22,14 +23,6 @@ const quickPrompts = [
   "Talk to CW",
 ] as const;
 
-const serviceOptions = [
-  "Business Growth Website",
-  "Lead Response System",
-  "Transformation Blueprint",
-  "Not sure yet",
-] as const;
-
-type ServiceOption = (typeof serviceOptions)[number];
 type PanelView = "chat" | "brief" | "success";
 
 type BriefForm = {
@@ -217,6 +210,8 @@ export default function LeadResponseAssistant() {
   const [contactErrors, setContactErrors] = useState<ContactErrorMap>({});
   const [submitError, setSubmitError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionMessage, setSubmissionMessage] = useState("");
+  const waitlistProduct = getWaitlistProduct(brief.serviceInterest);
   const messageEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -235,7 +230,9 @@ export default function LeadResponseAssistant() {
 
   const whatsappMessage =
     view === "success"
-      ? `Hi CW, I just submitted a website brief for ${brief.companyName || "my business"}. I would like to continue the conversation.`
+      ? waitlistProduct
+        ? `Hi CW, I just registered for the ${waitlistProduct.name} waitlist. I would like to discuss it.`
+        : `Hi CW, I just submitted a website brief for ${brief.companyName || "my business"}. I would like to continue the conversation.`
       : "Hi CW, I’m visiting the Swift Sense Digital website and would like to discuss my business needs.";
   const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`;
 
@@ -311,12 +308,13 @@ export default function LeadResponseAssistant() {
     field: K,
     value: BriefForm[K]
   ) {
-    setBrief((current) => ({ ...current, [field]: value }));
+    setBrief((current) => ({ ...current, [field]: value, ...(field === "serviceInterest" ? { consent: false } : {}) }));
     setContactErrors((current) => ({ ...current, [field]: undefined }));
   }
 
   async function submitBrief(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (isSubmitting) return;
     setSubmitError("");
     setContactErrors({});
     setIsSubmitting(true);
@@ -324,7 +322,7 @@ export default function LeadResponseAssistant() {
     const message = [
       "Submitted through the Swift Sense website lead response assistant.",
       `Business priority: ${brief.challenge.trim()}`,
-      `Preferred timing: ${brief.timing}`,
+      ...(waitlistProduct ? [] : [`Preferred timing: ${brief.timing}`]),
     ].join("\n");
 
     try {
@@ -363,10 +361,12 @@ export default function LeadResponseAssistant() {
         return;
       }
 
+      setSubmissionMessage(result.message ?? "Your submission has been received.");
       setView("success");
       trackConversionEvent("assistant_lead_submission_success", {
         service: brief.serviceInterest,
       });
+      if (waitlistProduct) trackConversionEvent("waitlist_registration_success", { product: waitlistProduct.slug, source: "assistant_brief" });
     } catch {
       setSubmitError(
         "The brief could not be submitted. Please try WhatsApp or email."
@@ -577,15 +577,16 @@ export default function LeadResponseAssistant() {
               </button>
               <div className="mb-4">
                 <p className="text-lg font-bold text-slate-950">
-                  Share a short business brief
+                  {waitlistProduct ? "Register your waitlist interest" : "Share a short business brief"}
                 </p>
                 <p className="mt-1 text-sm leading-5 text-slate-600">
-                  This creates an enquiry for CW to review. The AI conversation
-                  is not submitted.
+                  {waitlistProduct ? "This records your product waitlist interest, not a purchase or confirmation of access." : "This creates an enquiry for CW to review."} The AI conversation is not submitted.
                 </p>
               </div>
 
               <form className="space-y-3.5" onSubmit={submitBrief}>
+                <fieldset disabled={isSubmitting} className="space-y-3.5">
+                <legend className="sr-only">Enquiry or waitlist details</legend>
                 <div className="grid grid-cols-2 gap-3">
                   <label className="text-xs font-semibold text-slate-700">
                     First name
@@ -618,7 +619,7 @@ export default function LeadResponseAssistant() {
                 </div>
 
                 <label className="block text-xs font-semibold text-slate-700">
-                  Work email
+                  Email
                   <input
                     autoComplete="email"
                     className={inputClass(Boolean(contactErrors.email))}
@@ -632,7 +633,7 @@ export default function LeadResponseAssistant() {
                 </label>
 
                 <label className="block text-xs font-semibold text-slate-700">
-                  Company
+                  {waitlistProduct ? "Company / team (optional)" : "Company"}
                   <input
                     autoComplete="organization"
                     className={inputClass(Boolean(contactErrors.companyName))}
@@ -640,7 +641,7 @@ export default function LeadResponseAssistant() {
                     onChange={(event) =>
                       updateBrief("companyName", event.target.value)
                     }
-                    required
+                    required={!waitlistProduct}
                     value={brief.companyName}
                   />
                   <FieldError message={contactErrors.companyName} />
@@ -683,9 +684,10 @@ export default function LeadResponseAssistant() {
                   </select>
                   <FieldError message={contactErrors.serviceInterest} />
                 </label>
+                {waitlistProduct ? <p className="text-sm leading-6 text-slate-600">From {waitlistProduct.price}. Waitlist only — no launch date confirmed.</p> : null}
 
                 <label className="block text-xs font-semibold text-slate-700">
-                  What are you trying to improve?
+                  What are you trying to improve? {waitlistProduct ? "(optional)" : ""}
                   <textarea
                     className={`${inputClass(Boolean(contactErrors.message))} min-h-24 resize-y`}
                     maxLength={1500}
@@ -693,13 +695,13 @@ export default function LeadResponseAssistant() {
                       updateBrief("challenge", event.target.value)
                     }
                     placeholder="For example: enquiries come in after hours and follow-up is inconsistent."
-                    required
+                    required={!waitlistProduct}
                     value={brief.challenge}
                   />
                   <FieldError message={contactErrors.message} />
                 </label>
 
-                <label className="block text-xs font-semibold text-slate-700">
+                {!waitlistProduct ? <label className="block text-xs font-semibold text-slate-700">
                   Preferred timing
                   <select
                     className={inputClass()}
@@ -719,7 +721,7 @@ export default function LeadResponseAssistant() {
                     <option value="Within 3–6 months">Within 3–6 months</option>
                     <option value="Exploring for now">Exploring for now</option>
                   </select>
-                </label>
+                </label> : null}
 
                 <div className="absolute -left-[9999px]" aria-hidden="true">
                   <label>
@@ -746,8 +748,7 @@ export default function LeadResponseAssistant() {
                     type="checkbox"
                   />
                   <span>
-                    I agree to allow Swift Sense Digital to store and process my
-                    personal data to respond to my enquiry, as described in the{" "}
+                    {waitlistProduct ? waitlistConsentText : "I agree to allow Swift Sense Digital to store and process my personal data to respond to my enquiry."} See our{" "}
                     <a
                       className="font-semibold text-blue-700 underline underline-offset-2 hover:text-blue-900"
                       href="/privacy"
@@ -773,9 +774,10 @@ export default function LeadResponseAssistant() {
                   disabled={isSubmitting}
                   type="submit"
                 >
-                  {isSubmitting ? "Submitting…" : "Submit my brief"}
+                  {isSubmitting ? "Submitting…" : waitlistProduct ? "Register for waitlist" : "Submit my brief"}
                   {!isSubmitting ? <ArrowIcon /> : null}
                 </button>
+                </fieldset>
               </form>
             </div>
           ) : null}
@@ -786,11 +788,10 @@ export default function LeadResponseAssistant() {
                 <CheckIcon />
               </div>
               <h2 className="mt-4 text-xl font-bold text-slate-950">
-                Your brief is with CW
+                {waitlistProduct ? "You’re on the waitlist" : "Your brief is with CW"}
               </h2>
               <p className="mt-2 max-w-xs text-sm leading-6 text-slate-600">
-                Thank you, {brief.firstName}. Swift Sense Digital will respond
-                within two business days.
+                Thank you, {brief.firstName}. {submissionMessage}
               </p>
               <a
                 className="mt-5 flex w-full max-w-xs items-center justify-center rounded-xl bg-emerald-600 px-4 py-3 text-sm font-bold text-white transition hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-300"

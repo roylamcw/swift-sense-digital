@@ -6,6 +6,7 @@ import {
 } from "../../../lib/hubspot-lead.ts";
 
 import type { IncomingTextMessage } from "./message-handler";
+import { identifyWaitlistProduct } from "../../../lib/product-catalog.ts";
 import {
   getConversationStateKey,
   type WhatsAppStateStore,
@@ -59,6 +60,7 @@ export type LeadFunnelResult =
       handled: true;
       outcome:
         | "qualification_started"
+        | "waitlist_redirected"
         | "qualification_advanced"
         | "validation_retry"
         | "consent_declined"
@@ -197,6 +199,8 @@ function isConsentDeclined(text: string) {
 }
 
 export function inferServiceInterest(text: string): HubSpotServiceOption {
+  // These are separate waitlist products, not Lead Response System enquiries.
+  if (identifyWaitlistProduct(text)) return "Not sure yet";
   if (/\b(?:website|web site|landing page|online presence|seo)\b/i.test(text)) {
     return "Business Growth Website";
   }
@@ -366,6 +370,15 @@ export async function handleLeadFunnelMessage(
       return { handled: false };
     }
 
+    const waitlistProduct = identifyWaitlistProduct(text);
+    if (waitlistProduct && !wantsHuman) {
+      return {
+        handled: true,
+        outcome: "waitlist_redirected",
+        replyText: `${waitlistProduct.name} starts from ${waitlistProduct.price} and is waitlist-only, still in development. Register at https://www.swiftsensedigital.com/waitlist/${waitlistProduct.slug}. No registration or access has been confirmed in this chat.`,
+      };
+    }
+
     const serviceInterest = inferServiceInterest(text);
     const includesUsefulNeed =
       serviceInterest !== "Not sure yet" && text.length >= 16;
@@ -456,6 +469,15 @@ export async function handleLeadFunnelMessage(
   const wantsHuman = state.wantsHuman || isHumanRequest(text);
 
   if (state.stage === "collect_need") {
+    const waitlistProduct = identifyWaitlistProduct(text);
+    if (waitlistProduct && !wantsHuman) {
+      return {
+        handled: true,
+        outcome: "waitlist_redirected",
+        replyText: `${waitlistProduct.name} starts from ${waitlistProduct.price} and is waitlist-only, still in development. Please register with consent at https://www.swiftsensedigital.com/waitlist/${waitlistProduct.slug}. Nothing has been submitted from this chat. Reply START if you would like help with another service.`,
+        mutation: { type: "delete", key: stateKey },
+      };
+    }
     if (isHumanRequest(text) && text.length < 16) {
       return {
         handled: true,

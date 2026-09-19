@@ -7,7 +7,6 @@ import LeadResponseAssistant from "./components/LeadResponseAssistant";
 import { Analytics } from "@vercel/analytics/next";
 import { LocalBusinessSchema, OrganizationSchema } from "./schema";
 import { ServiceSchema } from "./service-schema";
-import { FAQSchema } from "./faq-schema";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const geistSans = Geist({
@@ -37,6 +36,8 @@ export const metadata: Metadata = {
     "SME AI Singapore",
     "Business Growth Website",
     "Lead Response System",
+    "WhatsApp AI Assistant",
+    "SwiftChief AI Chief of Staff",
     "Transformation Blueprint",
     "Business Transformation Singapore",
     "Event Agency Website Singapore",
@@ -120,7 +121,6 @@ export default function RootLayout({
         <OrganizationSchema />
         <LocalBusinessSchema />
         <ServiceSchema />
-        <FAQSchema />
         <SpeedInsights />
 
         {children}

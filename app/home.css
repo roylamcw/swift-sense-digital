@@ -236,7 +236,29 @@ html:has(.ssd-site) { scroll-behavior: smooth; }
 .ssd-site .faq-list summary:hover { color: var(--blue); }
 .ssd-site .faq-list p { padding: 0 36px 25px 0; font-size: var(--type-body); line-height: 1.8; color: #626f68; }
 
-/* The original form and all its API/consent/error handling stay intact. */
+/* Waitlist products share the approved typography and enquiry styling. */
+.ssd-site .waitlist-heading { margin-top: 64px; max-width: 700px; }
+.ssd-site .waitlist-heading h3 { font-size: clamp(28px, 3vw, 38px); line-height: 1.2; letter-spacing: -.04em; margin: 14px 0; }
+.ssd-site .waitlist-heading > p:last-child { font-size: var(--type-body); color: #5a6962; line-height: 1.7; }
+.ssd-site .waitlist-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-top: 30px; }
+.ssd-site .waitlist-card { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; padding: clamp(24px, 3vw, 40px); border: 1px solid #c9d0ce; border-radius: 6px; background: #fafbf8; min-width: 0; }
+.ssd-site .waitlist-badge { font-size: var(--type-small); font-weight: 600; color: #174da8; background: #e8effe; padding: 6px 12px; border-radius: 3px; }
+.ssd-site .waitlist-card h3 { font-size: clamp(25px, 2.4vw, 32px); letter-spacing: -.04em; line-height: 1.25; }
+.ssd-site .waitlist-card > p { font-size: var(--type-body); line-height: 1.75; color: #5a6962; }
+.ssd-site .waitlist-card .waitlist-subtitle { color: var(--ink); font-weight: 500; }
+.ssd-site .waitlist-card ul { padding-left: 22px; font-size: var(--type-small); line-height: 1.8; list-style: disc; margin-bottom: 12px; }
+.ssd-site .waitlist-card .waitlist-price { margin-top: auto; color: var(--ink); font-size: 24px; line-height: 1.5; font-weight: 600; }
+.ssd-site .waitlist-card .button { width: 100%; gap: 12px; }
+.ssd-site .waitlist-card .waitlist-note { font-size: var(--type-small); }
+.ssd-site.waitlist-page { min-height: 100vh; }
+.ssd-site.waitlist-page .contact-copy h1 { font-size: clamp(38px, 4.8vw, 68px); line-height: 1.1; letter-spacing: -.055em; margin-bottom: 25px; overflow-wrap: anywhere; }
+.ssd-site.waitlist-page .contact-copy .waitlist-page-price { color: white; font-size: 26px; margin-bottom: 24px; }
+.ssd-site .waitlist-form-title { font-size: 25px; line-height: 1.3; margin: 14px 0 30px; }
+.ssd-site.waitlist-page .site-footer { padding-block: 24px; }
+.ssd-site.waitlist-page .footer-bottom { padding-top: 0; border-top: 0; }
+@media (max-width: 760px) { .ssd-site .waitlist-grid { grid-template-columns: 1fr; } }
+
+/* Shared enquiry and waitlist form. */
 .ssd-site .contact-section { background: #112236; color: white; }
 .ssd-site .contact-layout { display: grid; grid-template-columns: .93fr 1fr; gap: 90px; }
 .ssd-site .contact-copy .eyebrow { color: #acbfd6; margin-bottom: 27px; }

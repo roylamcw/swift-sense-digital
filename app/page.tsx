@@ -3,12 +3,15 @@ import LeadForm from "./components/LeadForm";
 import TrackedLink from "./components/TrackedLink";
 import JourneyExplorer from "./components/JourneyExplorer";
 import HomeMotion from "./components/HomeMotion";
+import { leadResponsePrice, productFaqs, waitlistProducts } from "./lib/product-catalog";
+import { FAQSchema } from "./faq-schema";
 import "./home.css";
 
 export default function Home() {
   return (
     <div className="ssd-site" id="top">
       <HomeMotion />
+      <FAQSchema />
       <a href="#main-content" className="skip-link">Skip to main content</a>
       <header className="site-header">
         <div className="frame header-inner">
@@ -77,7 +80,7 @@ export default function Home() {
         <section id="products" className="services section" aria-labelledby="products-title">
           <div className="frame">
             <div className="section-heading" data-reveal="">
-              <div><p className="eyebrow">02 / What we do</p><h2 id="products-title">Three ways<br /><span className="muted-word">to move forward.</span></h2></div>
+              <div><p className="eyebrow">02 / What we do</p><h2 id="products-title">Practical ways<br /><span className="muted-word">to move forward.</span></h2></div>
               <p>Start with the improvement your business needs most. Expand when the first useful system is working.</p>
             </div>
             <div className="service-list">
@@ -86,7 +89,7 @@ export default function Home() {
                 <div className="service-content"><p>A conversion-focused website for growing SMEs that need clearer positioning, stronger calls to action and a reliable enquiry journey.</p><ul><li>Clear offer structure</li><li>Mobile-first enquiry path</li><li>SEO and analytics foundations</li></ul><TrackedLink href="#contact" eventName="primary_contact_cta_click" eventProperties={{ location: "website_product" }} className="text-link">Discuss your website <span aria-hidden="true">↗</span></TrackedLink></div>
               </details>
               <details id="response-service" className="service-item" open>
-                <summary><span className="service-number">02</span><span className="service-name">Lead Response System<small>More context. Better follow-up.</small></span><span className="service-price">From S$3,500<small>15 working days</small></span><span className="disclosure" aria-hidden="true" /></summary>
+                <summary><span className="service-number">02</span><span className="service-name">Lead Response System<small>More context. Better follow-up.</small></span><span className="service-price">From {leadResponsePrice}<small>15 working days</small></span><span className="disclosure" aria-hidden="true" /></summary>
                 <div className="service-content"><p>A lead handling system designed to help your team capture enquiries, understand intent and respond with better context.</p><ul><li>Enquiry capture</li><li>Lead context</li><li>Response workflow</li></ul><TrackedLink href="#contact" eventName="primary_contact_cta_click" eventProperties={{ location: "response_product" }} className="text-link">Discuss your lead journey <span aria-hidden="true">↗</span></TrackedLink></div>
               </details>
               <details id="blueprint-service" className="service-item" open>
@@ -95,6 +98,21 @@ export default function Home() {
               </details>
             </div>
             <p className="scope-note">Starting prices and typical delivery timeframes are a guide. Final scope and fees are confirmed after discovery. WhatsApp is outside the Lead Response System’s base scope.</p>
+            <div className="waitlist-heading" id="waitlist"><p className="eyebrow">In development / Join the waitlist</p><h3>What’s coming next.</h3><p>Two standalone products. Register your interest and we’ll contact you about availability.</p></div>
+            <div className="waitlist-grid">
+              {waitlistProducts.map((product) => (
+                <article className="waitlist-card" key={product.slug} id={`${product.slug}-product`}>
+                  <span className="waitlist-badge">Waitlist open</span>
+                  <h3>{product.name}</h3>
+                  <p className="waitlist-subtitle">{product.subtitle}</p>
+                  <p>{product.description}</p>
+                  <ul aria-label="Planned focus">{product.focus.map((item) => <li key={item}>{item}</li>)}</ul>
+                  <p className="waitlist-price">From {product.price}</p>
+                  <TrackedLink href={`/waitlist/${product.slug}`} eventName="waitlist_cta_click" eventProperties={{ product: product.slug, location: "products" }} className="button">Register for waitlist <span aria-hidden="true">↗</span><span className="sr-only"> for {product.name}</span></TrackedLink>
+                  <p className="waitlist-note">In development. No launch date or access confirmed.</p>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -144,11 +162,7 @@ export default function Home() {
         </section>
 
         <section id="faq" className="faq-section section" aria-labelledby="faq-title"><div className="frame faq-layout"><div><p className="eyebrow">07 / Before we begin</p><h2 id="faq-title">A few useful<br /><span className="muted-word">answers.</span></h2><a href="#contact" className="text-link">Have another question? <span aria-hidden="true">↗</span></a></div><div className="faq-list">
-          <details><summary>What launch products are available?<span className="disclosure" aria-hidden="true" /></summary><p>Swift Sense Digital is launching with Business Growth Website, Lead Response System and Transformation Blueprint.</p></details>
-          <details><summary>Can I start with one product first?<span className="disclosure" aria-hidden="true" /></summary><p>Yes. The recommendation should match the immediate business objective and can expand after the first useful system is live.</p></details>
-          <details><summary>What pricing is confirmed?<span className="disclosure" aria-hidden="true" /></summary><p>Business Growth Website starts from S$1,500 with typical delivery in 7–10 working days. Lead Response System starts from S$3,500 with typical delivery in 15 working days. Transformation Blueprint starts from S$8,000 with typical delivery in four weeks. Final scope and fees are confirmed after discovery.</p></details>
-          <details><summary>Do I need to know exactly what AI system I need?<span className="disclosure" aria-hidden="true" /></summary><p>No. The enquiry should explain the business problem, current bottleneck or desired outcome. Swift Sense Digital can recommend the next practical step.</p></details>
-          <details><summary>How is personal data from the enquiry form used?<span className="disclosure" aria-hidden="true" /></summary><p>Submitted details are used to respond to the enquiry. The form asks for consent before storing and processing personal data.</p></details>
+          {productFaqs.map((faq) => <details key={faq.question}><summary>{faq.question}<span className="disclosure" aria-hidden="true" /></summary><p>{faq.answer}</p></details>)}
         </div></div></section>
 
         <section id="contact" className="contact-section section" aria-labelledby="contact-title"><div className="frame contact-layout"><div className="contact-copy" data-reveal=""><p className="eyebrow">08 / Your next chapter</p><h2 id="contact-title">What could<br />work <span>better?</span></h2><p>Tell us where your business is heading and what is getting in the way. We’ll help you find a practical next step.</p><div className="contact-routes"><TrackedLink href="mailto:chunwai@swiftsensedigital.com" eventName="email_link_click" eventProperties={{ location: "contact" }}>chunwai@swiftsensedigital.com <span aria-hidden="true">↗</span></TrackedLink><TrackedLink href="https://wa.me/6592371516" target="_blank" rel="noopener noreferrer" eventName="whatsapp_link_click" eventProperties={{ location: "contact" }}>WhatsApp <span aria-hidden="true">↗</span></TrackedLink><a href="tel:+6592371516">+65 9237 1516 <span aria-hidden="true">↗</span></a></div><p className="contact-note">Prefer a conversation? Email, call or WhatsApp works too.</p></div><div className="contact-form-panel"><p className="eyebrow">Start a conversation</p><h3>Tell us a little about your business.</h3><LeadForm /></div></div></section>

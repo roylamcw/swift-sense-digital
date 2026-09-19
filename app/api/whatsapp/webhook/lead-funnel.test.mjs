@@ -52,6 +52,31 @@ const baseMessage = {
   text: "START",
 };
 
+test("keeps new waitlist products separate from the lead response classification", () => {
+  assert.equal(inferServiceInterest("I want a WhatsApp AI assistant"), "Not sure yet");
+  assert.equal(inferServiceInterest("SwiftChief for team schedules and priorities"), "Not sure yet");
+  assert.equal(inferServiceInterest("I need a Lead Response System"), "Lead Response System");
+});
+
+test("directs explicit WhatsApp waitlist interest to the correct form without CRM writes", async () => {
+  const store = new MemoryStore();
+  const result = await advance(store, "I am interested in WhatsApp AI Assistant", 1, async () => assert.fail("CRM must not be called"));
+  assert.equal(result.outcome, "waitlist_redirected");
+  assert.match(result.replyText, /S\$3,000/);
+  assert.match(result.replyText, /\/waitlist\/whatsapp-ai-assistant/);
+  assert.equal(store.values.size, 0);
+});
+
+test("redirects SwiftChief from qualification before collecting personal details", async () => {
+  const store = new MemoryStore();
+  await advance(store, "START", 1);
+  const result = await advance(store, "SwiftChief for my personal schedule", 2, async () => assert.fail("CRM must not be called"));
+  assert.equal(result.outcome, "waitlist_redirected");
+  assert.match(result.replyText, /S\$19 per user\/month/);
+  assert.match(result.replyText, /\/waitlist\/swiftchief/);
+  assert.equal(store.values.size, 0);
+});
+
 function message(text, sequence) {
   return {
     ...baseMessage,

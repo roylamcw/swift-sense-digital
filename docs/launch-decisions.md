@@ -18,6 +18,33 @@ This file is the commercial and technical source of truth for the launch website
 2. Lead Response System
 3. Transformation Blueprint
 
+## Approved Product Update — 19 September 2026
+
+CW approved the following website and assistant updates:
+
+| Product | Public starting price | Availability |
+| --- | --- | --- |
+| Business Growth Website | S$1,500 | Enquiries open; existing 7–10 working day guidance unchanged |
+| Lead Response System | S$5,000 | Enquiries open; existing 15 working day guidance unchanged |
+| Transformation Blueprint | S$8,000 | Enquiries open; existing four-week guidance unchanged |
+| WhatsApp AI Assistant | S$3,000 | Waitlist only |
+| SwiftChief — AI Chief of Staff | S$19 per user/month | Waitlist only |
+
+- WhatsApp AI Assistant is a standalone product, separate from Lead Response System. Automated WhatsApp and WhatsApp AI remain excluded from the Lead Response System base scope.
+- SwiftChief is an early AI scheduler for individuals and teams, not a complete operating system. Describe schedules, priorities and briefings as its intended focus, not launched capabilities.
+- Publish the SwiftChief headline price only. The approved recommendation also included Personal and Team at S$19/user/month (Team minimum three users), annual pricing at S$190/user/year, and team onboarding from S$500 once-off. Detailed plans are not being advertised on this waitlist page.
+- Neither waitlist has a confirmed launch date. Do not promise access, payments, calendar integrations, third-party licences or included ongoing usage charges.
+- `app/lib/product-catalog.ts` supplies public waitlist details and shared commercial facts to the homepage, registration pages, FAQs, website assistant and WhatsApp assistant.
+
+### Waitlist routing
+
+- Product links open `/waitlist/whatsapp-ai-assistant` or `/waitlist/swiftchief` with the correct product fixed in the form.
+- Registrations reuse `/api/contact` and the existing HubSpot form. No new CRM, database, subscription or production dependency is introduced.
+- The verified HubSpot `service_of_interest` enum is unchanged. Waitlist submissions use `Not sure yet`; the `how_can_we_help` field starts with `WAITLIST REGISTRATION` and records the exact product, starting price and availability status. This is not a separate HubSpot list or a new custom property.
+- Company and notes are optional for waitlists. Empty company fields are omitted, not replaced with invented company data. The external form’s acceptance of omitted company still requires a controlled end-to-end test before release.
+- Consent explicitly covers the selected product’s availability updates. Only a successful HubSpot response produces a registration confirmation. Test failures do not retry automatically.
+- WhatsApp waitlist requests are directed to the relevant web form, not silently classified as Lead Response System. Existing allowlists, human-handoff suppression and explicit-consent rules remain in place.
+
 ## HubSpot Form
 
 - Portal ID: 246767649
@@ -76,6 +103,6 @@ These commercial items are not approved for publication as fixed facts:
 - Detailed deliverables
 - Exact timelines
 - Scope and exclusions
-- Prices beyond the confirmed S$1,500 website starting price
+- Prices beyond those explicitly approved in the product update above
 - Care-plan structure and pricing
 - "Most Popular" claims
