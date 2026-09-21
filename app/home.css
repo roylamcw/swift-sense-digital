@@ -256,9 +256,10 @@ html:has(.ssd-site) { scroll-behavior: smooth; }
 .ssd-site .perspective-copy .eyebrow { margin-bottom: 23px; }
 .ssd-site .perspective-copy h2 { font-size: clamp(36px, 3.25vw, 48px); margin-bottom: 26px; }
 .ssd-site .perspective-copy > p:not(.eyebrow) { font-size: var(--type-body); line-height: 1.8; color: #606e67; margin-top: 17px; }
-.ssd-site .founder-signoff { display: flex; align-items: center; gap: 12px; margin-top: 27px; }
-.ssd-site .founder-monogram { width: 45px; height: 45px; display: grid; place-items: center; border: 1px solid #b9c4bd; border-radius: 50%; font-family: Georgia, serif; font-style: italic; font-size: var(--type-body); }
-.ssd-site .founder-signoff strong { font-size: var(--type-small); font-weight: 500; display: block; }
+.ssd-site .founder-signoff { display: flex; align-items: center; gap: 24px; margin-top: 27px; }
+.ssd-site .founder-portrait { display: block; width: 160px; height: 160px; flex-shrink: 0; object-fit: cover; border-radius: 6px; }
+.ssd-site .founder-signoff > div { min-width: 0; }
+.ssd-site .founder-signoff strong { font-size: 23px; font-weight: 500; display: block; }
 .ssd-site .founder-signoff div > span { font-size: var(--type-small); color: #65746a; display: block; }
 .ssd-site .founder-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; border-top: 1px solid #c9d2cb; margin-top: 28px; padding-top: 20px; }
 .ssd-site .founder-facts strong { font-size: 27px; font-weight: 500; letter-spacing: -.04em; display: block; }
@@ -652,6 +653,8 @@ html:has(.ssd-site) { scroll-behavior: smooth; }
 @media (max-width: 1000px) {
   .ssd-site .sample-download { flex-direction: column; align-items: flex-start; gap: 12px; }
   .ssd-site .founder-layout { gap: 40px; }
+  .ssd-site .founder-signoff { gap: 18px; }
+  .ssd-site .founder-portrait { width: 136px; height: 136px; }
   .ssd-site .waitlist-row { grid-template-columns: minmax(0, 1fr) 180px; gap: 12px 24px; }
   .ssd-site .waitlist-row .text-link { grid-column: 1 / -1; }
 }
@@ -667,4 +670,8 @@ html:has(.ssd-site) { scroll-behavior: smooth; }
   .ssd-site .waitlist-row { grid-template-columns: 1fr; gap: 12px; }
   .ssd-site .waitlist-row .text-link { grid-column: auto; }
   .ssd-site .solution-demo { margin-inline: -18px; padding: 18px; }
+}
+@media (max-width: 480px) {
+  .ssd-site .founder-signoff { gap: 16px; }
+  .ssd-site .founder-portrait { width: 120px; height: 120px; }
 }

@@ -99,7 +99,10 @@ export default function Home() {
             <div className="founder-intro" data-reveal="">
               <p className="eyebrow">04 / The person behind SSD</p>
               <h2 id="founder-title">Business experience.<br /><span className="muted-word">Personal ownership.</span></h2>
-              <div className="founder-signoff"><span className="founder-monogram">CW</span><div><strong>CW Lam</strong><span>Founder, Swift Sense Digital</span></div></div>
+              <div className="founder-signoff">
+                <Image className="founder-portrait" src="/images/cw-lam-founder.jpg" width={640} height={640} sizes="(max-width: 480px) 120px, (max-width: 1000px) 136px, 160px" alt="CW Lam, founder of Swift Sense Digital" />
+                <div><strong>CW Lam</strong><span>Founder, Swift Sense Digital</span></div>
+              </div>
               <p>My interest in AI starts with the realities of running a business: serving clients, organising people, managing costs and making improvements stick.</p>
               <p>I bring that operating perspective to SSD, helping you decide where AI is useful and what it will take to put it to work.</p>
               <p className="founder-qualification">12 years of professional experience · General management · Master’s degree</p>
