@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
 import LeadForm from "../../components/LeadForm";
 import { waitlistProducts } from "../../lib/product-catalog";
 import "../../home.css";
@@ -40,11 +41,11 @@ export default async function WaitlistPage({ params }: Props) {
       <a href="#main-content" className="skip-link">Skip to registration</a>
       <header className="site-header">
         <div className="frame header-inner">
-          <a href="/" className="wordmark" aria-label="Swift Sense Digital home">
+          <Link href="/" className="wordmark" aria-label="Swift Sense Digital home">
             <Image src="/images/ssd-brand-mark.webp" width={34} height={40} alt="" />
             <span>Swift Sense<small>DIGITAL</small></span>
-          </a>
-          <a href="/#products" className="text-link">All products <span aria-hidden="true">↗</span></a>
+          </Link>
+          <Link href="/#products" className="text-link">All products <span aria-hidden="true">↗</span></Link>
         </div>
       </header>
       <main id="main-content" className="contact-section section">
@@ -64,7 +65,7 @@ export default async function WaitlistPage({ params }: Props) {
           </div>
         </div>
       </main>
-      <footer className="site-footer"><div className="frame footer-bottom"><p>© 2026 Swift Sense Digital</p><nav aria-label="Footer navigation"><a href="/">Home</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></nav></div></footer>
+      <footer className="site-footer"><div className="frame footer-bottom"><p>© 2026 Swift Sense Digital</p><nav aria-label="Footer navigation"><Link href="/">Home</Link><Link href="/privacy">Privacy</Link><Link href="/terms">Terms</Link></nav></div></footer>
     </div>
   );
 }
