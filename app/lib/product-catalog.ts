@@ -1,5 +1,6 @@
 // Approved commercial facts shared by the website and both AI assistants.
 export const leadResponsePrice = "S$5,000";
+export const transformationPartnershipPrice = "S$2,000";
 
 export const blueprint = {
   name: "AI Transformation Blueprint",
@@ -73,7 +74,7 @@ export const waitlistConfirmation =
 export const approvedProductFacts = `
 - SSD is an outsourced AI transformation partner for SMEs across industries. Its flagship engagement is the AI Transformation Blueprint. SSD helps owners understand opportunities, prioritise work and progress adoption with less research and coordination falling on them.
 - ${blueprint.name}: starts from ${blueprint.price} as a one-off fee; typical delivery is ${blueprint.duration.toLowerCase()}. Includes a comprehensive assessment of agreed business areas, prioritised roadmap, tools and cost recommendations, implementation-ready scope and an adoption plan. ${blueprint.boundary}
-- Ongoing AI transformation partnership: an optional, separately scoped recurring monthly engagement for prioritisation, implementation coordination, adoption support and progress reviews. Scope, monthly fee and capacity are agreed after discovery; no fixed monthly price or minimum term has been approved. Do not invent either. Substantial builds and third-party charges are separate; it is not unlimited implementation or routine technical care.
+- Ongoing AI transformation partnership: starts from ${transformationPartnershipPrice}/month. An optional, separately scoped recurring engagement for prioritisation, implementation coordination, adoption support and progress reviews. Monthly scope, capacity and final fee are agreed after discovery. No minimum term or specific hours have been approved; do not invent them. Substantial builds and third-party charges are separate; it is not unlimited implementation or routine technical care.
 - Individual solutions can be bought independently without purchasing the Blueprint. Recommend a solution only when it fits the business need; do not force a Blueprint for an already clear, bounded need.
 - The client still appoints an internal decision-maker, provides agreed access and involves staff in testing and adoption. SSD reduces the management burden but does not promise transformation without client involvement.
 - Business Growth Website: starts from S$1,500; typical delivery is 7–10 working days.
@@ -87,7 +88,7 @@ ${waitlistProducts.map((product) => `- ${product.name}: starts from ${product.pr
 export const productFaqs = [
   { question: "What does the AI Transformation Blueprint include?", answer: `From ${blueprint.price} as a one-off engagement, typically over ${blueprint.duration.toLowerCase()}: an assessment of agreed business areas, prioritised opportunities, tool recommendations, estimated costs and benefits, implementation-ready scope and an adoption plan. Final scope and timing are agreed after discovery.` },
   { question: "Does the Blueprint include building every solution?", answer: "No. The Blueprint covers assessment and planning. Implementation projects, software subscriptions and ongoing support are scoped and quoted separately. It does not include every SSD product." },
-  { question: "Can SSD stay involved after the Blueprint?", answer: "Yes. An ongoing AI transformation partnership can support prioritisation, implementation coordination, staff adoption and progress reviews. The monthly scope, capacity and fee are agreed separately. Substantial builds and third-party costs require their own agreed scope; routine technical care is a separate service." },
+  { question: "Can SSD stay involved after the Blueprint?", answer: `Yes. Our optional ongoing AI transformation partnership starts from ${transformationPartnershipPrice}/month for prioritisation, implementation coordination, staff adoption and progress reviews. Monthly scope, capacity and final fee are agreed after discovery. Substantial builds and third-party costs require their own agreed scope; routine technical care is a separate service.` },
   { question: "Do you work with a specific industry?", answer: "We work with SMEs across industries. Fit depends on the business challenge, the opportunity to improve recurring work and the team's readiness to implement. A decision-maker and agreed staff involvement are needed throughout." },
   {
     question: "What products are available?",
@@ -99,7 +100,7 @@ export const productFaqs = [
   },
   {
     question: "What pricing is confirmed?",
-    answer: `Business Growth Website starts from S$1,500 with typical delivery in 7–10 working days. Lead Response System starts from ${leadResponsePrice} with typical delivery in 15 working days. AI Transformation Blueprint starts from S$8,000 as a one-off assessment and planning engagement, typically four weeks. Implementation and ongoing monthly support are quoted separately. WhatsApp AI Assistant starts from S$3,000 and SwiftChief starts from S$19 per user/month; both are waitlist-only. Final scope and fees are confirmed after discovery.`,
+    answer: `AI Transformation Blueprint starts from ${blueprint.price} as a one-off assessment and planning engagement, typically four weeks. Our optional ongoing AI transformation partnership starts from ${transformationPartnershipPrice}/month. Implementation projects are quoted separately. Business Growth Website starts from S$1,500 with typical delivery in 7–10 working days. Lead Response System starts from ${leadResponsePrice} with typical delivery in 15 working days. WhatsApp AI Assistant starts from S$3,000 and SwiftChief starts from S$19 per user/month; both are waitlist-only. Final scope and fees are confirmed after discovery.`,
   },
   {
     question: "Is WhatsApp AI Assistant part of Lead Response System?",

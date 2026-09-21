@@ -4,7 +4,7 @@ import TrackedLink from "./components/TrackedLink";
 import JourneyExplorer from "./components/JourneyExplorer";
 import HomeMotion from "./components/HomeMotion";
 import TransformationBlueprint from "./components/TransformationBlueprint";
-import { leadResponsePrice, productFaqs, waitlistProducts } from "./lib/product-catalog";
+import { leadResponsePrice, productFaqs, transformationPartnershipPrice, waitlistProducts } from "./lib/product-catalog";
 import { FAQSchema } from "./faq-schema";
 import "./home.css";
 
@@ -89,7 +89,7 @@ export default function Home() {
           </ol>
           <div id="partnership" className="partnership-panel" data-reveal="">
             <div><p className="eyebrow">Ongoing AI transformation partnership</p><h3>A partner beyond the plan.</h3><p>Keep SSD involved as your external transformation lead. Agree the priorities, coordination, adoption support and review rhythm that your business needs.</p></div>
-            <div><p className="partnership-terms"><strong>Monthly engagement. Scope and fees agreed after discovery.</strong></p><p>Implementation projects, third-party costs and routine technical care are scoped separately. Your team provides an internal decision-maker and agreed participation.</p><TrackedLink href="#contact" eventName="primary_contact_cta_click" eventProperties={{ location: "ongoing_partnership" }} className="text-link">Discuss ongoing support <span aria-hidden="true">↗</span></TrackedLink></div>
+            <div><p className="partnership-price"><strong>From {transformationPartnershipPrice}<span>/month</span></strong></p><p className="partnership-terms">Optional monthly engagement. Scope, capacity and final fee agreed after discovery.</p><p>Implementation projects, third-party costs and routine technical care are scoped separately. Your team provides an internal decision-maker and agreed participation.</p><TrackedLink href="#contact" eventName="primary_contact_cta_click" eventProperties={{ location: "ongoing_partnership" }} className="text-link">Discuss ongoing support <span aria-hidden="true">↗</span></TrackedLink></div>
           </div>
           <div className="capability-strip"><div className="document-symbol" aria-hidden="true">SSD<span>↙</span></div><div><h3>A one-page introduction.</h3><p>Our services, working approach and contact details in one place.</p></div><TrackedLink href="/SSD-One-Page-Capability-Statement-v1.2.pdf" eventName="capability_statement_download" eventProperties={{ location: "capability_statement" }} className="text-link" download>Download capability statement <span aria-hidden="true">↓</span></TrackedLink></div>
         </section>

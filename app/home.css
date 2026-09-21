@@ -48,6 +48,9 @@
 .ssd-site .partnership-panel h3 { font-size: 30px; margin-block: 15px; line-height: 1.25; }
 .ssd-site .partnership-panel p { font-size: var(--type-body); }
 .ssd-site .partnership-panel .eyebrow { font-size: var(--type-caption); }
+.ssd-site .partnership-panel .partnership-price { font-size: clamp(27px, 2.8vw, 36px); line-height: 1.35; margin-bottom: 10px; }
+.ssd-site .partnership-price strong { font-weight: 500; }
+.ssd-site .partnership-price span { font-size: var(--type-body); }
 .ssd-site .partnership-terms { margin-bottom: 16px; }
 .ssd-site .partnership-panel .text-link { margin-top: 20px; }
 @media (max-width: 900px) {
