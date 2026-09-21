@@ -1,6 +1,26 @@
 // Approved commercial facts shared by the website and both AI assistants.
 export const leadResponsePrice = "S$5,000";
 
+export const blueprint = {
+  name: "AI Transformation Blueprint",
+  price: "S$8,000",
+  duration: "Four weeks",
+  boundary: "The Blueprint covers assessment and planning. Implementation projects, software subscriptions and ongoing support are quoted separately. Final scope and timing are agreed after discovery.",
+  deliverables: [
+    { title: "Business and workflow assessment", description: "Review the agreed business areas, existing systems and recurring work to understand where time and opportunities are lost." },
+    { title: "Prioritised AI opportunities", description: "Rank practical improvements by expected value, effort and readiness, including where a simpler process change is enough." },
+    { title: "Tools and system recommendations", description: "Assess suitable options against your workflows, existing technology, information needs and budget." },
+    { title: "Business case and cost estimates", description: "Set out estimated benefits, implementation and running costs, assumptions and measures of success." },
+    { title: "Implementation-ready scope", description: "Define phased work, responsibilities, dependencies and acceptance criteria so the next project can be quoted and delivered." },
+    { title: "Adoption and oversight plan", description: "Plan staff involvement, training, access controls, human review and progress checks around the agreed priorities." },
+  ],
+} as const;
+
+// Keep the verified CRM values stable while using the approved public name.
+export function serviceLabel(service: string) {
+  return service === "Transformation Blueprint" ? blueprint.name : service;
+}
+
 export const waitlistProducts = [
   {
     slug: "whatsapp-ai-assistant",
@@ -25,9 +45,9 @@ export const waitlistProducts = [
 ] as const;
 
 export const serviceOptions = [
+  "Transformation Blueprint",
   "Business Growth Website",
   "Lead Response System",
-  "Transformation Blueprint",
   ...waitlistProducts.map((product) => product.serviceInterest),
   "Not sure yet",
 ] as const;
@@ -51,9 +71,13 @@ export const waitlistConfirmation =
   "We’ve received your waitlist registration. We’ll contact you about availability of your selected product. This is not a purchase or confirmation of access.";
 
 export const approvedProductFacts = `
+- SSD is an outsourced AI transformation partner for SMEs across industries. Its flagship engagement is the AI Transformation Blueprint. SSD helps owners understand opportunities, prioritise work and progress adoption with less research and coordination falling on them.
+- ${blueprint.name}: starts from ${blueprint.price} as a one-off fee; typical delivery is ${blueprint.duration.toLowerCase()}. Includes a comprehensive assessment of agreed business areas, prioritised roadmap, tools and cost recommendations, implementation-ready scope and an adoption plan. ${blueprint.boundary}
+- Ongoing AI transformation partnership: an optional, separately scoped recurring monthly engagement for prioritisation, implementation coordination, adoption support and progress reviews. Scope, monthly fee and capacity are agreed after discovery; no fixed monthly price or minimum term has been approved. Do not invent either. Substantial builds and third-party charges are separate; it is not unlimited implementation or routine technical care.
+- Individual solutions can be bought independently without purchasing the Blueprint. Recommend a solution only when it fits the business need; do not force a Blueprint for an already clear, bounded need.
+- The client still appoints an internal decision-maker, provides agreed access and involves staff in testing and adoption. SSD reduces the management burden but does not promise transformation without client involvement.
 - Business Growth Website: starts from S$1,500; typical delivery is 7–10 working days.
 - Lead Response System: starts from ${leadResponsePrice}; typical delivery is 15 working days. It can answer approved FAQs, qualify enquiries, capture contact details and consent, create a HubSpot contact or enquiry, record service interest and qualification answers, acknowledge the enquiry, notify SSD, and hand off to a human by email or click-to-WhatsApp. Automated WhatsApp messaging and WhatsApp AI are not included in the base service.
-- Transformation Blueprint: starts from S$8,000; typical delivery is four weeks. It is for a business that needs a clearer transformation plan before implementation.
 ${waitlistProducts.map((product) => `- ${product.name}: starts from ${product.price}; WAITLIST ONLY, in development, not available to purchase or activate. ${product.description} Register at https://www.swiftsensedigital.com/waitlist/${product.slug}.`).join("\n")}
 - WhatsApp AI Assistant and Lead Response System are separate products. The first focuses on AI conversations in WhatsApp; the second on enquiry capture, qualification, routing and follow-up workflows. Neither starting price includes the other product.
 - SwiftChief is an early scheduler for individuals and teams, not a complete business operating system. No launch date, specific calendar integration, included third-party subscription or guaranteed capability has been confirmed.
@@ -61,17 +85,21 @@ ${waitlistProducts.map((product) => `- ${product.name}: starts from ${product.pr
 `.trim();
 
 export const productFaqs = [
+  { question: "What does the AI Transformation Blueprint include?", answer: `From ${blueprint.price} as a one-off engagement, typically over ${blueprint.duration.toLowerCase()}: an assessment of agreed business areas, prioritised opportunities, tool recommendations, estimated costs and benefits, implementation-ready scope and an adoption plan. Final scope and timing are agreed after discovery.` },
+  { question: "Does the Blueprint include building every solution?", answer: "No. The Blueprint covers assessment and planning. Implementation projects, software subscriptions and ongoing support are scoped and quoted separately. It does not include every SSD product." },
+  { question: "Can SSD stay involved after the Blueprint?", answer: "Yes. An ongoing AI transformation partnership can support prioritisation, implementation coordination, staff adoption and progress reviews. The monthly scope, capacity and fee are agreed separately. Substantial builds and third-party costs require their own agreed scope; routine technical care is a separate service." },
+  { question: "Do you work with a specific industry?", answer: "We work with SMEs across industries. Fit depends on the business challenge, the opportunity to improve recurring work and the team's readiness to implement. A decision-maker and agreed staff involvement are needed throughout." },
   {
     question: "What products are available?",
-    answer: "You can enquire about Business Growth Website, Lead Response System and Transformation Blueprint. WhatsApp AI Assistant and SwiftChief — AI Chief of Staff are in development and open for waitlist registration only.",
+    answer: "Our flagship is the AI Transformation Blueprint. Business Growth Website and Lead Response System are also available independently. WhatsApp AI Assistant and SwiftChief — AI Chief of Staff are in development and open for waitlist registration only.",
   },
   {
     question: "Can I start with one product first?",
-    answer: "Yes. The recommendation should match the immediate business objective and can expand after the first useful system is live.",
+    answer: "Yes. You can purchase an individual solution without buying a Blueprint. For broader AI adoption or several competing priorities, the Blueprint establishes a practical direction first.",
   },
   {
     question: "What pricing is confirmed?",
-    answer: `Business Growth Website starts from S$1,500 with typical delivery in 7–10 working days. Lead Response System starts from ${leadResponsePrice} with typical delivery in 15 working days. Transformation Blueprint starts from S$8,000 with typical delivery in four weeks. WhatsApp AI Assistant starts from S$3,000 and SwiftChief starts from S$19 per user/month; both are waitlist-only. Final scope and fees are confirmed after discovery.`,
+    answer: `Business Growth Website starts from S$1,500 with typical delivery in 7–10 working days. Lead Response System starts from ${leadResponsePrice} with typical delivery in 15 working days. AI Transformation Blueprint starts from S$8,000 as a one-off assessment and planning engagement, typically four weeks. Implementation and ongoing monthly support are quoted separately. WhatsApp AI Assistant starts from S$3,000 and SwiftChief starts from S$19 per user/month; both are waitlist-only. Final scope and fees are confirmed after discovery.`,
   },
   {
     question: "Is WhatsApp AI Assistant part of Lead Response System?",

@@ -11,14 +11,14 @@ import {
 } from "react";
 import { MessageResponse } from "./ai-elements/message";
 import { trackConversionEvent } from "./conversion-tracking";
-import { getWaitlistProduct, serviceOptions, waitlistConsentText, type ServiceOption } from "../lib/product-catalog";
+import { getWaitlistProduct, serviceLabel, serviceOptions, waitlistConsentText, type ServiceOption } from "../lib/product-catalog";
 
 const WHATSAPP_NUMBER = "6592371516";
 const MAX_INPUT_LENGTH = 800;
 
 const quickPrompts = [
-  "Which service fits me?",
-  "How does lead response work?",
+  "Where should we start with AI?",
+  "What is the AI Transformation Blueprint?",
   "What does it cost?",
   "Talk to CW",
 ] as const;
@@ -389,7 +389,7 @@ export default function LeadResponseAssistant() {
     <>
       {isOpen ? (
         <div
-          aria-label="Swift Sense lead response assistant"
+          aria-label="Swift Sense Digital assistant"
           aria-modal="false"
           className="fixed inset-x-3 bottom-3 z-[80] flex h-[min(690px,calc(100dvh-1.5rem))] flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_24px_80px_rgba(15,23,42,0.28)] sm:inset-x-auto sm:bottom-5 sm:right-5 sm:w-[400px]"
           id="swift-sense-assistant"
@@ -402,7 +402,7 @@ export default function LeadResponseAssistant() {
             <div className="min-w-0 flex-1">
               <p className="truncate text-sm font-bold">Swift Sense Assistant</p>
               <p className="mt-0.5 text-xs text-blue-100">
-                AI-assisted lead response
+                Your AI transformation questions
               </p>
             </div>
             <button
@@ -424,9 +424,9 @@ export default function LeadResponseAssistant() {
                 <div className="flex items-start gap-2.5">
                   <AssistantAvatar />
                   <div className="max-w-[82%] rounded-2xl rounded-tl-md border border-slate-200 bg-white px-3.5 py-3 text-sm leading-6 text-slate-700 shadow-sm">
-                    Hi, I’m the live example of Swift Sense Digital’s lead
-                    response solution. I can explain our services, help you find
-                    the right starting point, or pass a brief to CW.
+                    Hi, I’m Swift Sense Digital’s AI assistant. Tell me what you
+                    would like to improve. I can explain the AI Transformation
+                    Blueprint, individual solutions or how to share a brief with CW.
                   </div>
                 </div>
 
@@ -678,7 +678,7 @@ export default function LeadResponseAssistant() {
                   >
                     {serviceOptions.map((option) => (
                       <option key={option} value={option}>
-                        {option}
+                        {serviceLabel(option)}
                       </option>
                     ))}
                   </select>
@@ -820,7 +820,7 @@ export default function LeadResponseAssistant() {
         <button
           aria-controls="swift-sense-assistant"
           aria-expanded="false"
-          aria-label="Open Swift Sense lead response assistant"
+          aria-label="Open Swift Sense Digital assistant"
           className="fixed bottom-5 right-4 z-[80] flex items-center gap-2.5 rounded-full bg-[#173a63] px-4 py-3 text-white shadow-[0_12px_36px_rgba(23,58,99,0.35)] transition hover:-translate-y-0.5 hover:bg-[#0f2d4e] focus:outline-none focus:ring-4 focus:ring-blue-200 sm:right-5"
           onClick={openAssistant}
           type="button"

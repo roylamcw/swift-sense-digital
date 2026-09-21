@@ -201,6 +201,10 @@ function isConsentDeclined(text: string) {
 export function inferServiceInterest(text: string): HubSpotServiceOption {
   // These are separate waitlist products, not Lead Response System enquiries.
   if (identifyWaitlistProduct(text)) return "Not sure yet";
+  // Explicit transformation intent can mention channels without becoming a channel-only enquiry.
+  if (/\b(?:ai transformation|transformation blueprint|blueprint|ai adoption|ai strateg(?:y|ies)|outsourced ai|transformation partner|ongoing transformation)\b/i.test(text)) {
+    return "Transformation Blueprint";
+  }
   if (/\b(?:website|web site|landing page|online presence|seo)\b/i.test(text)) {
     return "Business Growth Website";
   }
@@ -214,7 +218,7 @@ export function inferServiceInterest(text: string): HubSpotServiceOption {
   }
 
   if (
-    /\b(?:strategy|blueprint|transform|workflow|process|systems?|prioriti[sz]|multiple|several)\b/i.test(
+    /\b(?:strategy|blueprint|transform(?:ation)?|workflows?|process(?:es)?|systems?|prioriti[sz](?:e|ation|ing)?|multiple|several)\b/i.test(
       text
     )
   ) {

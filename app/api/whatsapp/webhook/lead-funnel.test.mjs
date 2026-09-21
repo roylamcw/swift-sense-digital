@@ -160,6 +160,17 @@ test("maps business needs to the approved SSD services", () => {
   assert.equal(inferServiceInterest("We are exploring options"), "Not sure yet");
 });
 
+test("routes explicit transformation needs ahead of incidental channel mentions", () => {
+  assert.equal(inferServiceInterest("We need AI transformation across operations and our website"), "Transformation Blueprint");
+  assert.equal(inferServiceInterest("We lack time to lead AI adoption and improve enquiry processes"), "Transformation Blueprint");
+  assert.equal(inferServiceInterest("An outsourced AI partner to prioritise our work"), "Transformation Blueprint");
+});
+
+test("keeps explicit waitlist products separate from broader transformation enquiries", () => {
+  assert.equal(inferServiceInterest("WhatsApp AI Assistant as part of our AI transformation"), "Not sure yet");
+  assert.equal(inferServiceInterest("SwiftChief for AI adoption in our team"), "Not sure yet");
+});
+
 test("qualifies a lead and requires explicit consent without calling HubSpot", async () => {
   const store = new MemoryStore();
   let submissionCount = 0;

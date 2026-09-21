@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { trackConversionEvent } from "./conversion-tracking";
-import { getWaitlistProduct, serviceOptions, waitlistConsentText, type ServiceOption } from "../lib/product-catalog";
+import { getWaitlistProduct, serviceLabel, serviceOptions, waitlistConsentText, type ServiceOption } from "../lib/product-catalog";
 
 type FieldName =
   | "firstName"
@@ -39,7 +39,7 @@ function fieldErrorId(field: FieldName) {
 
 export default function LeadForm({ fixedServiceInterest }: { fixedServiceInterest?: ServiceOption }) {
   const [status, setStatus] = useState<FormStatus>("idle");
-  const [serviceInterest, setServiceInterest] = useState<string>(fixedServiceInterest ?? "");
+  const [serviceInterest, setServiceInterest] = useState<string>(fixedServiceInterest ?? "Not sure yet");
   const [consent, setConsent] = useState(false);
   const waitlistProduct = getWaitlistProduct(serviceInterest);
   const [statusMessage, setStatusMessage] = useState("");
@@ -246,12 +246,12 @@ export default function LeadForm({ fixedServiceInterest }: { fixedServiceInteres
 
         <div className={fixedServiceInterest ? "sm:col-span-2" : undefined}>
           <label htmlFor="serviceInterest" className="mb-1.5 block text-sm font-medium text-white/85">
-            {waitlistProduct ? "Product waitlist *" : "Service of interest *"}
+            {waitlistProduct ? "Product waitlist *" : "Where would you like to start?"}
           </label>
           {fixedServiceInterest ? (
             <>
               <input type="hidden" name="serviceInterest" value={fixedServiceInterest} />
-              <output id="serviceInterest" className="fixed-product-name">{fixedServiceInterest}</output>
+              <output id="serviceInterest" className="fixed-product-name">{serviceLabel(fixedServiceInterest)}</output>
             </>
           ) : (
           <select
@@ -269,11 +269,12 @@ export default function LeadForm({ fixedServiceInterest }: { fixedServiceInteres
             </option>
             {serviceOptions.map((option) => (
               <option key={option} value={option} className="bg-[#0a1628]">
-                {option}
+                {serviceLabel(option)}
               </option>
             ))}
           </select>
           )}
+          {!fixedServiceInterest && !waitlistProduct && <p className="mt-2 text-sm text-white/75">Leave “Not sure yet” selected if you would like to discuss the business first.</p>}
           {waitlistProduct && <p className="mt-2 text-sm text-white/75">From {waitlistProduct.price}. In development — registration does not confirm access or a purchase.</p>}
           {fieldErrors.serviceInterest && (
             <p id={fieldErrorId("serviceInterest")} className="mt-1.5 text-sm text-red-200">
@@ -292,7 +293,7 @@ export default function LeadForm({ fixedServiceInterest }: { fixedServiceInteres
           name="message"
           rows={waitlistProduct ? 3 : 5}
           required={!waitlistProduct}
-          placeholder={waitlistProduct ? "Tell us how you might use this, on your own or with your team." : "Tell us what you want to improve, what is slowing the team down, or what you want the website or lead system to achieve."}
+          placeholder={waitlistProduct ? "Tell us how you might use this, on your own or with your team." : "Tell us what your business does, where time is being lost and what you would like to improve. You do not need to choose a tool first."}
           aria-invalid={Boolean(fieldErrors.message)}
           aria-describedby={fieldErrors.message ? fieldErrorId("message") : undefined}
           className={`${baseInputClass} resize-none ${fieldErrors.message ? errorInputClass : ""}`}

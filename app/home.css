@@ -19,6 +19,53 @@
   overflow: clip;
 }
 .ssd-site *, .ssd-site *::before, .ssd-site *::after { box-sizing: border-box; }
+.ssd-site .blueprint-section { background: #102743; color: #f7f6f2; }
+.ssd-site .blueprint-section .section-heading > p { color: #cfdae9; }
+.ssd-site .blueprint-section .eyebrow { color: #adc5f7; }
+.ssd-site .blueprint-section h2 > span { color: #a9c4ff; }
+.ssd-site .blueprint-offer { display: grid; grid-template-columns: 1.3fr 1fr; gap: 36px; padding: 30px 0; border-block: 1px solid #ffffff30; }
+.ssd-site .blueprint-offer h3 { font-size: clamp(25px, 3vw, 36px); line-height: 1.2; margin-bottom: 14px; }
+.ssd-site .blueprint-offer p { color: #cfdae9; max-width: 620px; }
+.ssd-site .blueprint-fee { display: flex; flex-direction: column; justify-content: center; align-items: flex-end; gap: 8px; }
+.ssd-site .blueprint-fee strong { font-size: clamp(27px, 3vw, 38px); font-weight: 500; }
+.ssd-site .blueprint-fee span { color: #cfdae9; font-size: var(--type-small); text-align: right; }
+.ssd-site .blueprint-deliverables { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 34px; padding-block: 40px; }
+.ssd-site .blueprint-index { color: #adc5f7; font-size: var(--type-small); }
+.ssd-site .blueprint-deliverables h3 { font-size: 22px; line-height: 1.4; margin-block: 10px; }
+.ssd-site .blueprint-deliverables p { color: #cfdae9; font-size: var(--type-body); }
+.ssd-site .blueprint-boundary { display: flex; align-items: center; gap: 40px; justify-content: space-between; padding-block: 28px; border-top: 1px solid #ffffff30; }
+.ssd-site .blueprint-boundary p { max-width: 710px; color: #cfdae9; font-size: var(--type-small); }
+.ssd-site .blueprint-boundary .button { flex-shrink: 0; }
+.ssd-site .blueprint-sample { margin-top: 20px; border: 1px solid #ffffff40; border-radius: 8px; }
+.ssd-site .blueprint-sample summary { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 24px; font-size: 20px; }
+.ssd-site .sample-content { padding: 0 24px 28px; }
+.ssd-site .sample-note { max-width: 900px; color: #cfdae9; font-size: var(--type-small); margin-bottom: 24px; }
+.ssd-site .sample-roadmap { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px; }
+.ssd-site .sample-roadmap article { border-top: 2px solid #86aefa; padding-top: 18px; }
+.ssd-site .sample-roadmap h4 { font-size: 21px; line-height: 1.4; margin-block: 16px; }
+.ssd-site .sample-roadmap p { color: #cfdae9; margin-top: 14px; font-size: var(--type-small); }
+.ssd-site .partnership-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 45px; background: #e8edf7; padding: 36px; margin-top: 42px; border-radius: 8px; scroll-margin-top: 115px; }
+.ssd-site .partnership-panel h3 { font-size: 30px; margin-block: 15px; line-height: 1.25; }
+.ssd-site .partnership-panel p { font-size: var(--type-body); }
+.ssd-site .partnership-panel .eyebrow { font-size: var(--type-caption); }
+.ssd-site .partnership-terms { margin-bottom: 16px; }
+.ssd-site .partnership-panel .text-link { margin-top: 20px; }
+@media (max-width: 900px) {
+  .ssd-site .blueprint-deliverables { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ssd-site .blueprint-boundary { align-items: flex-start; flex-direction: column; gap: 20px; }
+  .ssd-site .sample-roadmap { grid-template-columns: 1fr; }
+  .ssd-site .partnership-panel { gap: 28px; padding: 28px; }
+}
+@media (max-width: 760px) {
+  .ssd-site .blueprint-offer, .ssd-site .partnership-panel { grid-template-columns: 1fr; }
+  .ssd-site .blueprint-fee { align-items: flex-start; }
+  .ssd-site .blueprint-fee span { text-align: left; }
+  .ssd-site .blueprint-deliverables { grid-template-columns: 1fr; gap: 26px; }
+  .ssd-site .blueprint-sample summary { font-size: 18px; padding: 20px; }
+  .ssd-site .sample-content { padding-inline: 20px; }
+  .ssd-site .blueprint-boundary .button { max-width: 100%; font-size: var(--type-small); }
+  .ssd-site .partnership-panel { padding: 24px; }
+}
 .ssd-site h1, .ssd-site h2, .ssd-site h3, .ssd-site p { margin: 0; }
 .ssd-site a { color: inherit; text-decoration: none; }
 .ssd-site button, .ssd-site input, .ssd-site select, .ssd-site textarea { font: inherit; }
@@ -71,6 +118,7 @@ html:has(.ssd-site) { scroll-behavior: smooth; }
 .ssd-site .status-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
 .ssd-site h1 { font-size: clamp(54px, 6.15vw, 94px); font-weight: 500; line-height: 1.035; letter-spacing: -.075em; white-space: nowrap; }
 .ssd-site h1 > span { color: var(--blue); }
+.ssd-site .hero h1 { white-space: normal; }
 .ssd-site .hero-description { margin-top: 28px; font-size: var(--type-lead); line-height: 1.65; color: #5f6a77; max-width: 480px; }
 .ssd-site .hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 23px; margin-top: 31px; }
 .ssd-site .hero-actions .text-link { gap: 16px; font-size: var(--type-small); }

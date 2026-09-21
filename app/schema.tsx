@@ -13,7 +13,7 @@ export function OrganizationSchema() {
     telephone: "+65 9237 1516",
     sameAs: ["https://www.linkedin.com/company/swiftsensedigital/"],
     description:
-      "Swift Sense Digital is an AI Transformation Consultancy for Growing SMEs.",
+      "Swift Sense Digital is an outsourced AI transformation partner for SMEs.",
     founder: {
       "@type": "Person",
       name: "CW Lam",
@@ -25,7 +25,7 @@ export function OrganizationSchema() {
     knowsAbout: [
       "Business Growth Website",
       "Lead Response System",
-      "Transformation Blueprint",
+      "AI Transformation Blueprint",
       "Practical AI",
       "Business Transformation",
       "Process Improvement",
@@ -52,7 +52,7 @@ export function LocalBusinessSchema() {
     email: "chunwai@swiftsensedigital.com",
     telephone: "+65 9237 1516",
     description:
-      "Swift Sense Digital helps growing SMEs unlock potential through practical AI, better systems and modern technology.",
+      "Swift Sense Digital helps SMEs assess, plan and implement practical AI improvements, with optional ongoing transformation support.",
     address: {
       "@type": "PostalAddress",
       addressLocality: "Singapore",

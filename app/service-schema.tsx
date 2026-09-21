@@ -8,9 +8,10 @@ export function ServiceSchema() {
     "@type": "ProfessionalService",
     name: "Swift Sense Digital",
     serviceType: [
+      "AI Transformation Blueprint",
+      "Ongoing AI Transformation Partnership",
       "Business Growth Website",
       "Lead Response System",
-      "Transformation Blueprint",
     ],
     provider: {
       "@type": "Organization",
@@ -26,7 +27,7 @@ export function ServiceSchema() {
       audienceType: "Small and Medium Enterprises",
     },
     description:
-      "Practical AI and systems work for growing SMEs, focused on business growth websites, lead response and transformation planning.",
+      "AI transformation assessment and planning for SMEs, with separately scoped implementation and optional ongoing monthly support. Individual solutions are available independently.",
     url: "https://www.swiftsensedigital.com",
   };
 
