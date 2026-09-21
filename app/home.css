@@ -591,3 +591,80 @@ html:has(.ssd-site) { scroll-behavior: smooth; }
   html:has(.ssd-site) { scroll-behavior: auto; }
   .ssd-site *, .ssd-site *::before, .ssd-site *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
+
+/* The flagship and founder carry the main story; secondary offers stay compact. */
+.ssd-site .section { padding-block: 80px; }
+.ssd-site .blueprint-preview { background: var(--paper); color: var(--ink); margin-top: 24px; padding: clamp(22px, 3vw, 40px); border-radius: 5px; }
+.ssd-site .sample-heading { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; }
+.ssd-site .blueprint-preview .eyebrow { color: #2359b8; }
+.ssd-site .sample-heading h3 { font-size: clamp(25px, 2.7vw, 34px); font-weight: 500; line-height: 1.2; margin-top: 14px; }
+.ssd-site .sample-stamp { flex-shrink: 0; border: 1px solid #8aa3c4; padding: 10px 14px; color: #365274; font-family: var(--font-geist-mono, monospace); font-size: var(--type-caption); text-align: center; line-height: 1.5; }
+.ssd-site .sample-context { margin-top: 22px; max-width: 790px; color: #526171; }
+.ssd-site .sample-table-scroll { margin-top: 25px; overflow-x: auto; }
+.ssd-site .sample-table-scroll:focus-visible { outline: 3px solid var(--blue); outline-offset: 4px; }
+.ssd-site .sample-matrix { width: 100%; min-width: 680px; border-collapse: collapse; font-size: var(--type-small); text-align: left; }
+.ssd-site .sample-matrix caption { text-align: left; font-weight: 600; padding-bottom: 14px; }
+.ssd-site .sample-matrix th, .ssd-site .sample-matrix td { padding: 14px 12px; border-bottom: 1px solid #cbd3dc; vertical-align: top; }
+.ssd-site .sample-matrix thead { background: #e5ebf3; }
+.ssd-site .sample-matrix th { font-weight: 500; }
+.ssd-site .sample-matrix tbody th span { color: #3864a6; margin-right: 12px; }
+.ssd-site .sample-decision { color: #164a98; font-weight: 600; }
+.ssd-site .sample-phases { list-style: none; padding: 0; margin: 28px 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.ssd-site .sample-phases li { border-top: 2px solid #7592bd; padding-top: 15px; }
+.ssd-site .sample-phases li > span { color: #3864a6; font-size: var(--type-caption); }
+.ssd-site .sample-phases strong { display: block; margin: 8px 0; font-size: var(--type-body); font-weight: 600; line-height: 1.4; }
+.ssd-site .sample-phases p { color: #526171; font-size: var(--type-small); }
+.ssd-site .sample-brief { border-left: 3px solid var(--blue); padding: 5px 0 5px 20px; }
+.ssd-site .sample-brief > p:last-child { margin-top: 10px; font-size: var(--type-small); color: #526171; }
+.ssd-site .sample-download { border-top: 1px solid #cbd3dc; padding-top: 20px; margin-top: 25px; display: flex; gap: 28px; align-items: center; justify-content: space-between; }
+.ssd-site .sample-download p { font-size: var(--type-small); color: #526171; max-width: 660px; }
+.ssd-site .sample-download a { flex-shrink: 0; color: #164a98; }
+.ssd-site .process-list .process-fee { margin: 0 0 12px; color: #234e98; font-weight: 600; }
+.ssd-site .founder-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 72px; }
+.ssd-site .founder-intro h2 { margin-top: 22px; }
+.ssd-site .founder-intro > p:not(.eyebrow) { margin-top: 24px; color: #526171; }
+.ssd-site .founder-intro .founder-signoff { margin-block: 28px; }
+.ssd-site .founder-intro .founder-qualification { font-size: var(--type-small); border-top: 1px solid #cbd3dc; padding-top: 22px; }
+.ssd-site .founder-experience article { padding-block: 21px; border-bottom: 1px solid #cbd3dc; }
+.ssd-site .founder-experience article > span { color: #365c97; font-size: var(--type-caption); text-transform: uppercase; letter-spacing: .05em; }
+.ssd-site .founder-experience h3 { font-size: 23px; line-height: 1.35; font-weight: 500; margin-block: 9px; }
+.ssd-site .founder-experience article > p { color: #526171; }
+.ssd-site .founder-experience .experience-note { font-size: var(--type-small); color: #526171; margin-top: 21px; }
+.ssd-site .waitlist-heading { margin-top: 36px; max-width: 100%; }
+.ssd-site .waitlist-heading > p:last-child { margin-top: 12px; }
+.ssd-site .waitlist-compact { border-top: 1px solid #c9d0ce; margin-top: 20px; }
+.ssd-site .waitlist-row { display: grid; grid-template-columns: minmax(0, 1fr) 210px auto; gap: 25px; align-items: center; padding-block: 22px; border-bottom: 1px solid #c9d0ce; }
+.ssd-site .waitlist-row h3 { font-size: 23px; font-weight: 500; line-height: 1.35; }
+.ssd-site .waitlist-row div > p { font-size: var(--type-small); color: #526171; margin-top: 7px; }
+.ssd-site .waitlist-row-price { font-size: var(--type-body); font-weight: 500; }
+.ssd-site .solution-demo { grid-column: 1 / -1; padding: 24px; margin-block: 16px; background: #174dd2; color: white; }
+.ssd-site .solution-demo > .eyebrow { color: #d4e1ff; margin-bottom: 20px; }
+.ssd-site .solution-demo .journey-description p { color: #d2e1ff; }
+.ssd-site .solution-demo :focus-visible { outline-color: #fff; }
+.ssd-site .compact-portfolio .section-heading { margin-bottom: 30px; }
+.ssd-site .more-concepts > summary { display: flex; align-items: center; gap: 20px; padding-block: 20px; font-size: var(--type-small); }
+.ssd-site .more-concepts-links { display: flex; flex-wrap: wrap; column-gap: 40px; padding-bottom: 16px; }
+.ssd-site .contact-next { list-style: none; counter-reset: next-step; padding: 0; margin: 27px 0 0; }
+.ssd-site .contact-next li { counter-increment: next-step; display: grid; grid-template-columns: 26px 1fr; gap: 3px 14px; margin-top: 20px; }
+.ssd-site .contact-next li::before { content: "0" counter(next-step); grid-row: 1 / 3; color: #94b7f2; font-size: var(--type-caption); padding-top: 4px; }
+.ssd-site .contact-next strong { font-size: var(--type-body); font-weight: 500; }
+.ssd-site .contact-next span { font-size: var(--type-small); color: #b7c4d2; }
+@media (max-width: 1000px) {
+  .ssd-site .sample-download { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .ssd-site .founder-layout { gap: 40px; }
+  .ssd-site .waitlist-row { grid-template-columns: minmax(0, 1fr) 180px; gap: 12px 24px; }
+  .ssd-site .waitlist-row .text-link { grid-column: 1 / -1; }
+}
+@media (max-width: 760px) {
+  .ssd-site .section { padding-block: 60px; }
+  .ssd-site .header-cta { display: none; }
+  .ssd-site .sample-stamp { display: none; }
+  .ssd-site .sample-phases, .ssd-site .founder-layout { grid-template-columns: 1fr; }
+  .ssd-site .sample-phases { gap: 19px; }
+  .ssd-site .sample-table-scroll { margin-inline: -6px; }
+  .ssd-site .founder-layout { gap: 38px; }
+  .ssd-site .founder-intro h2 { font-size: clamp(33px, 7.5vw, 45px); }
+  .ssd-site .waitlist-row { grid-template-columns: 1fr; gap: 12px; }
+  .ssd-site .waitlist-row .text-link { grid-column: auto; }
+  .ssd-site .solution-demo { margin-inline: -18px; padding: 18px; }
+}

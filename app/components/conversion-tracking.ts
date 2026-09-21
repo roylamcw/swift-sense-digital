@@ -11,6 +11,7 @@ export type ConversionEventName =
   | "primary_contact_cta_click"
   | "concept_demo_click"
   | "capability_statement_download"
+  | "blueprint_sample_download"
   | "assistant_open"
   | "assistant_message_sent"
   | "assistant_lead_form_open"

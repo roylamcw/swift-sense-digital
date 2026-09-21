@@ -37,7 +37,13 @@ function fieldErrorId(field: FieldName) {
   return `${field}-error`;
 }
 
-export default function LeadForm({ fixedServiceInterest }: { fixedServiceInterest?: ServiceOption }) {
+type LeadFormProps = {
+  fixedServiceInterest?: ServiceOption;
+  compact?: boolean;
+};
+
+export default function LeadForm({ fixedServiceInterest, compact = false }: LeadFormProps) {
+  const isCompact = compact && !fixedServiceInterest;
   const [status, setStatus] = useState<FormStatus>("idle");
   const [serviceInterest, setServiceInterest] = useState<string>(fixedServiceInterest ?? "Not sure yet");
   const [consent, setConsent] = useState(false);
@@ -222,6 +228,9 @@ export default function LeadForm({ fixedServiceInterest }: { fixedServiceInteres
         </div>
       </div>
 
+      {isCompact ? (
+        <input type="hidden" name="serviceInterest" value="Not sure yet" />
+      ) : (
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="phoneNumber" className="mb-1.5 block text-sm font-medium text-white/85">
@@ -283,10 +292,11 @@ export default function LeadForm({ fixedServiceInterest }: { fixedServiceInteres
           )}
         </div>
       </div>
+      )}
 
       <div>
         <label htmlFor="message" className="mb-1.5 block text-sm font-medium text-white/85">
-          {waitlistProduct ? "What would you like help with? (optional)" : "How can we help? *"}
+          {waitlistProduct ? "What would you like help with? (optional)" : isCompact ? "What is slowing your business down? *" : "How can we help? *"}
         </label>
         <textarea
           id="message"
