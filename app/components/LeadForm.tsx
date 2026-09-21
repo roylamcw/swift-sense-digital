@@ -244,12 +244,15 @@ export default function LeadForm({ fixedServiceInterest }: { fixedServiceInteres
           )}
         </div>
 
-        <div>
+        <div className={fixedServiceInterest ? "sm:col-span-2" : undefined}>
           <label htmlFor="serviceInterest" className="mb-1.5 block text-sm font-medium text-white/85">
             {waitlistProduct ? "Product waitlist *" : "Service of interest *"}
           </label>
           {fixedServiceInterest ? (
-            <input id="serviceInterest" name="serviceInterest" value={fixedServiceInterest} readOnly className={baseInputClass} />
+            <>
+              <input type="hidden" name="serviceInterest" value={fixedServiceInterest} />
+              <output id="serviceInterest" className="fixed-product-name">{fixedServiceInterest}</output>
+            </>
           ) : (
           <select
             id="serviceInterest"
