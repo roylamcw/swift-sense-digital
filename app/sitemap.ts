@@ -1,4 +1,5 @@
 import { MetadataRoute } from "next";
+import { waitlistProducts } from "./lib/product-catalog";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://www.swiftsensedigital.com";
@@ -9,6 +10,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 1,
     },
+    ...waitlistProducts.map((product) => ({
+      url: `${baseUrl}/waitlist/${product.slug}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
     {
       url: `${baseUrl}/privacy`,
       changeFrequency: "yearly",

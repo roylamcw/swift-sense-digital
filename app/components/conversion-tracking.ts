@@ -4,11 +4,14 @@ import { track } from "@vercel/analytics";
 
 export type ConversionEventName =
   | "form_submission_success"
+  | "waitlist_registration_success"
+  | "waitlist_cta_click"
   | "email_link_click"
   | "whatsapp_link_click"
   | "primary_contact_cta_click"
   | "concept_demo_click"
   | "capability_statement_download"
+  | "blueprint_sample_download"
   | "assistant_open"
   | "assistant_message_sent"
   | "assistant_lead_form_open"

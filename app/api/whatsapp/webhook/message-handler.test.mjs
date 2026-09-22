@@ -300,6 +300,10 @@ test("generates and normalizes a reply for an allowlisted sender", async () => {
   assert.equal(capturedOptions.model, "openai/gpt-5.4-mini");
   assert.match(capturedOptions.prompt, /Hello SSD/);
   assert.equal(capturedOptions.maxOutputTokens, 220);
+  assert.match(capturedOptions.instructions, /Lead Response System: starts from S\$5,000/);
+  assert.match(capturedOptions.instructions, /WhatsApp AI Assistant: starts from S\$3,000; WAITLIST ONLY/);
+  assert.match(capturedOptions.instructions, /SwiftChief — AI Chief of Staff: starts from S\$19 per user\/month; WAITLIST ONLY/);
+  assert.match(capturedOptions.instructions, /Never claim a waitlist registration/);
 });
 
 test("falls back safely when AI generation fails or returns no text", async () => {

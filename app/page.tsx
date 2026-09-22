@@ -3,12 +3,16 @@ import LeadForm from "./components/LeadForm";
 import TrackedLink from "./components/TrackedLink";
 import JourneyExplorer from "./components/JourneyExplorer";
 import HomeMotion from "./components/HomeMotion";
+import TransformationBlueprint from "./components/TransformationBlueprint";
+import { blueprint, leadResponsePrice, productFaqs, transformationPartnershipPrice, waitlistProducts } from "./lib/product-catalog";
+import { FAQSchema } from "./faq-schema";
 import "./home.css";
 
 export default function Home() {
   return (
     <div className="ssd-site" id="top">
       <HomeMotion />
+      <FAQSchema />
       <a href="#main-content" className="skip-link">Skip to main content</a>
       <header className="site-header">
         <div className="frame header-inner">
@@ -17,20 +21,20 @@ export default function Home() {
             <span>Swift Sense<small>DIGITAL</small></span>
           </a>
           <nav className="desktop-nav" aria-label="Primary navigation">
-            <a href="#products">What we do</a>
-            <a href="#concept-demos">Explore concepts</a>
+            <a href="#blueprint-service">The Blueprint</a>
+            <a href="#products">Our solutions</a>
             <a href="#founder">Our perspective</a>
           </nav>
-          <TrackedLink href="#contact" eventName="primary_contact_cta_click" eventProperties={{ location: "header" }} className="button button-small header-cta">Let’s talk <span aria-hidden="true">↗</span></TrackedLink>
+          <TrackedLink href="#contact" eventName="primary_contact_cta_click" eventProperties={{ location: "header" }} className="button button-small header-cta">Discuss your AI priorities <span aria-hidden="true">↗</span></TrackedLink>
           <details className="mobile-menu">
             <summary aria-label="Toggle navigation"><span className="menu-label">Menu</span><span className="menu-lines" aria-hidden="true" /></summary>
             <nav aria-label="Mobile navigation">
-              <a href="#products">What we do <span aria-hidden="true">↗</span></a>
-              <a href="#concept-demos">Explore concepts <span aria-hidden="true">↗</span></a>
+              <a href="#blueprint-service">The Blueprint <span aria-hidden="true">↗</span></a>
+              <a href="#products">Our solutions <span aria-hidden="true">↗</span></a>
               <a href="#founder">Our perspective <span aria-hidden="true">↗</span></a>
               <a href="#process">How we work <span aria-hidden="true">↗</span></a>
               <a href="#faq">Your questions <span aria-hidden="true">↗</span></a>
-              <a href="#contact">Let’s talk <span aria-hidden="true">↗</span></a>
+              <a href="#contact">Discuss your AI priorities <span aria-hidden="true">↗</span></a>
             </nav>
           </details>
         </div>
@@ -39,14 +43,14 @@ export default function Home() {
       <main id="main-content">
         <section className="hero frame" aria-labelledby="hero-title">
           <div className="hero-copy">
-            <p className="eyebrow hero-eyebrow"><span className="status-dot" /> AI transformation for growing SMEs</p>
-            <h1 id="hero-title">Business first.<br /><span>AI enabled.</span><br />Results driven.</h1>
-            <p className="hero-description">Unlock your business’s potential through practical AI, better systems and modern technology.</p>
+            <p className="eyebrow hero-eyebrow"><span className="status-dot" /> Your AI transformation partner</p>
+            <h1 id="hero-title">Focus on your<br />business.<br /><span>Move forward<br />with AI.</span></h1>
+            <p className="hero-description">We help SMEs assess, plan and implement practical AI improvements—with less research, trial and error, and coordination falling on you.</p>
             <div className="hero-actions">
-              <TrackedLink href="#contact" eventName="primary_contact_cta_click" eventProperties={{ location: "hero" }} className="button">Start a conversation <span aria-hidden="true">↗</span></TrackedLink>
-              <a href="#products" className="text-link">Explore what we do <span aria-hidden="true">↓</span></a>
+              <TrackedLink href="#contact" eventName="primary_contact_cta_click" eventProperties={{ location: "hero" }} className="button">Discuss your AI priorities <span aria-hidden="true">↗</span></TrackedLink>
+              <a href="#blueprint-service" className="text-link">Explore the Blueprint <span aria-hidden="true">↓</span></a>
             </div>
-            <p className="hero-note">A clearer direction. A practical next step.</p>
+            <p className="hero-note">Led by CW Lam · Experience across business, operations and finance.</p>
           </div>
           <div className="hero-art">
             <div className="art-caption"><span>THE SPACE TO GROW</span><span aria-hidden="true">↗</span></div>
@@ -55,105 +59,115 @@ export default function Home() {
           </div>
         </section>
         <div className="promise-strip frame" aria-label="Our focus">
-          <p>Built around your next<br /><strong>business improvement.</strong></p>
-          <a href="#products"><span>01</span> Clearer websites <span className="strip-arrow" aria-hidden="true">↗</span></a>
-          <a href="#journey"><span>02</span> Better lead journeys <span className="strip-arrow" aria-hidden="true">↗</span></a>
-          <a href="#process"><span>03</span> More useful systems <span className="strip-arrow" aria-hidden="true">↗</span></a>
+          <p>From a clear direction<br /><strong>to practical progress.</strong></p>
+          <a href="#blueprint-service"><span>01</span> Plan your transformation <span className="strip-arrow" aria-hidden="true">↗</span></a>
+          <a href="#products"><span>02</span> Implement the priorities <span className="strip-arrow" aria-hidden="true">↗</span></a>
+          <a href="#partnership"><span>03</span> Keep moving forward <span className="strip-arrow" aria-hidden="true">↗</span></a>
         </div>
 
         <section className="section frame introduction" aria-labelledby="intro-title">
-          <p className="eyebrow" data-reveal="">01 / Where we can help</p>
+          <p className="eyebrow" data-reveal="">01 / Start with the work</p>
           <div className="section-heading" data-reveal="">
-            <h2 id="intro-title">Good businesses have<br /><span className="muted-word">room to grow.</span></h2>
-            <p>Sometimes the next step is a clearer website. Sometimes it is a faster response or a better way of working. We start with what is holding your business back.</p>
+            <h2 id="intro-title">Where does your<br /><span className="muted-word">team lose time?</span></h2>
+            <p>Across industries, recurring work can absorb the time needed to grow. These are possible starting points; your priorities come from discovery.</p>
           </div>
           <div className="problem-grid">
-            <article data-reveal=""><span className="problem-icon" aria-hidden="true">↗</span><h3>Interest without enquiries.</h3><p>Your website needs a clear offer and a simple path from browsing to a useful conversation.</p><a className="text-link" href="#website-service">Make the next step clear <span aria-hidden="true">↗</span></a></article>
-            <article data-reveal=""><span className="problem-icon" aria-hidden="true">↔</span><h3>Leads losing momentum.</h3><p>Enquiries need context and a clear follow-up process, so opportunities do not sit waiting in an inbox.</p><a className="text-link" href="#response-service">Improve the enquiry journey <span aria-hidden="true">↗</span></a></article>
-            <article data-reveal=""><span className="problem-icon" aria-hidden="true">⌁</span><h3>Ideas without a direction.</h3><p>Technology becomes useful when it fits your priorities, your budget and your team’s capacity.</p><a className="text-link" href="#blueprint-service">Find a practical starting point <span aria-hidden="true">↗</span></a></article>
+            <article data-reveal=""><span className="problem-icon" aria-hidden="true">01</span><h3>Preparing the same reports.</h3><p>Explore drafting routine summaries from agreed data, with source checks and a person approving the final report.</p></article>
+            <article data-reveal=""><span className="problem-icon" aria-hidden="true">02</span><h3>Finding internal answers.</h3><p>Explore easier access to approved procedures and company knowledge, with clear ownership and access controls.</p></article>
+            <article data-reveal=""><span className="problem-icon" aria-hidden="true">03</span><h3>Following up enquiries.</h3><p>Explore consistent capture, qualification and handoff so the right person receives the context to respond.</p></article>
+          </div>
+        </section>
+
+        <TransformationBlueprint />
+
+        <section id="process" className="section frame process" aria-labelledby="process-title">
+          <div className="section-heading" data-reveal=""><div><p className="eyebrow">03 / From planning to progress</p><h2 id="process-title">Clarity first.<br /><span className="muted-word">Then progress.</span></h2></div><p>Choose the stages your business needs. Each has a separate scope and fee; individual solutions are also available directly.</p></div>
+          <ol className="process-list">
+            <li data-reveal=""><span className="process-index">01</span><div><h3>Assess and plan.</h3><p className="process-fee">From {blueprint.price} one-off</p><p>The Blueprint sets priorities, expected costs and an implementation-ready scope.</p></div></li>
+            <li data-reveal=""><span className="process-index">02</span><div><h3>Implement agreed improvements.</h3><p className="process-fee">Quoted by project</p><p>Build the agreed improvements, with clear acceptance criteria, staff involvement and handover.</p></div></li>
+            <li data-reveal=""><span className="process-index">03</span><div><h3>Support adoption and review.</h3><p className="process-fee">From {transformationPartnershipPrice}/month</p><p>Choose an optional partnership for coordination, adoption support and progress reviews.</p></div></li>
+          </ol>
+          <div id="partnership" className="partnership-panel" data-reveal="">
+            <div><p className="eyebrow">Ongoing AI transformation partnership</p><h3>A partner beyond the plan.</h3><p>Keep SSD involved as your external transformation lead. Agree the priorities, coordination, adoption support and review rhythm that your business needs.</p></div>
+            <div><p className="partnership-price"><strong>From {transformationPartnershipPrice}<span>/month</span></strong></p><p className="partnership-terms">Optional monthly engagement. Scope, capacity and final fee agreed after discovery.</p><p>Implementation projects, third-party costs and routine technical care are scoped separately. Your team provides an internal decision-maker and agreed participation.</p><TrackedLink href="#contact" eventName="primary_contact_cta_click" eventProperties={{ location: "ongoing_partnership" }} className="text-link">Discuss your AI priorities <span aria-hidden="true">↗</span></TrackedLink></div>
+          </div>
+          <div className="capability-strip"><div className="document-symbol" aria-hidden="true">SSD<span>↙</span></div><div><h3>A one-page introduction.</h3><p>Our services, working approach and contact details in one place.</p></div><TrackedLink href="/SSD-One-Page-Capability-Statement-v1.2.pdf" eventName="capability_statement_download" eventProperties={{ location: "capability_statement" }} className="text-link" download>Download capability statement <span aria-hidden="true">↓</span></TrackedLink></div>
+        </section>
+
+        <section id="founder" className="perspective-section" aria-labelledby="founder-title">
+          <div className="frame founder-layout">
+            <div className="founder-intro" data-reveal="">
+              <p className="eyebrow">04 / The person behind SSD</p>
+              <h2 id="founder-title">Business experience.<br /><span className="muted-word">Personal ownership.</span></h2>
+              <div className="founder-signoff">
+                <Image className="founder-portrait" src="/images/cw-lam-founder.jpg" width={640} height={640} sizes="(max-width: 480px) 120px, (max-width: 1000px) 136px, 160px" alt="CW Lam, founder of Swift Sense Digital" />
+                <div><strong>CW Lam</strong><span>Founder, Swift Sense Digital</span></div>
+              </div>
+              <p>My interest in AI starts with the realities of running a business: serving clients, organising people, managing costs and making improvements stick.</p>
+              <p>I bring that operating perspective to SSD, helping you decide where AI is useful and what it will take to put it to work.</p>
+              <p className="founder-qualification">12 years of professional experience · General management · Master’s degree</p>
+            </div>
+            <div className="founder-experience" data-reveal="">
+              <p className="eyebrow">Selected experience / Event Secret Service</p>
+              <article><span>01 / Commercial priorities</span><h3>Reconnect growth with delivery.</h3><p>As General Manager, CW reviewed three years of client and revenue history, re-engaged key clients and expanded services into new verticals, alongside strengthening the capacity to deliver.</p></article>
+              <article><span>02 / People and processes</span><h3>Build the organisation behind the work.</h3><p>CW helped rebuild the company structure, recruit team members and rework operating processes, connecting commercial activity with the people and support needed for execution.</p></article>
+              <article><span>03 / Financial oversight</span><h3>Bring costs into the decision.</h3><p>Alongside wider management responsibilities, CW took a hands-on role in finance and P&amp;L management, bringing commercial and operational considerations into the same conversation.</p></article>
+              <p className="experience-note">These examples describe CW’s management experience at Event Secret Service. They are not SSD client engagements or claims of AI-generated results.</p>
+            </div>
           </div>
         </section>
 
         <section id="products" className="services section" aria-labelledby="products-title">
           <div className="frame">
             <div className="section-heading" data-reveal="">
-              <div><p className="eyebrow">02 / What we do</p><h2 id="products-title">Three ways<br /><span className="muted-word">to move forward.</span></h2></div>
-              <p>Start with the improvement your business needs most. Expand when the first useful system is working.</p>
+              <div><p className="eyebrow">05 / Individual solutions</p><h2 id="products-title">The right solution.<br /><span className="muted-word">For the right priority.</span></h2></div>
+              <p>These solutions can support your transformation roadmap or solve a clear need on their own. You do not need to purchase a Blueprint first.</p>
             </div>
             <div className="service-list">
-              <details id="website-service" className="service-item" open>
+              <details id="website-service" className="service-item">
                 <summary><span className="service-number">01</span><span className="service-name">Business Growth Website<small>A clearer path from interest to enquiry</small></span><span className="service-price">From S$1,500<small>7–10 working days</small></span><span className="disclosure" aria-hidden="true" /></summary>
                 <div className="service-content"><p>A conversion-focused website for growing SMEs that need clearer positioning, stronger calls to action and a reliable enquiry journey.</p><ul><li>Clear offer structure</li><li>Mobile-first enquiry path</li><li>SEO and analytics foundations</li></ul><TrackedLink href="#contact" eventName="primary_contact_cta_click" eventProperties={{ location: "website_product" }} className="text-link">Discuss your website <span aria-hidden="true">↗</span></TrackedLink></div>
               </details>
-              <details id="response-service" className="service-item" open>
-                <summary><span className="service-number">02</span><span className="service-name">Lead Response System<small>More context. Better follow-up.</small></span><span className="service-price">From S$3,500<small>15 working days</small></span><span className="disclosure" aria-hidden="true" /></summary>
-                <div className="service-content"><p>A lead handling system designed to help your team capture enquiries, understand intent and respond with better context.</p><ul><li>Enquiry capture</li><li>Lead context</li><li>Response workflow</li></ul><TrackedLink href="#contact" eventName="primary_contact_cta_click" eventProperties={{ location: "response_product" }} className="text-link">Discuss your lead journey <span aria-hidden="true">↗</span></TrackedLink></div>
+              <details id="response-service" className="service-item">
+                <summary><span className="service-number">02</span><span className="service-name">Lead Response System<small>More context. Better follow-up.</small></span><span className="service-price">From {leadResponsePrice}<small>15 working days</small></span><span className="disclosure" aria-hidden="true" /></summary>
+                <div className="service-content"><p>A lead handling system designed to help your team capture enquiries, understand intent and respond with better context.</p><ul><li>Enquiry capture</li><li>Lead context</li><li>Response workflow</li></ul><div className="solution-demo"><p className="eyebrow">Explore an illustrative enquiry journey</p><JourneyExplorer /></div><TrackedLink href="#contact" eventName="primary_contact_cta_click" eventProperties={{ location: "response_product" }} className="text-link">Discuss your lead journey <span aria-hidden="true">↗</span></TrackedLink></div>
               </details>
-              <details id="blueprint-service" className="service-item" open>
-                <summary><span className="service-number">03</span><span className="service-name">Transformation Blueprint<small>Turn business priorities into a practical roadmap</small></span><span className="service-price">From S$8,000<small>Four weeks</small></span><span className="disclosure" aria-hidden="true" /></summary>
-                <div className="service-content"><p>A practical business review that identifies where AI, systems and process improvements can create measurable operational value.</p><ul><li>Business priorities</li><li>Operational bottlenecks</li><li>Practical roadmap</li></ul><TrackedLink href="#contact" eventName="primary_contact_cta_click" eventProperties={{ location: "blueprint_product" }} className="text-link">Discuss your priorities <span aria-hidden="true">↗</span></TrackedLink></div>
-              </details>
+
             </div>
             <p className="scope-note">Starting prices and typical delivery timeframes are a guide. Final scope and fees are confirmed after discovery. WhatsApp is outside the Lead Response System’s base scope.</p>
+            <div className="waitlist-heading" id="waitlist"><p className="eyebrow">In development / Waitlist open</p><p>Register interest in these standalone products. No launch date or access is confirmed.</p></div>
+            <div className="waitlist-compact">
+              {waitlistProducts.map((product) => (
+                <article className="waitlist-row" key={product.slug} id={`${product.slug}-product`}>
+                  <div><h3>{product.name}</h3><p>{product.subtitle}</p></div>
+                  <p className="waitlist-row-price">From {product.price}</p>
+                  <TrackedLink href={`/waitlist/${product.slug}`} eventName="waitlist_cta_click" eventProperties={{ product: product.slug, location: "products" }} className="text-link">Join waitlist <span aria-hidden="true">↗</span><span className="sr-only"> for {product.name}</span></TrackedLink>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
 
-        <section id="journey" className="journey-section section" aria-labelledby="journey-title">
-          <div className="frame journey-layout">
-            <div className="journey-copy" data-reveal=""><p className="eyebrow">03 / What better can look like</p><h2 id="journey-title">From enquiry<br />to opportunity.</h2><p>See how a clearer customer journey can connect interest, context and human follow-up.</p><p className="journey-instruction"><span aria-hidden="true">↗</span> Select a stage to explore the journey.</p><TrackedLink href="#contact" eventName="primary_contact_cta_click" eventProperties={{ location: "journey" }} className="text-link">Explore your bottleneck <span aria-hidden="true">↗</span></TrackedLink></div>
-            <JourneyExplorer />
-          </div>
-        </section>
-
-        <section id="concept-demos" className="section frame portfolio" aria-labelledby="portfolio-title">
-          <div className="section-heading" data-reveal=""><div><p className="eyebrow">04 / Explore the possibilities</p><h2 id="portfolio-title">Different businesses.<br /><span className="muted-word">Distinct journeys.</span></h2></div><p>Explore five working concepts, each shaped around a different business and customer experience.</p></div>
-          <p className="concept-disclaimer">Fictional concept demonstrations. These are not client projects, testimonials or evidence of client results.</p>
-          <div className="featured-concepts">
-            <TrackedLink className="concept-poster event-poster" href="https://ssd-events-demo.roylamcw.chatgpt.site" target="_blank" rel="noopener noreferrer" eventName="concept_demo_click" eventProperties={{ demo: "Luma Events", location: "portfolio" }} aria-label="Explore the Luma Events fictional concept (opens in a new tab)">
-              <div className="poster-top"><span>EVENTS & EXPERIENCES</span><span>CONCEPT / 01</span></div>
-              <div className="poster-title">Luma<span>Events.</span></div>
-              <div className="poster-orbit" aria-hidden="true"><span /></div>
-              <div className="poster-bottom"><p>From the first impression<br />to a structured event brief.</p><span className="round-arrow" aria-hidden="true">↗</span></div>
-            </TrackedLink>
-            <TrackedLink className="concept-poster learning-poster" href="https://ssd-tuition-demo.roylamcw.chatgpt.site" target="_blank" rel="noopener noreferrer" eventName="concept_demo_click" eventProperties={{ demo: "Brightward Learning", location: "portfolio" }} aria-label="Explore the Brightward Learning fictional concept (opens in a new tab)">
-              <div className="poster-top"><span>TUITION & ENRICHMENT</span><span>CONCEPT / 02</span></div>
-              <div className="poster-title">Brightward<span>Learning.</span></div>
-              <div className="learning-lines" aria-hidden="true"><i /><i /><i /></div>
-              <div className="poster-bottom"><p>From programme discovery<br />to a confident trial request.</p><span className="round-arrow" aria-hidden="true">↗</span></div>
-            </TrackedLink>
-          </div>
+        <section id="concept-demos" className="section frame portfolio compact-portfolio" aria-labelledby="portfolio-title">
+          <div className="section-heading" data-reveal=""><div><p className="eyebrow">06 / Selected website concepts</p><h2 id="portfolio-title">Explore the<br /><span className="muted-word">possibilities.</span></h2></div><p>Working demonstrations of individual solutions. Fictional concepts, not client projects or evidence of results.</p></div>
           <div className="concept-list">
-            <TrackedLink href="https://ssd-restaurant-demo.roylamcw.chatgpt.site" target="_blank" rel="noopener noreferrer" eventName="concept_demo_click" eventProperties={{ demo: "Restaurant", location: "portfolio" }} className="concept-row"><span className="concept-index">03</span><span className="concept-name">Restaurant<small>F&B</small></span><span className="concept-journey">Discover · Decide · Reserve</span><span className="concept-open">Explore concept <span aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span></span></TrackedLink>
-            <TrackedLink href="https://ssd-staffing-demo.roylamcw.chatgpt.site" target="_blank" rel="noopener noreferrer" eventName="concept_demo_click" eventProperties={{ demo: "Part-Time Staffing", location: "portfolio" }} className="concept-row"><span className="concept-index">04</span><span className="concept-name">Part-Time Staffing<small>Staffing & recruitment</small></span><span className="concept-journey">Request · Match · Mobilise</span><span className="concept-open">Explore concept <span aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span></span></TrackedLink>
-            <TrackedLink href="https://ssd-property-demo.roylamcw.chatgpt.site" target="_blank" rel="noopener noreferrer" eventName="concept_demo_click" eventProperties={{ demo: "Property Investment", location: "portfolio" }} className="concept-row"><span className="concept-index">05</span><span className="concept-name">Property Investment<small>Property services</small></span><span className="concept-journey">Explore · Understand · Enquire</span><span className="concept-open">Explore concept <span aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span></span></TrackedLink>
+            <TrackedLink href="https://ssd-events-demo.roylamcw.chatgpt.site" target="_blank" rel="noopener noreferrer" eventName="concept_demo_click" eventProperties={{ demo: "Luma Events", location: "portfolio" }} className="concept-row"><span className="concept-index">01</span><span className="concept-name">Luma Events<small>Events &amp; experiences</small></span><span className="concept-journey">Discover · Enquire · Brief</span><span className="concept-open">Explore concept <span aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span></span></TrackedLink>
+            <TrackedLink href="https://ssd-tuition-demo.roylamcw.chatgpt.site" target="_blank" rel="noopener noreferrer" eventName="concept_demo_click" eventProperties={{ demo: "Brightward Learning", location: "portfolio" }} className="concept-row"><span className="concept-index">02</span><span className="concept-name">Brightward Learning<small>Tuition &amp; enrichment</small></span><span className="concept-journey">Explore · Compare · Trial</span><span className="concept-open">Explore concept <span aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span></span></TrackedLink>
           </div>
-          <div className="portfolio-next"><p>The most useful conversation starts with <strong>your business.</strong></p><TrackedLink href="#contact" eventName="primary_contact_cta_click" eventProperties={{ location: "portfolio" }} className="text-link">Discuss your customer journey <span aria-hidden="true">↗</span></TrackedLink></div>
-        </section>
-
-        <section id="founder" className="perspective-section" aria-labelledby="founder-title">
-          <div className="frame perspective-layout">
-            <div className="perspective-image" data-reveal=""><Image src="/images/ssd-workshop.webp" width={1536} height={1024} sizes="(max-width: 760px) 100vw, 47vw" alt="Illustrative workshop showing people arranging notes and mapping a workflow together." /><span className="image-label">A HUMAN-CENTRED APPROACH</span></div>
-            <div className="perspective-copy" data-reveal=""><p className="eyebrow">05 / Our perspective</p><h2 id="founder-title">Technology should<br /><span className="muted-word">amplify people.</span></h2><p>Swift Sense Digital is built around a simple belief: start with the commercial problem, then apply technology where it is useful.</p><p>Founder CW Lam brings company-wide leadership experience across sales and marketing, operations, finance, HR, team building and P&L.</p><div className="founder-signoff"><span className="founder-monogram">CW</span><div><strong>CW Lam</strong><span>Founder, Swift Sense Digital</span></div></div><div className="founder-facts"><div><strong>12 years</strong><span>Total professional experience</span></div><div><strong>40% YoY</strong><span>Growth delivered in a leadership role</span></div></div><p className="founder-qualification">General Manager · Master’s degree<br />Figures describe the founder’s professional experience.</p></div>
-          </div>
-        </section>
-
-        <section id="process" className="section frame process" aria-labelledby="process-title">
-          <div className="section-heading" data-reveal=""><div><p className="eyebrow">06 / How we work</p><h2 id="process-title">Clarity first.<br /><span className="muted-word">Then progress.</span></h2></div><p>Keep the work focused on what will help the business move forward. Build around the team, and improve with real feedback.</p></div>
-          <ol className="process-list"><li data-reveal=""><span className="process-index">01</span><div><h3>Understand.</h3><p>Review the business objective, current customer journey and where the team is losing time or opportunities.</p></div></li><li data-reveal=""><span className="process-index">02</span><div><h3>Prioritise.</h3><p>Choose the product and scope that best supports revenue, delivery reliability and customer experience.</p></div></li><li data-reveal=""><span className="process-index">03</span><div><h3>Build and improve.</h3><p>Implement the agreed system, measure the enquiry journey and refine based on real customer feedback.</p></div></li></ol>
-          <div className="capability-strip"><div className="document-symbol" aria-hidden="true">SSD<span>↙</span></div><div><h3>A one-page introduction.</h3><p>Our services, working approach and contact details in one place.</p></div><TrackedLink href="/SSD-One-Page-Capability-Statement-v1.2.pdf" eventName="capability_statement_download" eventProperties={{ location: "capability_statement" }} className="text-link" download>Download capability statement <span aria-hidden="true">↓</span></TrackedLink></div>
+          <details className="more-concepts"><summary>Three more concepts <span className="disclosure" aria-hidden="true" /></summary><div className="more-concepts-links">
+            <TrackedLink href="https://ssd-restaurant-demo.roylamcw.chatgpt.site" target="_blank" rel="noopener noreferrer" eventName="concept_demo_click" eventProperties={{ demo: "Restaurant", location: "portfolio" }} className="text-link">Restaurant <span aria-hidden="true">↗</span><span className="sr-only"> fictional concept (opens in a new tab)</span></TrackedLink>
+            <TrackedLink href="https://ssd-staffing-demo.roylamcw.chatgpt.site" target="_blank" rel="noopener noreferrer" eventName="concept_demo_click" eventProperties={{ demo: "Part-Time Staffing", location: "portfolio" }} className="text-link">Part-Time Staffing <span aria-hidden="true">↗</span><span className="sr-only"> fictional concept (opens in a new tab)</span></TrackedLink>
+            <TrackedLink href="https://ssd-property-demo.roylamcw.chatgpt.site" target="_blank" rel="noopener noreferrer" eventName="concept_demo_click" eventProperties={{ demo: "Property Investment", location: "portfolio" }} className="text-link">Property Investment <span aria-hidden="true">↗</span><span className="sr-only"> fictional concept (opens in a new tab)</span></TrackedLink>
+          </div></details>
         </section>
 
         <section id="faq" className="faq-section section" aria-labelledby="faq-title"><div className="frame faq-layout"><div><p className="eyebrow">07 / Before we begin</p><h2 id="faq-title">A few useful<br /><span className="muted-word">answers.</span></h2><a href="#contact" className="text-link">Have another question? <span aria-hidden="true">↗</span></a></div><div className="faq-list">
-          <details><summary>What launch products are available?<span className="disclosure" aria-hidden="true" /></summary><p>Swift Sense Digital is launching with Business Growth Website, Lead Response System and Transformation Blueprint.</p></details>
-          <details><summary>Can I start with one product first?<span className="disclosure" aria-hidden="true" /></summary><p>Yes. The recommendation should match the immediate business objective and can expand after the first useful system is live.</p></details>
-          <details><summary>What pricing is confirmed?<span className="disclosure" aria-hidden="true" /></summary><p>Business Growth Website starts from S$1,500 with typical delivery in 7–10 working days. Lead Response System starts from S$3,500 with typical delivery in 15 working days. Transformation Blueprint starts from S$8,000 with typical delivery in four weeks. Final scope and fees are confirmed after discovery.</p></details>
-          <details><summary>Do I need to know exactly what AI system I need?<span className="disclosure" aria-hidden="true" /></summary><p>No. The enquiry should explain the business problem, current bottleneck or desired outcome. Swift Sense Digital can recommend the next practical step.</p></details>
-          <details><summary>How is personal data from the enquiry form used?<span className="disclosure" aria-hidden="true" /></summary><p>Submitted details are used to respond to the enquiry. The form asks for consent before storing and processing personal data.</p></details>
+          {productFaqs.map((faq) => <details key={faq.question}><summary>{faq.question}<span className="disclosure" aria-hidden="true" /></summary><p>{faq.answer}</p></details>)}
         </div></div></section>
 
-        <section id="contact" className="contact-section section" aria-labelledby="contact-title"><div className="frame contact-layout"><div className="contact-copy" data-reveal=""><p className="eyebrow">08 / Your next chapter</p><h2 id="contact-title">What could<br />work <span>better?</span></h2><p>Tell us where your business is heading and what is getting in the way. We’ll help you find a practical next step.</p><div className="contact-routes"><TrackedLink href="mailto:chunwai@swiftsensedigital.com" eventName="email_link_click" eventProperties={{ location: "contact" }}>chunwai@swiftsensedigital.com <span aria-hidden="true">↗</span></TrackedLink><TrackedLink href="https://wa.me/6592371516" target="_blank" rel="noopener noreferrer" eventName="whatsapp_link_click" eventProperties={{ location: "contact" }}>WhatsApp <span aria-hidden="true">↗</span></TrackedLink><a href="tel:+6592371516">+65 9237 1516 <span aria-hidden="true">↗</span></a></div><p className="contact-note">Prefer a conversation? Email, call or WhatsApp works too.</p></div><div className="contact-form-panel"><p className="eyebrow">Start a conversation</p><h3>Tell us a little about your business.</h3><LeadForm /></div></div></section>
+        <section id="contact" className="contact-section section" aria-labelledby="contact-title"><div className="frame contact-layout"><div className="contact-copy" data-reveal=""><p className="eyebrow">08 / Your next step</p><h2 id="contact-title">What could<br />work <span>better?</span></h2><p>Start with one business bottleneck. You do not need to choose a tool or know the solution.</p><ol className="contact-next"><li><strong>Share the context.</strong><span>Tell CW what takes time and what you would like to improve.</span></li><li><strong>Discuss the priorities.</strong><span>Explore the workflow, your team’s capacity and whether SSD can help.</span></li><li><strong>Agree the next step.</strong><span>Review a proposed scope and fee before committing to an engagement.</span></li></ol><div className="contact-routes"><TrackedLink href="mailto:chunwai@swiftsensedigital.com" eventName="email_link_click" eventProperties={{ location: "contact" }}>chunwai@swiftsensedigital.com <span aria-hidden="true">↗</span></TrackedLink><TrackedLink href="https://wa.me/6592371516" target="_blank" rel="noopener noreferrer" eventName="whatsapp_link_click" eventProperties={{ location: "contact" }}>WhatsApp <span aria-hidden="true">↗</span></TrackedLink><a href="tel:+6592371516">+65 9237 1516 <span aria-hidden="true">↗</span></a></div><p className="contact-note">Prefer a conversation? Email, call or WhatsApp works too.</p></div><div className="contact-form-panel"><p className="eyebrow">Start a conversation</p><h3>What is slowing your business down?</h3><LeadForm compact /></div></div></section>
       </main>
-      <footer className="site-footer"><div className="frame"><div className="footer-top"><a href="#top" className="wordmark" aria-label="Swift Sense Digital home"><Image src="/images/ssd-brand-mark.webp" width={34} height={40} alt="" /><span>Swift Sense<small>DIGITAL</small></span></a><p>AI Transformation Consultancy<br />for Growing SMEs</p><a href="https://www.linkedin.com/company/swiftsensedigital/" target="_blank" rel="noopener noreferrer" className="text-link">LinkedIn <span aria-hidden="true">↗</span></a><a href="#top" className="back-top" aria-label="Back to top">↑</a></div><div className="footer-motto">Unlock potential<span>.</span></div><div className="footer-bottom"><p>© 2026 Swift Sense Digital. All rights reserved.</p><nav aria-label="Footer navigation"><a href="#products">Products</a><a href="#concept-demos">Concepts</a><a href="#founder">Founder</a><a href="#process">Process</a><a href="#faq">FAQ</a><a href="#contact">Contact</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/data-deletion">Data deletion</a></nav></div></div></footer>
+      <footer className="site-footer"><div className="frame"><div className="footer-top"><a href="#top" className="wordmark" aria-label="Swift Sense Digital home"><Image src="/images/ssd-brand-mark.webp" width={34} height={40} alt="" /><span>Swift Sense<small>DIGITAL</small></span></a><p>Your AI transformation partner<br />for growing SMEs</p><a href="https://www.linkedin.com/company/swiftsensedigital/" target="_blank" rel="noopener noreferrer" className="text-link">LinkedIn <span aria-hidden="true">↗</span></a><a href="#top" className="back-top" aria-label="Back to top">↑</a></div><div className="footer-motto">Unlock potential<span>.</span></div><div className="footer-bottom"><p>© 2026 Swift Sense Digital. All rights reserved.</p><nav aria-label="Footer navigation"><a href="#blueprint-service">Blueprint</a><a href="#products">Solutions</a><a href="#concept-demos">Concepts</a><a href="#founder">Founder</a><a href="#process">Process</a><a href="#faq">FAQ</a><a href="#contact">Contact</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/data-deletion">Data deletion</a></nav></div></div></footer>
     </div>
   );
 }

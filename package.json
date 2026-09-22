@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit --incremental false",
-    "test": "node --experimental-strip-types --test app/api/whatsapp/webhook/*.test.mjs"
+    "test": "node --experimental-strip-types --test app/api/whatsapp/webhook/*.test.mjs app/api/contact/*.test.mjs"
   },
   "dependencies": {
     "@ai-sdk/react": "^4.0.40",

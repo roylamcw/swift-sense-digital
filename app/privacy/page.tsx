@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   },
 };
 
-const LAST_UPDATED = "4 September 2026";
+const LAST_UPDATED = "19 September 2026";
 
 export default function PrivacyPolicyPage() {
   return (
@@ -83,6 +83,7 @@ export default function PrivacyPolicyPage() {
         <p>We use personal data where reasonably necessary to:</p>
         <LegalList>
           <li>Respond to enquiries and recommend an appropriate next step.</li>
+          <li>Record product waitlist registrations and contact you about availability of the product you selected, with your consent. You can ask to leave a waitlist by emailing us.</li>
           <li>
             Operate the website, forms, AI-assisted tools and WhatsApp
             communications.

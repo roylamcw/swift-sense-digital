@@ -49,3 +49,10 @@ Do not perform this test until the pull request is approved, merged and deployed
 10. Review redacted Vercel logs and delete the synthetic HubSpot test record after verification.
 11. Disable `WHATSAPP_LEAD_FUNNEL_ENABLED` and redeploy if the pilot is not continuing.
 
+## Product waitlist update — 19 September 2026
+
+- Shared assistant facts now quote Lead Response System from S$5,000, WhatsApp AI Assistant from S$3,000 (waitlist only), and SwiftChief — AI Chief of Staff from S$19 per user/month (waitlist only).
+- WhatsApp AI Assistant is separate from the Lead Response System base service. Neither price includes the other product.
+- AI answers direct waitlist requests to the product-specific website form. Explicit waitlist interest at the start of qualification is also redirected before personal details are collected; no signup is claimed within WhatsApp.
+- Human follow-up requests, allowlists, consent requirements, uncertain-submission safeguards and post-handoff suppression are unchanged. This update does not enable public AI replies or change Meta configuration.
+- The focused tests mock AI generation, HubSpot and WhatsApp delivery; no real customer messages or registrations are sent during automated verification.

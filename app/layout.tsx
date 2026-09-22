@@ -7,7 +7,6 @@ import LeadResponseAssistant from "./components/LeadResponseAssistant";
 import { Analytics } from "@vercel/analytics/next";
 import { LocalBusinessSchema, OrganizationSchema } from "./schema";
 import { ServiceSchema } from "./service-schema";
-import { FAQSchema } from "./faq-schema";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const geistSans = Geist({
@@ -25,18 +24,20 @@ export const metadata: Metadata = {
   applicationName: "Swift Sense Digital",
 
   title: {
-    default: "Swift Sense Digital | AI Transformation Consultancy for Growing SMEs",
+    default: "Swift Sense Digital | AI Transformation Partner for SMEs",
     template: "%s | Swift Sense Digital",
   },
 
   description:
-    "Swift Sense Digital helps growing SMEs unlock potential through practical AI, better systems and modern technology.",
+    "Your outsourced AI transformation partner. Assess opportunities with the AI Transformation Blueprint, implement agreed priorities and support ongoing adoption.",
   keywords: [
     "Swift Sense Digital",
-    "AI Transformation Consultancy",
+    "AI Transformation Partner",
     "SME AI Singapore",
     "Business Growth Website",
     "Lead Response System",
+    "WhatsApp AI Assistant",
+    "SwiftChief AI Chief of Staff",
     "Transformation Blueprint",
     "Business Transformation Singapore",
     "Event Agency Website Singapore",
@@ -70,9 +71,9 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "Swift Sense Digital | AI Transformation Consultancy for Growing SMEs",
+    title: "Swift Sense Digital | AI Transformation Partner for SMEs",
     description:
-      "Business First. AI Enabled. Results Driven. Practical AI and systems for growing SMEs.",
+      "Focus on your business. Explore a practical AI transformation plan, separately scoped implementation and ongoing support.",
     url: "https://www.swiftsensedigital.com",
     siteName: "Swift Sense Digital",
     locale: "en_SG",
@@ -84,16 +85,16 @@ export const metadata: Metadata = {
         url: "https://www.swiftsensedigital.com/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Swift Sense Digital - AI Transformation Consultancy for Growing SMEs",
+        alt: "Swift Sense Digital - AI Transformation Partner for SMEs",
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "Swift Sense Digital | AI Transformation Consultancy",
+    title: "Swift Sense Digital | AI Transformation Partner",
     description:
-      "Helping growing SMEs unlock potential through practical AI, better systems and modern technology.",
+      "AI transformation for SMEs: a clear Blueprint, practical implementation and ongoing support.",
     images: ["/og-image.png"],  
   },
 
@@ -120,7 +121,6 @@ export default function RootLayout({
         <OrganizationSchema />
         <LocalBusinessSchema />
         <ServiceSchema />
-        <FAQSchema />
         <SpeedInsights />
 
         {children}

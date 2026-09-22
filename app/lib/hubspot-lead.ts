@@ -1,3 +1,5 @@
+import { waitlistConsentText } from "./product-catalog.ts";
+
 const HUBSPOT_PORTAL_ID = "246767649";
 const HUBSPOT_FORM_ID = "6815e370-efd2-4141-8fbd-0fd36072482f";
 const HUBSPOT_ENDPOINT = `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_ID}`;
@@ -20,6 +22,7 @@ export type HubSpotLeadInput = {
   serviceInterest: HubSpotServiceOption;
   message: string;
   consent: true;
+  waitlist?: true;
   pageUri?: string;
   pageName?: string;
   hutk?: string;
@@ -129,7 +132,9 @@ export function buildHubSpotLeadPayload(input: HubSpotLeadInput) {
       { name: hubspotFieldNames.firstName, value: input.firstName },
       { name: hubspotFieldNames.lastName, value: input.lastName },
       { name: hubspotFieldNames.email, value: input.email },
-      { name: hubspotFieldNames.companyName, value: input.companyName },
+      ...(input.companyName
+        ? [{ name: hubspotFieldNames.companyName, value: input.companyName }]
+        : []),
       ...(input.phoneNumber
         ? [{ name: hubspotFieldNames.phoneNumber, value: input.phoneNumber }]
         : []),
@@ -147,7 +152,7 @@ export function buildHubSpotLeadPayload(input: HubSpotLeadInput) {
     legalConsentOptions: {
       consent: {
         consentToProcess: true,
-        text: "I agree to allow Swift Sense Digital to store and process my personal data to respond to my enquiry.",
+        text: input.waitlist ? waitlistConsentText : "I agree to allow Swift Sense Digital to store and process my personal data to respond to my enquiry.",
       },
     },
   };
