@@ -13,7 +13,7 @@ import { MessageResponse } from "./ai-elements/message";
 import { trackConversionEvent } from "./conversion-tracking";
 import { getWaitlistProduct, serviceLabel, serviceOptions, waitlistConsentText, type ServiceOption } from "../lib/product-catalog";
 
-const WHATSAPP_NUMBER = "6592371516";
+const WHATSAPP_NUMBER = "6588612215";
 const MAX_INPUT_LENGTH = 800;
 
 const quickPrompts = [

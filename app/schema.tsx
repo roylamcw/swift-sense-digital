@@ -10,7 +10,7 @@ export function OrganizationSchema() {
     url: "https://www.swiftsensedigital.com",
     logo: "https://www.swiftsensedigital.com/og-image.png",
     email: "chunwai@swiftsensedigital.com",
-    telephone: "+65 9237 1516",
+    telephone: "+65 8861 2215",
     sameAs: ["https://www.linkedin.com/company/swiftsensedigital/"],
     description:
       "Swift Sense Digital is an outsourced AI transformation partner for SMEs.",
@@ -50,7 +50,7 @@ export function LocalBusinessSchema() {
     url: "https://www.swiftsensedigital.com",
     image: "https://www.swiftsensedigital.com/og-image.png",
     email: "chunwai@swiftsensedigital.com",
-    telephone: "+65 9237 1516",
+    telephone: "+65 8861 2215",
     description:
       "Swift Sense Digital helps SMEs assess, plan and implement practical AI improvements, with optional ongoing transformation support.",
     address: {

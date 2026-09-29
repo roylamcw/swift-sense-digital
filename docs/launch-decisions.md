@@ -8,8 +8,8 @@ This file is the commercial and technical source of truth for the launch website
 - Positioning: AI Transformation Consultancy for Growing SMEs
 - Canonical URL: https://www.swiftsensedigital.com
 - Public email: chunwai@swiftsensedigital.com
-- Telephone: +65 9237 1516
-- WhatsApp URL: https://wa.me/6592371516
+- Telephone: +65 8861 2215
+- WhatsApp URL: https://wa.me/6588612215
 - LinkedIn: https://www.linkedin.com/company/swiftsensedigital/
 
 ## Approved Launch Products

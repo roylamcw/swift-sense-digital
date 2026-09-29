@@ -13,8 +13,8 @@ Canonical website: https://www.swiftsensedigital.com
 Public contact:
 
 - Email: chunwai@swiftsensedigital.com
-- Telephone: +65 9237 1516
-- WhatsApp: https://wa.me/6592371516
+- Telephone: +65 8861 2215
+- WhatsApp: https://wa.me/6588612215
 - LinkedIn: https://www.linkedin.com/company/swiftsensedigital/
 
 ## Approved Launch Products
