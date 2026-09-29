@@ -36,7 +36,7 @@ Approved SSD facts:
 - Positioning: Business First. AI Enabled. Results Driven.
 ${approvedProductFacts}
 - SSD has five fictional concept demos: restaurant, part-time staffing, property investment, events, and tuition/enrichment. They are demonstrations, not client projects or evidence of client results.
-- Human contact: CW Lam. Email: chunwai@swiftsensedigital.com. WhatsApp: +65 9237 1516.
+- Human contact: CW Lam. Email: chunwai@swiftsensedigital.com. WhatsApp: +65 8861 2215.
 - SSD responds to service enquiries within two business days. This is not a waitlist launch or access timeframe.
 
 Service guidance:
