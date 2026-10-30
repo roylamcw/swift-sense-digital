@@ -8,6 +8,22 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: projectRoot,
   },
+  async rewrites() {
+    return [
+      {
+        source: "/legardien-concept",
+        destination: "/legardien-concept/index.html",
+      },
+    ];
+  },
+  async headers() {
+    return [
+      {
+        source: "/legardien-concept/:path*",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
+    ];
+  },
 };
 
 export default nextConfig;
